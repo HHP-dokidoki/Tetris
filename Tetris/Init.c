@@ -190,7 +190,7 @@ void FontDeInit(void)
 int LogInit(void)
 {
 	errno_t err;
-	err = fopen_s(&log_file, "..\\log\\game_lrace.log", "w");
+	err = fopen_s(&log_file, "..\\log\\game_Trace.log", "w");
 	if (log_file && err == 0)
 	{
 		fprintf(log_file, "=== Game Session Started ===\n");

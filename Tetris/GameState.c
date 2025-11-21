@@ -61,7 +61,7 @@ void SaveGame(void)
     FILE* file = NULL;
     errno_t err = 0;
 
-    err = fopen_s(&file, "..\\saves\\savedata.save", "r");
+    err = fopen_s(&file, "..\\saves\\savedata.save", "w");
     if (!(file && err == 0))
     {
         fprintf(log_file, "Load failed when trying to open save file.\n");
@@ -125,7 +125,6 @@ void SaveGame(void)
     fprintf(file, "CURRENTX:%d\n", State.Shape_pos_x);
     fprintf(file, "CURRENTY:%d\n", State.Shape_pos_y);
 
-    SDL_Log("Successfully saved~\n");
     fclose(file);
 }
 
