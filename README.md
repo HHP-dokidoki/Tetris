@@ -3,9 +3,9 @@
 
 # 俄罗斯方块游戏
 
-Created By Chenchang
-Migrated By HHP-DokiDoki
-Welcome to visit [my blog](though there are no articles yet).
+Created By Chenchang</br>
+Migrated By HHP-DokiDoki</br>
+Welcome to visit [my blog](https://hhp-dokidoki.cn/)(though there are no articles yet).</br>
 
 ## 项目简介
 这是一个使用 C 语言和 SDL2 库开发的经典俄罗斯方块游戏。项目采用模块化设计，实现了游戏的核心玩法、图形渲染、事件处理和存档功能。
