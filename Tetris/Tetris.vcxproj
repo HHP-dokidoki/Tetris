@@ -18,6 +18,25 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Common.c" />
+    <ClCompile Include="DrawItems.c" />
+    <ClCompile Include="Event.c" />
+    <ClCompile Include="GameState.c" />
+    <ClCompile Include="Init.c" />
+    <ClCompile Include="MapControl.c" />
+    <ClCompile Include="ShapeControl.c" />
+    <ClCompile Include="Tetris.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="DrawItems.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Init.h" />
+    <ClInclude Include="MapControl.h" />
+    <ClInclude Include="ShapeControl.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -136,25 +155,6 @@
       <AdditionalDependencies>SDL2.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\Backup\Tetris\Common.c" />
-    <ClCompile Include="..\..\..\Backup\Tetris\DrawItems.c" />
-    <ClCompile Include="..\..\..\Backup\Tetris\Event.c" />
-    <ClCompile Include="..\..\..\Backup\Tetris\GameState.c" />
-    <ClCompile Include="..\..\..\Backup\Tetris\Init.c" />
-    <ClCompile Include="..\..\..\Backup\Tetris\MapControl.c" />
-    <ClCompile Include="..\..\..\Backup\Tetris\ShapeControl.c" />
-    <ClCompile Include="..\..\..\Backup\Tetris\Tetris.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\Backup\Tetris\Common.h" />
-    <ClInclude Include="..\..\..\Backup\Tetris\DrawItems.h" />
-    <ClInclude Include="..\..\..\Backup\Tetris\Event.h" />
-    <ClInclude Include="..\..\..\Backup\Tetris\GameState.h" />
-    <ClInclude Include="..\..\..\Backup\Tetris\Init.h" />
-    <ClInclude Include="..\..\..\Backup\Tetris\MapControl.h" />
-    <ClInclude Include="..\..\..\Backup\Tetris\ShapeControl.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

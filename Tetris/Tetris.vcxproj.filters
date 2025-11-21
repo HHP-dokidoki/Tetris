@@ -15,51 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Backup\Tetris\Common.c">
+    <ClCompile Include="Common.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Backup\Tetris\DrawItems.c">
+    <ClCompile Include="DrawItems.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Backup\Tetris\Event.c">
+    <ClCompile Include="Event.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Backup\Tetris\GameState.c">
+    <ClCompile Include="GameState.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Backup\Tetris\Init.c">
+    <ClCompile Include="Init.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Backup\Tetris\MapControl.c">
+    <ClCompile Include="MapControl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Backup\Tetris\ShapeControl.c">
+    <ClCompile Include="ShapeControl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Backup\Tetris\Tetris.c">
+    <ClCompile Include="Tetris.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Backup\Tetris\Common.h">
+    <ClInclude Include="Common.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Backup\Tetris\DrawItems.h">
+    <ClInclude Include="DrawItems.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Backup\Tetris\Event.h">
+    <ClInclude Include="Event.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Backup\Tetris\GameState.h">
+    <ClInclude Include="GameState.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Backup\Tetris\Init.h">
+    <ClInclude Include="Init.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Backup\Tetris\MapControl.h">
+    <ClInclude Include="MapControl.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Backup\Tetris\ShapeControl.h">
+    <ClInclude Include="ShapeControl.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
