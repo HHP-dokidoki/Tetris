@@ -57,12 +57,19 @@ void LevelUp(void)
 void SaveGame(void)
 {
     TRACE_ENTER();
-    FILE* file = fopen("..\\saves\\savedata.save", "w");
-    if (file == NULL)
+
+    FILE* file = NULL;
+    errno_t err = 0;
+
+    err = fopen_s(&file, "..\\saves\\savedata.save", "r");
+    if (!(file && err == 0))
     {
-        TRACE_MSG("Failed to create save file\n");
+        fprintf(log_file, "Load failed when trying to open save file.\n");
+        fflush(log_file);
         return;
     }
+
+
     for (int i = 0; i < NY; i++)
     {
         for (int j = 0; j < NX; j++)
@@ -125,15 +132,20 @@ void SaveGame(void)
 void LoadGame(void)
 {
     TRACE_ENTER();
-    FILE* file = fopen("..\\saves\\savedata.save", "r");
-    char line[520];
 
-    if (file == NULL)
+    char line[520];
+    errno_t err;
+    FILE* file = NULL;
+
+    err = fopen_s(&file, "..\\saves\\savedata.save", "r");
+    if (!(file && err == 0))
     {
-        TRACE_MSG("Save file not found\n");
-        
+        fprintf(log_file, "Save failed when trying to open save file.\n");
+        fflush(log_file);
         return;
     }
+    
+
     for (int i = 0; i < NY; i++)
     {
         for (int j = 0; j < NX; j++)
