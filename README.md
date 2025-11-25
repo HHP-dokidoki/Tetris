@@ -7,6 +7,14 @@ Created By Chenchang</br>
 Migrated By HHP-DokiDoki</br>
 Welcome to visit [my blog](https://hhp-dokidoki.cn/)(though there are no articles yet).</br>
 
+## 操作方式
+- 翻转------小键盘↑
+- 左移------小键盘←
+- 右移------小键盘→
+- 加速------小键盘↓
+- 暂停------ESC
+- 确认------Enter
+
 ## 项目简介
 这是一个使用 C 语言和 SDL2 库开发的经典俄罗斯方块游戏。项目采用模块化设计，实现了游戏的核心玩法、图形渲染、事件处理和存档功能。
 
@@ -91,8 +99,10 @@ Welcome to visit [my blog](https://hhp-dokidoki.cn/)(though there are no article
 
 ## 代码不足
 - **代码规范**：部分注释和变量命名可以更清晰，提高代码可读性。
+- **代码冗余**: Rect相关代码存在冗余。
 
 ## 未来可拓展功能
+- **支持鼠标操作**：添加对鼠标事件的监测，添加对相关逻辑的处理
 - **音效与背景音乐**：集成 SDL_mixer 库，增加游戏音效。
 - **更多方块类型**：引入自定义或更复杂的方块形状。
 - **更丰富的视觉效果**：例如方块下落时的阴影、消除时的动画效果。
