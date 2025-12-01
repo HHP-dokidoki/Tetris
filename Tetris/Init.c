@@ -154,7 +154,9 @@ int WindowRdrInit(void)
 	}
 
 	// ´´½¨´°¿Ú
-	win = SDL_CreateWindow("Tetris", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W, H, SDL_WINDOW_INPUT_GRABBED);
+	win = SDL_CreateWindow("Tetris", 
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W, H,
+		 SDL_WINDOW_RESIZABLE);
 	if (win == NULL)
 	{
 		TRACE_MSG(SDL_GetError());

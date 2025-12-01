@@ -201,9 +201,10 @@ int EnterMotionEvent(SDL_Event event)
 	{
 		case SDL_QUIT:
 			return 0;
-		//case SDL_WINDOWEVENT:
-		//	//......
-		//	break;
+		case SDL_WINDOWEVENT:
+			DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
+				State.Current_shape, State.Next_shape);
+			break;
 		//case SDL_MOUSEMOTION:
 		//	//SDL_Log("x:%d  y:%d\n", event.motion.x, event.motion.y);
 		//	break;
@@ -225,7 +226,7 @@ int EnterMotionEvent(SDL_Event event)
 					DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 						State.Current_shape, State.Next_shape);
 					break;
-				case SDLK_UP:
+				case SDLK_SPACE:
 					RollShape(State.Shape_pos_x, State.Shape_pos_y, &State.Current_shape);
 					DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 						State.Current_shape, State.Next_shape);
