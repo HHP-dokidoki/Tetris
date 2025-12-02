@@ -1,4 +1,4 @@
-#ifndef MAPCONTROL_H
+﻿#ifndef MAPCONTROL_H
 
 #define MAPCONTROL_H
 

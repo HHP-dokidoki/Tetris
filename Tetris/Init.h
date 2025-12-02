@@ -1,4 +1,4 @@
-#ifndef INIT_H
+﻿#ifndef INIT_H
 
 #define INIT_H
 

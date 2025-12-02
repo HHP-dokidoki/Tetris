@@ -1,4 +1,4 @@
-#include "common.h"
+ï»¿#include "common.h"
 
 void RandInit(void)
 {
@@ -28,7 +28,7 @@ void RectInit(void)
 	long double preview_block_size = STD_PREVIEW_BLOCK_SIZE * ratio;
 	long double block_size = STD_BLOCK_SIZE * ratio;
 
-	/* ---------------- ÓÎÏ·ÇøÓò ----------------*/
+	/* ---------------- æ¸¸æˆåŒºåŸŸ ----------------*/
 
 	layout.LeftBorderRect.w = block_size / 5;
 	layout.LeftBorderRect.h = now_h;
@@ -57,11 +57,11 @@ void RectInit(void)
 
 
 
-	/* ---------------- ²à±ßÀ¸ ---------------- */
+	/* ---------------- ä¾§è¾¹æ  ---------------- */
 
-	int msg_spacing = s_text_h + (20 * ratio);
-	int base_y = now_h / 16;
-	int base_x = now_w * 0.78;
+	long double msg_spacing = s_text_h + (20 * ratio);
+	long double base_y = now_h / 16;
+	long double base_x = now_w * 0.78;
 	// Next Preview
 	layout.NextPreviewRect.x = base_x;
 	layout.NextPreviewRect.y = base_y;
@@ -105,13 +105,13 @@ void RectInit(void)
 	layout.DifficultyValueRect.w = s_text_w;
 
 
-	/* ---------------- ÔİÍ£½çÃæ ---------------- */
+	/* ---------------- æš‚åœç•Œé¢ ---------------- */
 	// pm --> pause
-	int pm_x = 0.16 * now_w;
-	int pm_y = 0.1 * now_h;
-	int pm_w = 10 * b_text_w;
-	int pm_h = 6.5 * b_text_h;
-	int p_midline = pm_x + pm_w / 2;
+	long double pm_x = 0.16 * now_w;
+	long double pm_y = 0.1 * now_h;
+	long double pm_w = 10 * b_text_w;
+	long double pm_h = 6.5 * b_text_h;
+	long double p_midline = pm_x + pm_w / 2;
 
 	layout.PauseMenuRect.x = pm_x;
 	layout.PauseMenuRect.y = pm_y;
@@ -120,14 +120,14 @@ void RectInit(void)
 
 	// Title (Big Text * 1.5)
 	layout.PauseMessageRect.x = p_midline - 2.5 * 1.5 * b_text_w;
-	layout.PauseMessageRect.y = pm_y + (10 * ratio); // ÂÔÎ¢ÏòÏÂÆ«ÒÆ
+	layout.PauseMessageRect.y = pm_y + (10 * ratio); // ç•¥å¾®å‘ä¸‹åç§»
 	layout.PauseMessageRect.h = b_text_h * 1.5;
 	layout.PauseMessageRect.w = b_text_w * 1.5 * 5;
 
 	// Buttons
 	// btn --> button
-	int pm_btn_y = pm_y + 1.5 * b_text_h + (30 * ratio);
-	int pm_spacing = b_text_h + (20 * ratio);
+	long double pm_btn_y = pm_y + 1.5 * b_text_h + (30 * ratio);
+	long double pm_spacing = b_text_h + (20 * ratio);
 
 	layout.ContinueRect.x = p_midline - 4 * b_text_w;
 	layout.ContinueRect.y = pm_btn_y;
@@ -150,11 +150,11 @@ void RectInit(void)
 	layout.LeaveRect.w = b_text_w * 5;
 
 
-	/* ---------------- ¿ªÊ¼½çÃæ ---------------- */
-	int wel_x = 0.175 * now_w;
-	int wel_y = 0.1 * now_h;
-	int wel_w = 10 * b_text_w;
-	int wel_h = 6 * b_text_h;
+	/* ---------------- å¼€å§‹ç•Œé¢ ---------------- */
+	long double wel_x = 0.175 * now_w;
+	long double wel_y = 0.1 * now_h;
+	long double wel_w = 10 * b_text_w;
+	long double wel_h = 6 * b_text_h;
 	long double wel_midline = wel_x + wel_w / 2;
 
 	layout.WelPageRect.x = wel_x;
@@ -169,8 +169,8 @@ void RectInit(void)
 	layout.WelcomeRect.w = 1.5 * b_text_w * 7;
 
 	// Buttons
-	int wel_btn_y = wel_y + 1.5 * b_text_h + (30 * ratio);
-	int wel_spacing = b_text_h + (20 * ratio);
+	long double wel_btn_y = wel_y + 1.5 * b_text_h + (30 * ratio);
+	long double wel_spacing = b_text_h + (20 * ratio);
 
 	layout.StartRect.x = wel_midline - 2.5 * (long double)b_text_w;
 	layout.StartRect.y = wel_btn_y;
@@ -190,11 +190,11 @@ void RectInit(void)
 
 
 	/* ---------------- Game Over Page ---------------- */
-	int gv_x = 0.06 * now_w;
-	int gv_y = 0.35 * now_h;
-	int gv_w = 10 * b_text_w;
-	int gv_h = 3 * b_text_h;
-	int gv_midline = gv_x + gv_w / 2;
+	long double gv_x = 0.06 * now_w;
+	long double gv_y = 0.35 * now_h;
+	long double gv_w = 10 * b_text_w;
+	long double gv_h = 3 * b_text_h;
+	long double gv_midline = gv_x + gv_w / 2;
 
 	layout.GVPageRect.x = gv_x;
 	layout.GVPageRect.y = gv_y;
@@ -209,7 +209,7 @@ void RectInit(void)
 	layout.GameOverRect.w = b_text_w * ratio * 9;
 
 	// Buttons
-	int gv_btn_y = gv_y + b_text_h + (20 * ratio);
+	long double gv_btn_y = gv_y + b_text_h + (20 * ratio);
 
 	layout.GVLoadRect.x = gv_midline - 5 * b_text_w;
 	layout.GVLoadRect.y = gv_btn_y;
@@ -254,7 +254,7 @@ int WindowRdrInit(void)
 {
 	TRACE_ENTER();
 
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
 	{
 		TRACE_MSG(SDL_GetError());
@@ -265,14 +265,14 @@ int WindowRdrInit(void)
 	SDL_Rect screen;
 	SDL_GetDisplayUsableBounds(0, &screen);
 
-	// ·ÀÖ¹³¬³öÆÁÄ»
+	// é˜²æ­¢è¶…å‡ºå±å¹•
 	screen.h -= 100;
 
-	// ¼ÆËãÏà¶Ô±ê×¢³ß´çµÄËõ·Å±ÈÀı
+	// è®¡ç®—ç›¸å¯¹æ ‡æ³¨å°ºå¯¸çš„ç¼©æ”¾æ¯”ä¾‹
 	long double ratio = fmin((long double)screen.w / STD_W, (long double)screen.h / STD_H);
 	win_w = STD_W * ratio;
 	win_h = STD_H * ratio;
-	// ´´½¨´°¿Ú
+	// åˆ›å»ºçª—å£
 	win = SDL_CreateWindow("Tetris", 
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, win_w, win_h,
 		 SDL_WINDOW_RESIZABLE);
@@ -282,7 +282,7 @@ int WindowRdrInit(void)
 		return -1;
 	}
 
-	// ´´½¨äÖÈ¾Æ÷¡¢³õÊ¼»¯äÖÈ¾ÑÕÉ«ÓëäÖÈ¾Ä£Ê½
+	// åˆ›å»ºæ¸²æŸ“å™¨ã€åˆå§‹åŒ–æ¸²æŸ“é¢œè‰²ä¸æ¸²æŸ“æ¨¡å¼
 	rdr = SDL_CreateRenderer(win, -1, 0);
 	if (rdr == NULL)
 	{
@@ -294,7 +294,7 @@ int WindowRdrInit(void)
 	SDL_RenderClear(rdr);
 	SDL_RenderPresent(rdr);
 
-	// µØÍ¼×´Ì¬ÉèÎª 0
+	// åœ°å›¾çŠ¶æ€è®¾ä¸º 0
 	memset(State.map, 0, sizeof(State.map));
 	return 0;
 }

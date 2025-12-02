@@ -1,4 +1,4 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include "GameState.h"
 
 
@@ -10,7 +10,7 @@ void MapInit(void)
 	//SDL_Log("MapInit: Distance = %td bytes",
 	//	(char*)&fonts - (char*)State.map);
 	
-	// ÓÎÏ·Çø·¶Î§£º
+	// æ¸¸æˆåŒºèŒƒå›´ï¼š
 	// 540----45 * 12
 	// 990----45 * 22
 	//NX = 14		NY = 24
@@ -52,7 +52,7 @@ void DeleteRow(int y)
 			State.map[i][j] = State.map[i - 1][j];
 		}
 	}
-	// Çå³ıµÚÒ»ĞĞµÄÊı¾İ£¨Èç¹ûÉ¾³ıÁËÒ»ĞĞ£¬ÄÇÃ´µÚÒ»ĞĞÔÚÉ¾³ıºó¿Ï¶¨Îª¿Õ£©
+	// æ¸…é™¤ç¬¬ä¸€è¡Œçš„æ•°æ®ï¼ˆå¦‚æœåˆ é™¤äº†ä¸€è¡Œï¼Œé‚£ä¹ˆç¬¬ä¸€è¡Œåœ¨åˆ é™¤åè‚¯å®šä¸ºç©ºï¼‰
 	for (int j = 1; j < NX - 1; j++)
 	{
 		State.map[1][j].Value = 0;
@@ -77,7 +77,7 @@ int DeleteRows(int y)
 			i++;
 		}
 		y--;
-		// ³¬³öµØÍ¼Ôò²»¼Æ
+		// è¶…å‡ºåœ°å›¾åˆ™ä¸è®¡
 		if (y < 0)
 		{
 			break;

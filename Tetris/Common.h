@@ -1,4 +1,4 @@
-#ifndef COMMON_H
+ï»¿#ifndef COMMON_H
 
 #define COMMON_H
 
@@ -32,12 +32,12 @@
 #define PREVIEW_BLOCKWIDTH 25
 
 
-// ×´Ì¬Âë£º
-// 1 ½øÈëÓÎÏ·
-// 2 ½øÈë»¶Ó­½çÃæ
-// 3 ÍË³öÓÎÏ·
-// 4 ÖØ¿ª
-// 5 ºöÂÔ´Ë×´Ì¬Âë
+// çŠ¶æ€ç ï¼š
+// 1 è¿›å…¥æ¸¸æˆ
+// 2 è¿›å…¥æ¬¢è¿ç•Œé¢
+// 3 é€€å‡ºæ¸¸æˆ
+// 4 é‡å¼€
+// 5 å¿½ç•¥æ­¤çŠ¶æ€ç 
 #define StartGame 1
 #define EnterWelcomePage 2
 #define LeaveGame 3
@@ -70,7 +70,7 @@
 #define RIGHT 3
 
 
-// ¼òµ¥µÄÈÕÖ¾ºê
+// ç®€å•çš„æ—¥å¿—å®
 #define TRACE_ENTER()  {									\
     if (log_file) {											\
         fprintf(log_file, "ENTER: %s()\n", __FUNCTION__);	\
@@ -90,18 +90,18 @@ typedef struct {
 	SDL_Color Color;
 }MAP;
 
-// ²¼¾Ö£¨¼¸ºÎÇøÓò£©
+// å¸ƒå±€ï¼ˆå‡ ä½•åŒºåŸŸï¼‰
 typedef struct {
 
-	SDL_Rect ScoreLabelRect;		// "SCORE" ÎÄ×ÖÎ»ÖÃ
+	SDL_Rect ScoreLabelRect;		// "SCORE" æ–‡å­—ä½ç½®
 	SDL_Rect NextPreviewRect;		// "NEXT" 
 	SDL_Rect LineCountLabelRect;	// "LINES"
 	SDL_Rect DifficultyRect;		// "DITFFICULTY"
 
-	SDL_Rect ScoreValueRect;		// ·ÖÊıÖµÎ»ÖÃ
-	SDL_Rect NextPreviewShapeRect;	// ÏÂÒ»¿éÔ¤ÀÀÇøÓò
-	SDL_Rect LineCountValueRect;	// ĞĞÊıÖµ
-	SDL_Rect DifficultyValueRect;	// ÄÑ¶ÈÊıÖµ
+	SDL_Rect ScoreValueRect;		// åˆ†æ•°å€¼ä½ç½®
+	SDL_Rect NextPreviewShapeRect;	// ä¸‹ä¸€å—é¢„è§ˆåŒºåŸŸ
+	SDL_Rect LineCountValueRect;	// è¡Œæ•°å€¼
+	SDL_Rect DifficultyValueRect;	// éš¾åº¦æ•°å€¼
 
 	SDL_Rect PauseMenuRect;
 	SDL_Rect PauseMessageRect;
@@ -131,15 +131,15 @@ typedef struct {
 	long double ratio;
 } Layout;
 
-// ×ÖÌå×ÊÔ´£¨Ö»¶Á£¬³õÊ¼»¯¼ÓÔØ£©
+// å­—ä½“èµ„æºï¼ˆåªè¯»ï¼Œåˆå§‹åŒ–åŠ è½½ï¼‰
 typedef struct {
-	SDL_Color Color;		// ×ÖÌåÑÕÉ«£ºÍ³Ò»Îª°×É«
-	TTF_Font* UIFont;		// ÓÃÓÚ "SCORE", "NEXT", "Difficulty","LINES"
-	TTF_Font* NumberFont;   // ÓÃÓÚÊı×Ö
+	SDL_Color Color;		// å­—ä½“é¢œè‰²ï¼šç»Ÿä¸€ä¸ºç™½è‰²
+	TTF_Font* UIFont;		// ç”¨äº "SCORE", "NEXT", "Difficulty","LINES"
+	TTF_Font* NumberFont;   // ç”¨äºæ•°å­—
 } GameFonts;
 
 
-//ĞÎ×´
+//å½¢çŠ¶
 typedef struct {
 	/*{x1,y1,x2,y2,x3,y3,x4,y4, color, next}*/
 	int D[8];
@@ -147,7 +147,7 @@ typedef struct {
 	int Next;
 }Shape;
 
-// ÓÎÏ·×´Ì¬
+// æ¸¸æˆçŠ¶æ€
 typedef struct {
 
 	MAP map[NY][NX];

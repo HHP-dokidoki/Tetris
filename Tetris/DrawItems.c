@@ -1,4 +1,4 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 
 
 void TetrisDrawText(char content[], TTF_Font* font, SDL_Rect* rect, int mode)
@@ -10,8 +10,8 @@ void TetrisDrawText(char content[], TTF_Font* font, SDL_Rect* rect, int mode)
 	SDL_Surface* text_surf;
 	SDL_Rect temp_rect = *rect;
 
-	// rect ÖĞ´æ´¢ÁËÎÄ×Ö¿òµÄxy×ø±êºÍµ¥Î»¿í¶È
-	// Îª±ÜÃâ¶ÔrectµÄĞŞ¸Ä£¬´´½¨temp_rect´æ´¢xy×ø±ê¡¢¸ß¶È£¬È»ºó¸ù¾İÎÄ×Ö³¤¶È¼ÆËã×Ü¿í¶È
+	// rect ä¸­å­˜å‚¨äº†æ–‡å­—æ¡†çš„xyåæ ‡å’Œå•ä½å®½åº¦
+	// ä¸ºé¿å…å¯¹rectçš„ä¿®æ”¹ï¼Œåˆ›å»ºtemp_rectå­˜å‚¨xyåæ ‡ã€é«˜åº¦ï¼Œç„¶åæ ¹æ®æ–‡å­—é•¿åº¦è®¡ç®—æ€»å®½åº¦
 	if (mode == 2)
 	{
 		w = temp_rect.w = (int)strlen(content) * rect->w;
@@ -28,8 +28,8 @@ void TetrisDrawText(char content[], TTF_Font* font, SDL_Rect* rect, int mode)
 		return;
 	}
 
-	// ÕâÀïÓĞ¸öÎÊÌâ£º°´ÀíÀ´Ëµtexture²»Ó¦¸ÃËæÓÃËæ´´½¨£¬ÒòÎª texture ÊÇ GPU ÏÔ´æÖĞµÄÓÅ»¯ÎÆÀí
-	// Æµ·±´´½¨Ïú»Ù»á½µµÍ³ÌĞòµÄĞÔÄÜ£¬µ«¿¼ÂÇµ½¶íÂŞË¹·½¿é¹æÄ£½ÏĞ¡£¬ËùÒÔÔİÊ±ºöÂÔ XD
+	// è¿™é‡Œæœ‰ä¸ªé—®é¢˜ï¼šæŒ‰ç†æ¥è¯´textureä¸åº”è¯¥éšç”¨éšåˆ›å»ºï¼Œå› ä¸º texture æ˜¯ GPU æ˜¾å­˜ä¸­çš„ä¼˜åŒ–çº¹ç†
+	// é¢‘ç¹åˆ›å»ºé”€æ¯ä¼šé™ä½ç¨‹åºçš„æ€§èƒ½ï¼Œä½†è€ƒè™‘åˆ°ä¿„ç½—æ–¯æ–¹å—è§„æ¨¡è¾ƒå°ï¼Œæ‰€ä»¥æš‚æ—¶å¿½ç•¥ XD
 	texture = SDL_CreateTextureFromSurface(rdr, text_surf);
 	if (texture == NULL)
 	{
@@ -83,7 +83,7 @@ void DrawBlock(int x, int y, SDL_Color color, int size)
 }
 
 void DrawSingleShape(int shape_id, int shape_pos_x, int shape_pos_y,int size)
-{// ÓÉÓÚ×é³ÉĞÎ×´µÄ»ù´¡ÔªËØÎªÕı·½ĞÎ£¬ËùÒÔÖ»ĞèÒª´«Ò»¸ö size ²ÎÊı¼´¿É
+{// ç”±äºç»„æˆå½¢çŠ¶çš„åŸºç¡€å…ƒç´ ä¸ºæ­£æ–¹å½¢ï¼Œæ‰€ä»¥åªéœ€è¦ä¼ ä¸€ä¸ª size å‚æ•°å³å¯
 	TRACE_ENTER();
 
 	if (shape_id < 0 || shape_id >= 19)
@@ -97,8 +97,8 @@ void DrawSingleShape(int shape_id, int shape_pos_x, int shape_pos_y,int size)
 
 		dx = shapes[shape_id].D[i];
 		dy = shapes[shape_id].D[i + 1];
-		// Îª·½±ã map µÄ´¦Àí shape_pos_x ºÍ y ¶¼ÊÇ´Ó 1 ¿ªÊ¼
-		// ËùÒÔ×ª»»Îª¾ø¶Ô×ø±êÊ±Òª¼õÒ»
+		// ä¸ºæ–¹ä¾¿ map çš„å¤„ç† shape_pos_x å’Œ y éƒ½æ˜¯ä» 1 å¼€å§‹
+		// æ‰€ä»¥è½¬æ¢ä¸ºç»å¯¹åæ ‡æ—¶è¦å‡ä¸€
 		SDL_Log("[DrawSingleShape]");
 
 		DrawBlock((shape_pos_x + dx - 1) * size + layout.LeftBorderRect.w,
@@ -113,7 +113,7 @@ void DrawShapes(int shape_pos_x, int shape_pos_y, int shape_id)
 {
 	TRACE_ENTER();
 
-	// »æÖÆÒÑ¾­¹Ì¶¨ÔÚmapÖĞµÄ·½¿é
+	// ç»˜åˆ¶å·²ç»å›ºå®šåœ¨mapä¸­çš„æ–¹å—
 	for (int i = 1; i <= NY - 2; i++)
 	{
 		for (int j = 1; j <= NX - 2; j++)
@@ -131,7 +131,7 @@ void DrawShapes(int shape_pos_x, int shape_pos_y, int shape_id)
 		}
 	}
 
-	// »æÖÆÎ´¹Ì¶¨ÔÚmapµÄ·½¿é
+	// ç»˜åˆ¶æœªå›ºå®šåœ¨mapçš„æ–¹å—
 	DrawSingleShape(shape_id, shape_pos_x, shape_pos_y, (int)(layout.ratio * STD_BLOCK_SIZE + 0.5));
 }
 
@@ -161,7 +161,7 @@ void ToString(int value, char* buffer)
 {
 	TRACE_ENTER();
 
-	// Ò»°ãÇé¿öÏÂ¸÷ÀàÊıÖµ²»»á´ïµ½ 10^9 
+	// ä¸€èˆ¬æƒ…å†µä¸‹å„ç±»æ•°å€¼ä¸ä¼šè¾¾åˆ° 10^9 
 	sprintf_s(buffer,20, "%d", value);
 }
 
@@ -180,7 +180,7 @@ void DrawDynamicItems(int nxt_shape_id)
 	TetrisDrawText(str, fonts.NumberFont, &layout.LineCountValueRect, 2);
 
 
-	// ÎªpreviewÇøÓò×¨ÃÅĞ´ÁË¸öº¯Êı......
+	// ä¸ºpreviewåŒºåŸŸä¸“é—¨å†™äº†ä¸ªå‡½æ•°......
 	DrawPreviewShape(nxt_shape_id,
 		layout.NextPreviewShapeRect.x,
 		layout.NextPreviewShapeRect.y,
@@ -192,20 +192,20 @@ void DrawGameLayout(void)
 {
 	TRACE_ENTER();
 
-	// ÓÎÏ·Çø·¶Î§£º
+	// æ¸¸æˆåŒºèŒƒå›´ï¼š
 	// 540----45 * 12
 	// 945----45 * 21
 
 	SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
 
-	// ±ß¿ò¼°±³¾°
+	// è¾¹æ¡†åŠèƒŒæ™¯
 	DrawRect(&layout.GameAreaRect, BACKGROUND_COLOR);
 	DrawRect(&layout.UpperboundBorderRect, UPPERBOUND_COLOR);
 	DrawRect(&layout.LeftBorderRect, BORDER_COLOR);
 	DrawRect(&layout.RightBorderRect, BORDER_COLOR);
 	DrawRect(&layout.ButtonBorderRect, BORDER_COLOR);
 
-	// ²à±ßÀ¸ÎÄ×Ö
+	// ä¾§è¾¹æ æ–‡å­—
 	TetrisDrawText("NEXT SHAPE", fonts.UIFont, &layout.NextPreviewRect, 1);
 	TetrisDrawText("DIFFICULTY", fonts.UIFont, &layout.DifficultyRect, 1);
 	TetrisDrawText("SCORE", fonts.UIFont, &layout.ScoreLabelRect, 1);
@@ -222,7 +222,7 @@ void DrawPauseLayout(int pos)
 {
 	TRACE_ENTER();
 
-	// Ìí¼Ó±ß½ç¼ì²é
+	// æ·»åŠ è¾¹ç•Œæ£€æŸ¥
 	if (pos < 0 || pos >= 5) {
 		SDL_Log("Invalid position index: %d\n", pos);
 		return;
@@ -249,7 +249,7 @@ void DrawWelcomeLayout(int pos)
 {
 	TRACE_ENTER();
 
-	// ±ß½ç¼ì²é
+	// è¾¹ç•Œæ£€æŸ¥
 	if (pos < 0 || pos > 2) {
 		SDL_Log("Invalid position index: %d\n", pos);
 		return;
@@ -294,7 +294,7 @@ void DrawGVLayout(int pos) {
 	// DrawGameOverLayout
 	TRACE_ENTER();
 
-	// ±ß½ç¼ì²é
+	// è¾¹ç•Œæ£€æŸ¥
 	if (pos < 0 || pos > 1) {
 		SDL_Log("Invalid position index: %d\n", pos);
 		return;

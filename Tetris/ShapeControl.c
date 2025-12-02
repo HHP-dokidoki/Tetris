@@ -1,4 +1,4 @@
-#include "Common.h"
+﻿#include "Common.h"
 
 
 int GetNextShape(void)
@@ -66,12 +66,12 @@ void MoveShape(int* shape_pos_x, int* shape_pos_y, int shape_id, int mode)
 		dx = shapes[shape_id].D[i];
 		dy = shapes[shape_id].D[i + 1];
 
-		// 2025.11.21 1:50  ���ҵ���bug
-		// �ᵽ����ָ���Ī�����ָ��� 0x7f7f7f7f00000000
-		// ���� fonts Ϊȫ�ֱ��������Ի����Ƿ�������һ��ȫ��ָ�����ʱ�������ϵ�����Ĩ��
-		// ���� ***һ���Ų�*** ֮���ҵ��������������Ļ���Ϸ�ʱ y ƫ�ƺ�Ϊ��ֵ
-		// ���� map ���ڴ������俿�� fonts ���ڴ��������ԾͰ������ļ����� XD
-		// �����޺������bug�ֳ�����һ����bug
+		// 2025.11.21 1:50  查找到此bug
+		// 提到字体指针会莫名被恢复成 0x7f7f7f7f00000000
+		// 由于 fonts 为全局变量，所以怀疑是否有另外一个全局指针操作时误将区域上的数据抹除
+		// 经过 ***一番排查*** 之后找到这里，当方块再屏幕最上方时 y 偏移后为负值
+		// 由于 map 的内存区域极其靠近 fonts 的内存区域，所以就把字体文件擦了 XD
+		// 唉唉修好了这个bug又出现了一个新bug
 		if (*shape_pos_y + dy < 0 || *shape_pos_x + dx)
 		{
 			continue;
@@ -132,7 +132,7 @@ void FixShape(int shape_pos_x, int shape_pos_y, int shape_id)
 	{
 		dx = shapes[shape_id].D[i];
 		dy = shapes[shape_id].D[i + 1];
-		// ��ֹԽ��
+		// 防止越界
 		if (shape_pos_y + dy < 0 || shape_pos_x + dx < 0)
 		{
 			continue;

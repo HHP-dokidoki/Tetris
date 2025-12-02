@@ -1,4 +1,4 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include "ShapeControl.h"
 #include "DrawItems.h"
 #include "MapControl.h"
@@ -55,7 +55,7 @@ int EnterGameOverEvent()
 				case 0:
 					// Load;
 					LoadGame();
-					// ½«interval¸üĞÂÎª´æµµÊ±µÄ×´Ì¬£¨Î´¼ÓËÙ£©
+					// å°†intervalæ›´æ–°ä¸ºå­˜æ¡£æ—¶çš„çŠ¶æ€ï¼ˆæœªåŠ é€Ÿï¼‰
 					State.Difficulty--;
 					LevelUp();
 
@@ -80,15 +80,15 @@ int EnterTickEvent()
 
 	int state_code = 0;
 	if (!Moveable(ST_X, ST_Y, State.Current_shape, DOWN))
-	{	// ·½¿é¸Õ¸ÕÉú³É¾ÍÎŞ·¨ÏÂÂä
+	{	// æ–¹å—åˆšåˆšç”Ÿæˆå°±æ— æ³•ä¸‹è½
 		state_code = EnterGameOverEvent();
 		switch (state_code) {
-			// ×´Ì¬Âë£º
-			// 0¡¢1 ½øÈëÓÎÏ·
-			// 2 ½øÈë»¶Ó­½çÃæ
-			// 4 ÍË³öÓÎÏ·
-			// 5 ÖØ¿ª
-			// 6 ºöÂÔ´Ë×´Ì¬Âë
+			// çŠ¶æ€ç ï¼š
+			// 0ã€1 è¿›å…¥æ¸¸æˆ
+			// 2 è¿›å…¥æ¬¢è¿ç•Œé¢
+			// 4 é€€å‡ºæ¸¸æˆ
+			// 5 é‡å¼€
+			// 6 å¿½ç•¥æ­¤çŠ¶æ€ç 
 		case Restart:
 			TRACE_MSG("Return Restart!\n");
 			return Restart;
@@ -100,7 +100,7 @@ int EnterTickEvent()
 		}
 	}
 	else if (Moveable(State.Shape_pos_x, State.Shape_pos_y, State.Current_shape, DOWN))
-	{// ·½¿éÏÂÂä
+	{// æ–¹å—ä¸‹è½
 		MoveShape(&State.Shape_pos_x, &State.Shape_pos_y, State.Current_shape, DOWN);
 	}
 	else
@@ -125,7 +125,7 @@ int EnterTickEvent()
 
 int EnterPauseEvent()
 {
-	// »­³öPause½çÃæ£ºcontinue¡¢save¡¢load¡¢leave
+	// ç”»å‡ºPauseç•Œé¢ï¼šcontinueã€saveã€loadã€leave
 	TRACE_ENTER();
 
 	int pos = 0, back_flag = 0, enter_flag = 0;
@@ -168,7 +168,7 @@ int EnterPauseEvent()
 
 		if (enter_flag)
 		{
-			// 0Îªcontinue£¬1Îªsave£¬2Îªload£¬3Îªleave
+			// 0ä¸ºcontinueï¼Œ1ä¸ºsaveï¼Œ2ä¸ºloadï¼Œ3ä¸ºleave
 			switch (pos)
 			{
 			case 0:
@@ -180,7 +180,7 @@ int EnterPauseEvent()
 			case 2:
 				LoadGame();
 				
-				// ½«interval¸üĞÂÎª´æµµÊ±µÄ×´Ì¬£¨Î´¼ÓËÙ£©
+				// å°†intervalæ›´æ–°ä¸ºå­˜æ¡£æ—¶çš„çŠ¶æ€ï¼ˆæœªåŠ é€Ÿï¼‰
 				State.Difficulty--;
 				LevelUp();
 
@@ -190,7 +190,7 @@ int EnterPauseEvent()
 
 				break;
 			case 3:
-				// ×´Ì¬Âë ·µ»Øwelcome½çÃæ
+				// çŠ¶æ€ç  è¿”å›welcomeç•Œé¢
 				TRACE_MSG("Back to welcome.\n");
 				return EnterWelcomePage;
 				break;
@@ -199,7 +199,7 @@ int EnterPauseEvent()
 		}
 		else if (back_flag)
 		{
-			// °´esc·µ»ØÓÎÏ·
+			// æŒ‰escè¿”å›æ¸¸æˆ
 			return 0;
 		}
 	}
@@ -250,8 +250,8 @@ int EnterMotionEvent(SDL_Event event)
 					{
 						return 2;
 					}
-					// Èç¹ûÔİÍ£Ê±´¦ÓÚ¼ÓËÙ×´Ì¬
-					// Ã»ÓĞÏÂÃæµÄ´úÂëÔò»Ø¸´Ê±»áÒ»Ö±¼ÓËÙ
+					// å¦‚æœæš‚åœæ—¶å¤„äºåŠ é€ŸçŠ¶æ€
+					// æ²¡æœ‰ä¸‹é¢çš„ä»£ç åˆ™å›å¤æ—¶ä¼šä¸€ç›´åŠ é€Ÿ
 					State.Current_interval = State.Base_interval;
 					break;
 			}
@@ -262,7 +262,7 @@ int EnterMotionEvent(SDL_Event event)
 			switch (event.key.keysym.sym)
 			{
 				case SDLK_DOWN:
-					// »Ö¸´Ô­ËÙ¶È
+					// æ¢å¤åŸé€Ÿåº¦
 					State.Current_interval = State.Base_interval;
 					break;
 			}
@@ -280,7 +280,7 @@ int EnterGameEventLoop(void)
 	SDL_Event event;
 
 	State.Last_tick = State.Current_tick = SDL_GetTicks();
-	//µÚÒ»´Î½øÈëÑ­»·Ê±äÖÈ¾ÓÎÏ·½çÃæ
+	//ç¬¬ä¸€æ¬¡è¿›å…¥å¾ªç¯æ—¶æ¸²æŸ“æ¸¸æˆç•Œé¢
 	State.Current_tick += State.Current_interval;
 
 	while (1)
@@ -296,7 +296,7 @@ int EnterGameEventLoop(void)
 		State.Current_tick = SDL_GetTicks();
 
 
-		/* ¼ÆÊ±Æ÷Ê±¼ä¼ä¸ô´ïµ½ÉÏÏŞ*/
+		/* è®¡æ—¶å™¨æ—¶é—´é—´éš”è¾¾åˆ°ä¸Šé™*/
 		if (State.Current_tick - State.Last_tick >= State.Current_interval)
 		{
 			state_code = EnterTickEvent();
@@ -309,7 +309,7 @@ int EnterGameEventLoop(void)
 				return Restart;
 				break;
 			}
-			// ÇåÁã¼ÆÊ±Æ÷£¬¿ªÊ¼ÏÂÒ»´ÎÏÂÂä
+			// æ¸…é›¶è®¡æ—¶å™¨ï¼Œå¼€å§‹ä¸‹ä¸€æ¬¡ä¸‹è½
 			State.Current_tick = State.Last_tick = SDL_GetTicks();
 		}
 
@@ -317,7 +317,7 @@ int EnterGameEventLoop(void)
 		{
 			state_code = EnterMotionEvent(event);
 			if (state_code == 2)
-			{// ÔÚpause½çÃæÑ¡ÔñÁËQUIT
+			{// åœ¨pauseç•Œé¢é€‰æ‹©äº†QUIT
 				return EnterWelcomePage;
 			}
 		}
@@ -396,12 +396,12 @@ int EnterMainEventLoop(void)
 	state_code = EnterWelcomeEventLoop();
 	while (1)
 	{
-		// ×´Ì¬Âë£º
-		// 0¡¢1 ½øÈëÓÎÏ·
-		// 2 ½øÈë»¶Ó­½çÃæ
-		// 4 ÍË³öÓÎÏ·
-		// 5 ÖØ¿ª
-		// 6 ºöÂÔ´Ë×´Ì¬Âë
+		// çŠ¶æ€ç ï¼š
+		// 0ã€1 è¿›å…¥æ¸¸æˆ
+		// 2 è¿›å…¥æ¬¢è¿ç•Œé¢
+		// 4 é€€å‡ºæ¸¸æˆ
+		// 5 é‡å¼€
+		// 6 å¿½ç•¥æ­¤çŠ¶æ€ç 
 
 		if (state_code == StartGame || state_code == Restart)
 		{

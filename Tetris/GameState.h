@@ -1,4 +1,4 @@
-#ifndef GAMESTATE_H
+﻿#ifndef GAMESTATE_H
 
 #define GAMESTATE_H
 

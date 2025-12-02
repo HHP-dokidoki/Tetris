@@ -1,4 +1,4 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include "MapControl.h"
 #include "DrawItems.h"
 
@@ -31,7 +31,7 @@ int CalScore(int row_cnt)
 {
     TRACE_ENTER();
 
-    // Ò»°ãÓÃ²»µ½Õâ¸öÅĞ¶Ï
+    // ä¸€èˆ¬ç”¨ä¸åˆ°è¿™ä¸ªåˆ¤æ–­
     if (row_cnt < 0 || row_cnt > 4)
     {
         return 0;
@@ -157,7 +157,7 @@ void LoadGame(void)
     {
         for (int j = 0; j < NX; j++)
         {
-            // Color.r µÄÀàĞÍÎªUint8£¬²é¿´ºê¶¨Òå·¢ÏÖÆä¸ù±¾ÉÏÊÇunsigned char£¬ÓÃ %hhu¶ÁÈ¡
+            // Color.r çš„ç±»å‹ä¸ºUint8ï¼ŒæŸ¥çœ‹å®å®šä¹‰å‘ç°å…¶æ ¹æœ¬ä¸Šæ˜¯unsigned charï¼Œç”¨ %hhuè¯»å–
             fscanf_s(file, "%hhu", &State.map[i][j].Color.r);
         }
     }
@@ -228,6 +228,6 @@ void LoadGame(void)
 void ResetGameState(void)
 {
     TRACE_ENTER();
-    // ÕâÑùĞ´Âß¼­ĞÔ¸üºÃÒ»Ğ©,¾Í²»»áÔÚÖØÖÃ×´Ì¬µÄÊ±ºòµ÷ÓÃ³õÊ¼»¯
+    // è¿™æ ·å†™é€»è¾‘æ€§æ›´å¥½ä¸€äº›,å°±ä¸ä¼šåœ¨é‡ç½®çŠ¶æ€çš„æ—¶å€™è°ƒç”¨åˆå§‹åŒ–
     GameStateInit();
 }

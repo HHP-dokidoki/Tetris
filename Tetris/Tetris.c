@@ -1,4 +1,4 @@
-#include "Common.h"
+﻿#include "Common.h"
 #include "Init.h"
 #include "MapControl.h"
 #include "GameState.h"
