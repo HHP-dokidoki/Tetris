@@ -62,7 +62,7 @@ void SaveGame(void)
     errno_t err = 0;
 
     err = fopen_s(&file, "..\\saves\\savedata.save", "w");
-    if (!(file && err == 0))
+    if (!(log_file && file && err == 0))
     {
         fprintf(log_file, "Load failed when trying to open save file.\n");
         fflush(log_file);
@@ -137,7 +137,7 @@ void LoadGame(void)
     FILE* file = NULL;
 
     err = fopen_s(&file, "..\\saves\\savedata.save", "r");
-    if (!(file && err == 0))
+    if (!(log_file && file && err == 0))
     {
         fprintf(log_file, "Save failed when trying to open save file.\n");
         fflush(log_file);

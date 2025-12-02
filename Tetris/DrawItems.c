@@ -1,29 +1,26 @@
 #include "Common.h"
 
 
-void TetrisDrawText(char content[], TTF_Font* font, SDL_Rect* rect, int Magnif)
+void TetrisDrawText(char content[], TTF_Font* font, SDL_Rect* rect, int mode)
 {
 	TRACE_ENTER();
-	//SDL_Log("DrawText: '%s', font=%p, rect=(%d,%d,%d,%d), mag=%d",
-	//	content, (void*)font, rect->x, rect->y, rect->w, rect->h, Magnif);
 
 	int w, h;
 	SDL_Texture* texture;
 	SDL_Surface* text_surf;
-	// ** 一个检查了半个小时的bug	    ：(
-	// 原本是想用这个语句获取字符串的长度以动态跳转字体rect的宽度
-	//w = rect->w = (int)(sizeof(content) - 1) * 20;
-	// 
+	SDL_Rect temp_rect = *rect;
 
-	// 字体基本尺寸 * 放大倍率 Magnif
-	 w = rect->w = (int)strlen(content) * 15 * Magnif;
-	 h = rect->h = TextHeight * Magnif;
-
-	 //SDL_Log("Before TTF_RenderText_Blended:");
-	 //SDL_Log("  Content: '%s'", content);
-	 //SDL_Log("  Font: %p", (void*)font);
-	 //SDL_Log("  Color: r=%d, g=%d, b=%d, a=%d",
-	 //	   fonts.Color.r, fonts.Color.g, fonts.Color.b, fonts.Color.a);
+	// rect 中存储了文字框的xy坐标和单位宽度
+	// 为避免对rect的修改，创建temp_rect存储xy坐标、高度，然后根据文字长度计算总宽度
+	if (mode == 2)
+	{
+		w = temp_rect.w = (int)strlen(content) * rect->w;
+	}
+	else
+	{
+		w = temp_rect.w = rect->w;
+	}
+	h = temp_rect.h;
 
 	text_surf = TTF_RenderText_Blended(font, content, fonts.Color);
 	if (text_surf == NULL) {
@@ -45,7 +42,7 @@ void TetrisDrawText(char content[], TTF_Font* font, SDL_Rect* rect, int Magnif)
 		SDL_Log("SDL_QueryTexture Failed:%s\n", SDL_GetError());
 		return;
 	}
-	if (SDL_RenderCopy(rdr, texture, NULL, rect) < 0)
+	if (SDL_RenderCopy(rdr, texture, NULL, &temp_rect) < 0)
 	{
 		SDL_Log("SDL_RenderCopy Failed:%s\n", SDL_GetError());
 		return;
@@ -61,21 +58,22 @@ void TetrisDrawText(char content[], TTF_Font* font, SDL_Rect* rect, int Magnif)
 	}
 }
 
-void DrawRect(SDL_Rect rect,SDL_Color color)
+void DrawRect(SDL_Rect *rect,SDL_Color color)
 {
 	TRACE_ENTER();
 
 	SDL_SetRenderDrawColor(rdr, color.r, color.g, color.b, color.a);
-	SDL_RenderFillRect(rdr, &rect);
+	SDL_RenderFillRect(rdr, rect);
 }
 
-void DrawBlock(int x, int y, SDL_Color color, int w, int h)
+void DrawBlock(int x, int y, SDL_Color color, int size)
 {
+	SDL_Log("Draw a block at (%d, %d)\n", x, y);
 	TRACE_ENTER();
 
 	SDL_Rect block;
-	block.w = w;
-	block.h = h;
+	block.w = size;
+	block.h = size;
 	block.x = x;
 	block.y = y;
 	SDL_SetRenderDrawColor(rdr, color.r, color.g, color.b, color.a);
@@ -101,11 +99,40 @@ void DrawSingleShape(int shape_id, int shape_pos_x, int shape_pos_y,int size)
 		dy = shapes[shape_id].D[i + 1];
 		// 为方便 map 的处理 shape_pos_x 和 y 都是从 1 开始
 		// 所以转换为绝对坐标时要减一
-		DrawBlock((shape_pos_x + dx - 1) * size + DX,
-				  (shape_pos_y + dy - 1) * size + DY,
+		SDL_Log("[DrawSingleShape]");
+
+		DrawBlock((shape_pos_x + dx - 1) * size + layout.LeftBorderRect.w,
+				(shape_pos_y + dy - 1) * size + layout.ButtonBorderRect.h,
 				  shapes[shape_id].Color,
-			      size, size);
+			      size);
 	}
+}
+
+
+void DrawShapes(int shape_pos_x, int shape_pos_y, int shape_id)
+{
+	TRACE_ENTER();
+
+	// 绘制已经固定在map中的方块
+	for (int i = 1; i <= NY - 2; i++)
+	{
+		for (int j = 1; j <= NX - 2; j++)
+		{
+			if (State.map[i][j].Value)
+			{
+				SDL_Log("[Fixed Shape]");
+				DrawBlock(
+					(int)(layout.ratio * STD_BLOCK_SIZE + 0.5) * (j - 1) + layout.LeftBorderRect.w,
+					(int)(layout.ratio * STD_BLOCK_SIZE + 0.5) * (i - 1) + layout.ButtonBorderRect.h,
+					State.map[i][j].Color,
+					(int)(layout.ratio * STD_BLOCK_SIZE + 0.5)
+				);
+			}
+		}
+	}
+
+	// 绘制未固定在map的方块
+	DrawSingleShape(shape_id, shape_pos_x, shape_pos_y, (int)(layout.ratio * STD_BLOCK_SIZE + 0.5));
 }
 
 void DrawPreviewShape(int shape_id, int shape_pos_x, int shape_pos_y, int size)
@@ -122,11 +149,11 @@ void DrawPreviewShape(int shape_id, int shape_pos_x, int shape_pos_y, int size)
 	{
 		dx = shapes[shape_id].D[i] * size;
 		dy = shapes[shape_id].D[i + 1] * size;
-
+		SDL_Log("[Preview Shape]");
 		DrawBlock(shape_pos_x + dx,
 			shape_pos_y + dy,
 			shapes[shape_id].Color,
-			size, size);
+			size);
 	}
 }
 
@@ -138,58 +165,27 @@ void ToString(int value, char* buffer)
 	sprintf_s(buffer,20, "%d", value);
 }
 
-
-void DrawShapes(int shape_pos_x, int shape_pos_y, int shape_id)
-{
-	TRACE_ENTER();
-
-	// 绘制已经固定在map中的方块
-	for (int i = 1; i <= NY - 2; i++)
-	{
-		for (int j = 1; j <= NX - 2; j++)
-		{
-			if (State.map[i][j].Value)
-			{
-				DrawBlock((j - 1) * 45 + DX,
-					(i - 1) * 45 + DY,
-					State.map[i][j].Color,
-					BLOCKWIDTH,
-					BLOCKHEIGHT);
-			}
-		}
-	}
-
-	// 绘制未固定在map的方块
-	DrawSingleShape(shape_id, shape_pos_x, shape_pos_y, BLOCKWIDTH);
-}
-
 void DrawDynamicItems(int nxt_shape_id)
 {
 	TRACE_ENTER();
 
 	char str[20];
 	ToString(State.Score, str);
-	TetrisDrawText(str, fonts.NumberFont, &layout.ScoreValueRect,1);
+	TetrisDrawText(str, fonts.NumberFont, &layout.ScoreValueRect, 2);
 
 	ToString(State.Difficulty, str);
-	TetrisDrawText(str, fonts.NumberFont, &layout.DifficultyValueRect,1);
+	TetrisDrawText(str, fonts.NumberFont, &layout.DifficultyValueRect, 2);
 
 	ToString(State.LineCount, str);
-	TetrisDrawText(str, fonts.NumberFont, &layout.LineCountValueRect,1);
+	TetrisDrawText(str, fonts.NumberFont, &layout.LineCountValueRect, 2);
 
-	// 一个排查了半小时的 bug 
-	// DrawSingleShape 接受的是map中的网格坐标
-	// 而我传入的是整个游戏界面的绝对坐标
-	// DrawSingleShape(nxt_shape_id,
-	//	layout.NextPreviewShapeRect.x,
-	//	layout.NextPreviewShapeRect.y,
-	//	PREVIEW_BLOCKHEIGHT);
 
-	// 所以为preview区域专门写了个函数......
+	// 为preview区域专门写了个函数......
 	DrawPreviewShape(nxt_shape_id,
 		layout.NextPreviewShapeRect.x,
 		layout.NextPreviewShapeRect.y,
-		PREVIEW_BLOCKHEIGHT);
+		(int)(STD_PREVIEW_BLOCK_SIZE * layout.ratio + 0.5)
+	);
 }
 
 void DrawGameLayout(void)
@@ -198,23 +194,22 @@ void DrawGameLayout(void)
 
 	// 游戏区范围：
 	// 540----45 * 12
-	// 990----45 * 20
+	// 945----45 * 21
 
 	SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
 
 	// 边框及背景
-	DrawRect((SDL_Rect){ 0, 0, 550, 990 }, BACKGROUND_COLOR);
-	DrawRect((SDL_Rect){ 0, 0, 10, 990 }, BORDER_COLOR);
-	DrawRect((SDL_Rect){ 550, 0, 10, 990 }, BORDER_COLOR);
-	DrawRect((SDL_Rect){ 0, 990, 560, 10 }, BORDER_COLOR);
-	DrawRect((SDL_Rect){ 10, 90, 540, 10 }, UPPERBOUND_COLOR);
-
+	DrawRect(&layout.GameAreaRect, BACKGROUND_COLOR);
+	DrawRect(&layout.UpperboundBorderRect, UPPERBOUND_COLOR);
+	DrawRect(&layout.LeftBorderRect, BORDER_COLOR);
+	DrawRect(&layout.RightBorderRect, BORDER_COLOR);
+	DrawRect(&layout.ButtonBorderRect, BORDER_COLOR);
 
 	// 侧边栏文字
-	TetrisDrawText("NEXT SHAPE", fonts.UIFont, &layout.NextPreviewRect,1);
-	TetrisDrawText("DIFFICULTY", fonts.UIFont, &layout.DifficultyRect,1);
-	TetrisDrawText("SCORE", fonts.UIFont, &layout.ScoreLabelRect,1);
-	TetrisDrawText("LINE COUNT", fonts.UIFont, &layout.LineCountLabelRect,1);
+	TetrisDrawText("NEXT SHAPE", fonts.UIFont, &layout.NextPreviewRect, 1);
+	TetrisDrawText("DIFFICULTY", fonts.UIFont, &layout.DifficultyRect, 1);
+	TetrisDrawText("SCORE", fonts.UIFont, &layout.ScoreLabelRect, 1);
+	TetrisDrawText("LINE COUNT", fonts.UIFont, &layout.LineCountLabelRect, 1);
 
 }
 
@@ -233,15 +228,15 @@ void DrawPauseLayout(int pos)
 		return;
 	}
 
-	DrawRect(layout.PauseMenuRect, PauseMenu_Color);
+	DrawRect(&layout.PauseMenuRect, PauseMenu_Color);
 
-	TetrisDrawText("Paused", fonts.UIFont, &layout.PauseMessageRect, 2);
-	TetrisDrawText("Continue", fonts.UIFont, &layout.ContinueRect, 2);
-	TetrisDrawText("Save", fonts.UIFont, &layout.SaveRect, 2);
-	TetrisDrawText("Load", fonts.UIFont, &layout.LoadRect, 2);
-	TetrisDrawText("Leave", fonts.UIFont, &layout.LeaveRect, 2);
+	TetrisDrawText("Paused", fonts.UIFont, &layout.PauseMessageRect, 1);
+	TetrisDrawText("Continue", fonts.UIFont, &layout.ContinueRect, 1);
+	TetrisDrawText("Save", fonts.UIFont, &layout.SaveRect, 1);
+	TetrisDrawText("Load", fonts.UIFont, &layout.LoadRect, 1);
+	TetrisDrawText("Leave", fonts.UIFont, &layout.LeaveRect, 1);
 
-	DrawRect(*PauseRect_p[pos], Highlight_Color);
+	DrawRect(PauseRect_p[pos], Highlight_Color);
 
 	SDL_RenderPresent(rdr);
 }
@@ -263,14 +258,14 @@ void DrawWelcomeLayout(int pos)
 	SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 	SDL_RenderClear(rdr);
 
-	DrawRect(layout.WelPageRect, PauseMenu_Color);
+	DrawRect(&layout.WelPageRect, PauseMenu_Color);
 
-	TetrisDrawText("TETRIS", fonts.UIFont, &layout.WelcomeRect, 3);
-	TetrisDrawText("Start", fonts.UIFont, &layout.StartRect, 2);
-	TetrisDrawText("Load", fonts.UIFont, &layout.WelLoadRect, 2);
-	TetrisDrawText("Leave", fonts.UIFont, &layout.WelLeaveRect, 2);
+	TetrisDrawText("TETRIS", fonts.UIFont, &layout.WelcomeRect, 1);
+	TetrisDrawText("Start", fonts.UIFont, &layout.StartRect, 1);
+	TetrisDrawText("Load", fonts.UIFont, &layout.WelLoadRect, 1);
+	TetrisDrawText("Leave", fonts.UIFont, &layout.WelLeaveRect, 1);
 
-	DrawRect(*WelRect_p[pos], Highlight_Color);
+	DrawRect(WelRect_p[pos], Highlight_Color);
 
 	SDL_RenderPresent(rdr);
 }
@@ -305,13 +300,13 @@ void DrawGVLayout(int pos) {
 		return;
 	}
 
-	DrawRect(layout.GVPageRect, PauseMenu_Color);
+	DrawRect(&layout.GVPageRect, PauseMenu_Color);
 
-	TetrisDrawText("Game Over!", fonts.UIFont, &layout.GameOverRect, 2);
-	TetrisDrawText("Load", fonts.UIFont, &layout.GVLoadRect, 2);
-	TetrisDrawText("Leave", fonts.UIFont, &layout.GVLeaveRect, 2);
+	TetrisDrawText("Game Over!", fonts.UIFont, &layout.GameOverRect, 1);
+	TetrisDrawText("Load", fonts.UIFont, &layout.GVLoadRect, 1);
+	TetrisDrawText("Leave", fonts.UIFont, &layout.GVLeaveRect, 1);
 
-	DrawRect(*GVRect_p[pos], Highlight_Color);
+	DrawRect(GVRect_p[pos], Highlight_Color);
 
 	SDL_RenderPresent(rdr);
 }

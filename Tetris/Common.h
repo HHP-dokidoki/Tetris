@@ -9,11 +9,21 @@
 #include <time.h>
 #include <stdio.h>
 
-#define W 720
-#define H 1000
+#define STD_W 720
+#define STD_H 960
+
+#define STD_BLOCK_SIZE 45
+#define STD_PREVIEW_BLOCK_SIZE 25
+
+#define STD_SMALL_TEXT_WIDTH 15
+#define STD_SMALL_TEXT_HEIGHT 40
+
+#define STD_BIG_TEXT_WIDTH 50
+#define STD_BIG_TEXT_HEIGHT 125
 
 #define ST_X 6
 #define ST_Y 0
+
 
 #define BLOCKHEIGHT 45
 #define BLOCKWIDTH  45
@@ -21,72 +31,6 @@
 #define PREVIEW_BLOCKHEIGHT 25
 #define PREVIEW_BLOCKWIDTH 25
 
-#define NextPreviewPosx 565
-#define NextPreviewPosy 60
-
-#define ScoreLabelPosx 565
-#define ScoreLabelPosy 260
-
-#define LineCountLabelPosx 565
-#define LineCountLabelPosy 460
-
-#define DifficultyPosx 565
-#define DifficultyPosy 660
-
-#define PauseMenuPosx 240
-#define PauseMenuPosy 250
-#define PauseMenuWidth 240
-#define PauseMenuHeight 500
-
-
-#define WelPagePosx 150
-#define WelPagePosy 200
-#define WelPageWidth 420
-#define WelPageHeight 700
-
-//Tetris
-#define WelcomePosx 215
-#define WelcomePosy 200	
-#define WelcomeWidth 360	// 字宽 60， 六个字
-#define WelcomeHeight 150	// 字高 150
-
-//Start
-#define StartPosx 285
-#define StartPosy 400		
-#define StartWidth 150		// 字宽 30， 五个字
-#define StartHeight 100		// 字高 100
-
-//Load
-#define WelLoadPosx 300
-#define WelLoadPosy 550
-#define WelLoadWidth 120	// 字宽30，四个字
-#define WelLoadHeight 100
-
-//Leave
-#define WelLeavePosx 285
-#define WelLeavePosy 700
-#define WelLeaveWidth 150	// 字宽30，五个字
-#define WelLeaveHeight 100
-
-#define GVPageRectPosx 125
-#define GVPageRectPosy 300
-#define GVPageRectWidth 470
-#define GVPageRectHeight 300
-
-#define GameOverRectPosx 135
-#define GameOverRectPosy 300
-#define GameOverRectWidth 450
-#define GameOverRectHeight 150
-
-#define GVLoadRectPosx 125
-#define GVLoadRectPosy 500
-#define GVLoadRectWidth 120
-#define GVLoadRectHeight 100
-
-#define GVLeaveRectPosx 445
-#define GVLeaveRectPosy 500
-#define GVLeaveRectWidth 150
-#define GVLeaveRectHeight 100
 
 // 状态码：
 // 1 进入游戏
@@ -101,10 +45,9 @@
 #define IgnoreMe 5
 
 
-#define TextHeight 50
 
 #define NX 14
-#define NY 24
+#define NY 23
 
 #define DX 10
 #define DY 0
@@ -119,7 +62,7 @@
 #define BACKGROUND_COLOR (SDL_Color){127, 127, 127, 127}
 #define BORDER_COLOR	 (SDL_Color){255, 255, 255, 255}
 #define UPPERBOUND_COLOR (SDL_Color){127, 0, 0, 127}
-#define PauseMenu_Color  (SDL_Color){90, 90, 90, 90}
+#define PauseMenu_Color  (SDL_Color){70, 70, 70, 90}
 #define Highlight_Color  (SDL_Color){255, 255, 255, 100}
 
 #define DOWN  1
@@ -128,19 +71,19 @@
 
 
 // 简单的日志宏
-#define TRACE_ENTER() do { \
-    if (log_file) { \
-        fprintf(log_file, "ENTER: %s()\n", __FUNCTION__); \
-        fflush(log_file); \
-    } \
-} while(0)
+#define TRACE_ENTER()  {									\
+    if (log_file) {											\
+        fprintf(log_file, "ENTER: %s()\n", __FUNCTION__);	\
+        fflush(log_file);									\
+    }														\
+}
 
-#define TRACE_MSG(msg) do { \
-    if (log_file) { \
-        fprintf(log_file, "%s: %s\n", __FUNCTION__, msg); \
-        fflush(log_file); \
-    } \
-} while(0)
+#define TRACE_MSG(msg) {									\
+    if (log_file) {											\
+        fprintf(log_file, "%s: %s\n", __FUNCTION__, msg);	\
+        fflush(log_file);									\
+    }														\
+}
 
 typedef struct {
 	int Value;
@@ -179,7 +122,13 @@ typedef struct {
 	SDL_Rect GVLoadRect;
 	SDL_Rect GVLeaveRect;
 
+	SDL_Rect GameAreaRect;
+	SDL_Rect LeftBorderRect;
+	SDL_Rect RightBorderRect;
+	SDL_Rect ButtonBorderRect;
+	SDL_Rect UpperboundBorderRect;
 
+	long double ratio;
 } Layout;
 
 // 字体资源（只读，初始化加载）
@@ -230,4 +179,5 @@ extern Layout layout;
 extern GameState State;
 
 extern FILE* log_file;
+
 #endif

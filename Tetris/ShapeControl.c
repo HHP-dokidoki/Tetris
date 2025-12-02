@@ -34,7 +34,6 @@ int NotConflict(int shape_pos_x, int shape_pos_y, int shape_id)
 			return 0;
 		}
 	}
-	//system("pause");
 	return 1;
 }
 

@@ -3,6 +3,7 @@
 #include "DrawItems.h"
 #include "MapControl.h"
 #include "GameState.h"
+#include "Init.h"
 
 
 int EnterGameOverEvent()
@@ -20,6 +21,13 @@ int EnterGameOverEvent()
 		{
 			switch (event.type)
 			{
+			case SDL_WINDOWEVENT:
+				RectInit();
+				DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
+					State.Current_shape, State.Next_shape);
+				DrawGVLayout(pos);
+				break;
+
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym)
 				{
@@ -102,7 +110,8 @@ int EnterTickEvent()
 
 		State.Score += DeleteRows(State.Shape_pos_y);
 
-		State.Shape_pos_x = ST_X, State.Shape_pos_y = ST_Y;
+		State.Shape_pos_x = ST_X;
+		State.Shape_pos_y = ST_Y;
 		State.Current_shape = State.Next_shape;
 		State.Next_shape = GetNextShape();
 	}
@@ -129,6 +138,10 @@ int EnterPauseEvent()
 		{
 			switch (event.type)
 			{
+				case SDL_WINDOWEVENT:
+					RectInit();
+					DrawPauseLayout(pos);
+				break;
 				case SDL_KEYDOWN:
 					switch (event.key.keysym.sym)
 					{
@@ -202,12 +215,13 @@ int EnterMotionEvent(SDL_Event event)
 		case SDL_QUIT:
 			return 0;
 		case SDL_WINDOWEVENT:
+			RectInit();
 			DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 				State.Current_shape, State.Next_shape);
 			break;
-		//case SDL_MOUSEMOTION:
-		//	//SDL_Log("x:%d  y:%d\n", event.motion.x, event.motion.y);
-		//	break;
+		case SDL_MOUSEMOTION:
+			SDL_Log("x:%d  y:%d\n", event.motion.x, event.motion.y);
+			break;
 		case SDL_KEYDOWN:
 			switch (event.key.keysym.sym)
 			{
@@ -262,7 +276,6 @@ int EnterMotionEvent(SDL_Event event)
 int EnterGameEventLoop(void)
 {
 	TRACE_ENTER();
-
 	int state_code = 0;
 	SDL_Event event;
 
@@ -326,6 +339,10 @@ int EnterWelcomeEventLoop(void)
 		{
 			switch (event.type)
 			{
+				case SDL_WINDOWEVENT:
+					RectInit();
+					DrawWelcomeLayout(pos);
+					break;
 				case SDL_KEYDOWN:
 					switch (event.key.keysym.sym)
 					{

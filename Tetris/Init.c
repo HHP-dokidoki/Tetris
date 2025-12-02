@@ -11,107 +11,215 @@ void RectInit(void)
 {
 	TRACE_ENTER();
 
-	layout.DifficultyRect.x = DifficultyPosx;
-	layout.DifficultyRect.y = DifficultyPosy;
-	layout.DifficultyRect.w = TextHeight;
+	SDL_Rect window;
+	SDL_GetRendererOutputSize(rdr, &window.w, &window.h);
 
-	layout.NextPreviewRect.x = NextPreviewPosx;
-	layout.NextPreviewRect.y = NextPreviewPosy;
-	layout.NextPreviewRect.h = TextHeight;
+	long double ratio = fmin((long double)window.w / STD_W, (long double)window.h / STD_H);
 
-	layout.ScoreLabelRect.x = ScoreLabelPosx;
-	layout.ScoreLabelRect.y = ScoreLabelPosy;
-	layout.ScoreLabelRect.h = TextHeight;
-
-	layout.LineCountLabelRect.x = LineCountLabelPosx;
-	layout.LineCountLabelRect.y = LineCountLabelPosy;
-	layout.LineCountLabelRect.h = TextHeight;
-
-	layout.ScoreValueRect.x = ScoreLabelPosx + 15; //让数字不要太靠近变框，不然不美观
-	layout.ScoreValueRect.y = ScoreLabelPosy + TextHeight + 20;
-	layout.ScoreValueRect.h = TextHeight;
-
-	layout.DifficultyValueRect.x = DifficultyPosx + 15;
-	layout.DifficultyValueRect.y = DifficultyPosy + TextHeight + 20;
-	layout.DifficultyValueRect.h = TextHeight;
-
-	layout.LineCountValueRect.x = LineCountLabelPosx + 15;
-	layout.LineCountValueRect.y = LineCountLabelPosy + TextHeight + 20;
-	layout.LineCountValueRect.h = TextHeight;
-
-	layout.NextPreviewShapeRect.x = NextPreviewPosx + 55;
-	layout.NextPreviewShapeRect.y = NextPreviewPosy + +TextHeight + 90;
-
-	layout.PauseMenuRect.x = PauseMenuPosx;
-	layout.PauseMenuRect.y = PauseMenuPosy;
-	layout.PauseMenuRect.w = PauseMenuWidth;
-	layout.PauseMenuRect.h = PauseMenuHeight;
-
-	layout.PauseMessageRect.x = PauseMenuPosx + 30; // + n 是为了居中对齐
-	layout.PauseMessageRect.y = PauseMenuPosy;
-	layout.PauseMessageRect.h = TextHeight;
-
-	layout.ContinueRect.x = PauseMenuPosx;
-	layout.ContinueRect.y = PauseMenuPosy + TextHeight * 2 + 30;
-	layout.ContinueRect.h = TextHeight;
-
-	layout.SaveRect.x = PauseMenuPosx + 55;
-	layout.SaveRect.y = PauseMenuPosy + TextHeight * 3 + 60;
-	layout.SaveRect.h = TextHeight;
-
-	layout.LoadRect.x = PauseMenuPosx + 55;
-	layout.LoadRect.y = PauseMenuPosy + TextHeight * 4 + 90;
-	layout.LoadRect.h = TextHeight;
-
-	layout.LeaveRect.x = PauseMenuPosx + 47;
-	layout.LeaveRect.y = PauseMenuPosy + TextHeight * 5 + 120;
-	layout.LeaveRect.h = TextHeight;
-
-	layout.WelPageRect.x = WelPagePosx;
-	layout.WelPageRect.y = WelPagePosy;
-	layout.WelPageRect.h = WelPageHeight;
-	layout.WelPageRect.w = WelPageWidth;
-
-	layout.WelcomeRect.x = WelcomePosx;
-	layout.WelcomeRect.y = WelcomePosy;
-	layout.WelcomeRect.h = WelcomeHeight;
-	layout.WelcomeRect.w = WelcomeWidth;
-
-	layout.StartRect.x = StartPosx;
-	layout.StartRect.y = StartPosy;
-	layout.StartRect.h = StartHeight;
-	layout.StartRect.w = StartWidth;
-
-	layout.WelLoadRect.x = WelLoadPosx;
-	layout.WelLoadRect.y = WelLoadPosy;
-	layout.WelLoadRect.h = WelLoadHeight;
-	layout.WelLoadRect.w = WelLoadWidth;
-
-	layout.WelLeaveRect.x = WelLeavePosx;
-	layout.WelLeaveRect.y = WelLeavePosy;
-	layout.WelLeaveRect.h = WelLeaveHeight;
-	layout.WelLeaveRect.w = WelLeaveWidth;
-
-	layout.GVPageRect.x = GVPageRectPosx;
-	layout.GVPageRect.y = GVPageRectPosy;
-	layout.GVPageRect.w = GVPageRectWidth;
-	layout.GVPageRect.h = GVPageRectHeight;
-
-	layout.GameOverRect.x = GameOverRectPosx;
-	layout.GameOverRect.y = GameOverRectPosy;
-	layout.GameOverRect.w = GameOverRectWidth;
-	layout.GameOverRect.h = GameOverRectHeight;
-
-	layout.GVLoadRect.x = GVLoadRectPosx;
-	layout.GVLoadRect.y = GVLoadRectPosy;
-	layout.GVLoadRect.w = GVLoadRectWidth;
-	layout.GVLoadRect.h = GVLoadRectHeight;
-
-	layout.GVLeaveRect.x = GVLeaveRectPosx;
-	layout.GVLeaveRect.y = GVLeaveRectPosy;
-	layout.GVLeaveRect.w = GVLeaveRectWidth;
-	layout.GVLeaveRect.h = GVLeaveRectHeight;
+	layout.ratio = ratio;
 	
+	int now_w = STD_W * ratio;
+	int now_h = STD_H * ratio;
+
+	long double s_text_h = STD_SMALL_TEXT_HEIGHT * ratio;
+	long double s_text_w = STD_SMALL_TEXT_WIDTH * ratio;
+	long double b_text_h = STD_BIG_TEXT_HEIGHT * ratio;
+	long double b_text_w = STD_BIG_TEXT_WIDTH * ratio;
+	long double preview_block_size = STD_PREVIEW_BLOCK_SIZE * ratio;
+	long double block_size = STD_BLOCK_SIZE * ratio;
+
+	/* ---------------- 游戏区域 ----------------*/
+
+	layout.LeftBorderRect.w = block_size / 5;
+	layout.LeftBorderRect.h = now_h;
+	layout.LeftBorderRect.x = 0;
+	layout.LeftBorderRect.y = 0;
+
+	layout.ButtonBorderRect.w = 12 * block_size + 2 * block_size / 5;
+	layout.ButtonBorderRect.h = block_size / 5;
+	layout.ButtonBorderRect.x = 0;
+	layout.ButtonBorderRect.y = now_h - block_size / 5;
+
+	layout.GameAreaRect.w = 12 * block_size;
+	layout.GameAreaRect.h = 21 * block_size;
+	layout.GameAreaRect.x = layout.LeftBorderRect.w;
+	layout.GameAreaRect.y = now_h - layout.GameAreaRect.h;
+
+	layout.UpperboundBorderRect.w = layout.ButtonBorderRect.w;
+	layout.UpperboundBorderRect.h = now_h - layout.GameAreaRect.h;
+	layout.UpperboundBorderRect.x = 0;
+	layout.UpperboundBorderRect.y = 0;
+
+	layout.RightBorderRect.w = layout.LeftBorderRect.w;
+	layout.RightBorderRect.h = layout.LeftBorderRect.h;
+	layout.RightBorderRect.x = layout.GameAreaRect.w + block_size / 5;
+	layout.RightBorderRect.y = 0;
+
+
+
+	/* ---------------- 侧边栏 ---------------- */
+
+	int msg_spacing = s_text_h + (20 * ratio);
+	int base_y = now_h / 16;
+	int base_x = now_w * 0.78;
+	// Next Preview
+	layout.NextPreviewRect.x = base_x;
+	layout.NextPreviewRect.y = base_y;
+	layout.NextPreviewRect.h = s_text_h;
+	layout.NextPreviewRect.w = s_text_w * 10;
+
+	layout.NextPreviewShapeRect.x = base_x + 2 * preview_block_size;
+	layout.NextPreviewShapeRect.y = base_y + 2 * msg_spacing;
+
+	// Score
+	layout.ScoreLabelRect.x = base_x;
+	layout.ScoreLabelRect.y = base_y + 3 * msg_spacing;
+	layout.ScoreLabelRect.h = s_text_h;
+	layout.ScoreLabelRect.w = s_text_w * 5;
+
+	layout.ScoreValueRect.x = base_x;
+	layout.ScoreValueRect.y = base_y + 4 * msg_spacing;
+	layout.ScoreValueRect.h = s_text_h;
+	layout.ScoreValueRect.w = s_text_w;
+
+	// Lines
+	layout.LineCountLabelRect.x = base_x;
+	layout.LineCountLabelRect.y = base_y + 5 * msg_spacing;
+	layout.LineCountLabelRect.h = s_text_h;
+	layout.LineCountLabelRect.w = s_text_w * 9;
+
+	layout.LineCountValueRect.x = base_x;
+	layout.LineCountValueRect.y = base_y + 6 * msg_spacing;
+	layout.LineCountValueRect.h = s_text_h;
+	layout.LineCountValueRect.w = s_text_w;
+
+	// Difficulty
+	layout.DifficultyRect.x = base_x;
+	layout.DifficultyRect.y = base_y + 7 * msg_spacing;
+	layout.DifficultyRect.h = s_text_h;
+	layout.DifficultyRect.w = s_text_w * 10;
+
+	layout.DifficultyValueRect.x = base_x;
+	layout.DifficultyValueRect.y = base_y + 8 * msg_spacing;
+	layout.DifficultyValueRect.h = s_text_h;
+	layout.DifficultyValueRect.w = s_text_w;
+
+
+	/* ---------------- 暂停界面 ---------------- */
+	// pm --> pause
+	int pm_x = 0.16 * now_w;
+	int pm_y = 0.1 * now_h;
+	int pm_w = 10 * b_text_w;
+	int pm_h = 6.5 * b_text_h;
+	int p_midline = pm_x + pm_w / 2;
+
+	layout.PauseMenuRect.x = pm_x;
+	layout.PauseMenuRect.y = pm_y;
+	layout.PauseMenuRect.h = pm_h;
+	layout.PauseMenuRect.w = pm_w;
+
+	// Title (Big Text * 1.5)
+	layout.PauseMessageRect.x = p_midline - 2.5 * 1.5 * b_text_w;
+	layout.PauseMessageRect.y = pm_y + (10 * ratio); // 略微向下偏移
+	layout.PauseMessageRect.h = b_text_h * 1.5;
+	layout.PauseMessageRect.w = b_text_w * 1.5 * 5;
+
+	// Buttons
+	// btn --> button
+	int pm_btn_y = pm_y + 1.5 * b_text_h + (30 * ratio);
+	int pm_spacing = b_text_h + (20 * ratio);
+
+	layout.ContinueRect.x = p_midline - 4 * b_text_w;
+	layout.ContinueRect.y = pm_btn_y;
+	layout.ContinueRect.h = b_text_h;
+	layout.ContinueRect.w = b_text_w * 8;
+
+	layout.SaveRect.x = p_midline - 2 * b_text_w;
+	layout.SaveRect.y = pm_btn_y + pm_spacing;
+	layout.SaveRect.h = b_text_h;
+	layout.SaveRect.w = b_text_w * 4;
+
+	layout.LoadRect.x = p_midline - 2 * b_text_w;
+	layout.LoadRect.y = pm_btn_y + pm_spacing * 2;
+	layout.LoadRect.h = b_text_h;
+	layout.LoadRect.w = b_text_w * 4;
+
+	layout.LeaveRect.x = p_midline - 2.5 * b_text_w;
+	layout.LeaveRect.y = pm_btn_y + pm_spacing * 3;
+	layout.LeaveRect.h = b_text_h;
+	layout.LeaveRect.w = b_text_w * 5;
+
+
+	/* ---------------- 开始界面 ---------------- */
+	int wel_x = 0.175 * now_w;
+	int wel_y = 0.1 * now_h;
+	int wel_w = 10 * b_text_w;
+	int wel_h = 6 * b_text_h;
+	long double wel_midline = wel_x + wel_w / 2;
+
+	layout.WelPageRect.x = wel_x;
+	layout.WelPageRect.y = wel_y;
+	layout.WelPageRect.h = wel_h;
+	layout.WelPageRect.w = wel_w;
+
+	// Title (Big Text)
+	layout.WelcomeRect.x = wel_midline - 3.5 * 1.5 * b_text_w;
+	layout.WelcomeRect.y = wel_y + (20 * ratio);
+	layout.WelcomeRect.h = 1.5 * b_text_h;
+	layout.WelcomeRect.w = 1.5 * b_text_w * 7;
+
+	// Buttons
+	int wel_btn_y = wel_y + 1.5 * b_text_h + (30 * ratio);
+	int wel_spacing = b_text_h + (20 * ratio);
+
+	layout.StartRect.x = wel_midline - 2.5 * (long double)b_text_w;
+	layout.StartRect.y = wel_btn_y;
+	layout.StartRect.h = b_text_h * ratio;
+	layout.StartRect.w = b_text_w * ratio * 5;
+
+
+	layout.WelLoadRect.x = wel_midline - 2 * (long double)b_text_w;
+	layout.WelLoadRect.y = wel_btn_y + wel_spacing;
+	layout.WelLoadRect.h = b_text_h * ratio;
+	layout.WelLoadRect.w = b_text_w * ratio * 4;
+
+	layout.WelLeaveRect.x = wel_midline - 2.5 * (long double)b_text_w;
+	layout.WelLeaveRect.y = wel_btn_y + wel_spacing * 2;
+	layout.WelLeaveRect.h = b_text_h * ratio;
+	layout.WelLeaveRect.w = b_text_w * ratio * 5;
+
+
+	/* ---------------- Game Over Page ---------------- */
+	int gv_x = 0.06 * now_w;
+	int gv_y = 0.35 * now_h;
+	int gv_w = 10 * b_text_w;
+	int gv_h = 3 * b_text_h;
+	int gv_midline = gv_x + gv_w / 2;
+
+	layout.GVPageRect.x = gv_x;
+	layout.GVPageRect.y = gv_y;
+	layout.GVPageRect.h = gv_h;
+	layout.GVPageRect.w = gv_w;
+
+
+	// Title (Big Text for consistency)
+	layout.GameOverRect.x = gv_midline - 4 * b_text_w ;
+	layout.GameOverRect.y = gv_y + 20 * ratio;
+	layout.GameOverRect.h = b_text_h * ratio;
+	layout.GameOverRect.w = b_text_w * ratio * 9;
+
+	// Buttons
+	int gv_btn_y = gv_y + b_text_h + (20 * ratio);
+
+	layout.GVLoadRect.x = gv_midline - 5 * b_text_w;
+	layout.GVLoadRect.y = gv_btn_y;
+	layout.GVLoadRect.h = b_text_h * ratio;
+	layout.GVLoadRect.w = b_text_w * ratio * 4;
+
+	layout.GVLeaveRect.x = gv_midline + 2 * b_text_w;
+	layout.GVLeaveRect.y = gv_btn_y;
+	layout.GVLeaveRect.h = b_text_h * ratio;
+	layout.GVLeaveRect.w = b_text_w * ratio * 5;
 }
 
 int FontInit(void)
@@ -153,9 +261,20 @@ int WindowRdrInit(void)
 		return -1;
 	}
 
+	int win_w, win_h;
+	SDL_Rect screen;
+	SDL_GetDisplayUsableBounds(0, &screen);
+
+	// 防止超出屏幕
+	screen.h -= 100;
+
+	// 计算相对标注尺寸的缩放比例
+	long double ratio = fmin((long double)screen.w / STD_W, (long double)screen.h / STD_H);
+	win_w = STD_W * ratio;
+	win_h = STD_H * ratio;
 	// 创建窗口
 	win = SDL_CreateWindow("Tetris", 
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W, H,
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, win_w, win_h,
 		 SDL_WINDOW_RESIZABLE);
 	if (win == NULL)
 	{
