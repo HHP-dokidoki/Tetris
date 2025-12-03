@@ -1,6 +1,8 @@
 ﻿#include "Common.h"
 
 
+// 7种俄罗斯方块，每种有4种旋转态，共28种形态
+// 每种形态记录：4个块的相对坐标(8个值)、颜色、下一个旋转态索引
 Shape shapes[19] =
 {
 	/*{x1,y1,x2,y2,x3,y3,x4,y4, color, next}*/
@@ -34,6 +36,7 @@ Shape shapes[19] =
 												/*  ##    */
 };
 
+// 全局变量：SDL窗口、渲染器、字体、布局、游戏状态、日志文件
 SDL_Window* win;
 SDL_Renderer* rdr;
 GameFonts fonts;

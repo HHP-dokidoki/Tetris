@@ -2,8 +2,8 @@
 
 #define COMMON_H
 
-#include <SDL.h>
-#include <SDL_ttf.h>
+#include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -62,7 +62,7 @@
 #define BACKGROUND_COLOR (SDL_Color){127, 127, 127, 127}
 #define BORDER_COLOR	 (SDL_Color){255, 255, 255, 255}
 #define UPPERBOUND_COLOR (SDL_Color){127, 0, 0, 127}
-#define PauseMenu_Color  (SDL_Color){70, 70, 70, 90}
+#define PauseMenu_Color  (SDL_Color){50, 50, 50, 100}
 #define Highlight_Color  (SDL_Color){255, 255, 255, 100}
 
 #define DOWN  1
@@ -93,42 +93,42 @@ typedef struct {
 // 布局（几何区域）
 typedef struct {
 
-	SDL_Rect ScoreLabelRect;		// "SCORE" 文字位置
-	SDL_Rect NextPreviewRect;		// "NEXT" 
-	SDL_Rect LineCountLabelRect;	// "LINES"
-	SDL_Rect DifficultyRect;		// "DITFFICULTY"
+	SDL_FRect ScoreLabelRect;		// "SCORE" 文字位置
+	SDL_FRect NextPreviewRect;		// "NEXT" 
+	SDL_FRect LineCountLabelRect;	// "LINES"
+	SDL_FRect DifficultyRect;		// "DITFFICULTY"
 
-	SDL_Rect ScoreValueRect;		// 分数值位置
-	SDL_Rect NextPreviewShapeRect;	// 下一块预览区域
-	SDL_Rect LineCountValueRect;	// 行数值
-	SDL_Rect DifficultyValueRect;	// 难度数值
+	SDL_FRect ScoreValueRect;		// 分数值位置
+	SDL_FRect NextPreviewShapeRect;	// 下一块预览区域
+	SDL_FRect LineCountValueRect;	// 行数值
+	SDL_FRect DifficultyValueRect;	// 难度数值
 
-	SDL_Rect PauseMenuRect;
-	SDL_Rect PauseMessageRect;
-	SDL_Rect ContinueRect;
-	SDL_Rect SaveRect;
-	SDL_Rect LoadRect;
-	SDL_Rect LeaveRect;
+	SDL_FRect PauseMenuRect;
+	SDL_FRect PauseMessageRect;
+	SDL_FRect ContinueRect;
+	SDL_FRect SaveRect;
+	SDL_FRect LoadRect;
+	SDL_FRect LeaveRect;
 
-	SDL_Rect WelPageRect;
-	SDL_Rect WelcomeRect;
-	SDL_Rect StartRect;
-	SDL_Rect WelLoadRect;
-	SDL_Rect WelLeaveRect;
+	SDL_FRect WelPageRect;
+	SDL_FRect WelcomeRect;
+	SDL_FRect StartRect;
+	SDL_FRect WelLoadRect;
+	SDL_FRect WelLeaveRect;
 
 	// GameOver
-	SDL_Rect GVPageRect;
-	SDL_Rect GameOverRect;
-	SDL_Rect GVLoadRect;
-	SDL_Rect GVLeaveRect;
+	SDL_FRect GVPageRect;
+	SDL_FRect GameOverRect;
+	SDL_FRect GVLoadRect;
+	SDL_FRect GVLeaveRect;
 
-	SDL_Rect GameAreaRect;
-	SDL_Rect LeftBorderRect;
-	SDL_Rect RightBorderRect;
-	SDL_Rect ButtonBorderRect;
-	SDL_Rect UpperboundBorderRect;
+	SDL_FRect GameAreaRect;
+	SDL_FRect LeftBorderRect;
+	SDL_FRect RightBorderRect;
+	SDL_FRect ButtonBorderRect;
+	SDL_FRect UpperboundBorderRect;
 
-	long double ratio;
+	float ratio;
 } Layout;
 
 // 字体资源（只读，初始化加载）

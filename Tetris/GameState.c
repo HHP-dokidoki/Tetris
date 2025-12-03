@@ -2,11 +2,13 @@
 #include "MapControl.h"
 #include "DrawItems.h"
 
+// 消除1~4行的得分倍数表
 static const int line_bonus[5] = { 0, 1, 3, 6, 10 };
+
 void GameStateInit(void)
 {
     TRACE_ENTER();
-
+    // 初始化游戏状态：地图、分数、难度、计时器、方块
     MapInit();
 
     State.Score = 0;
@@ -14,6 +16,7 @@ void GameStateInit(void)
     State.Difficulty = 1;
     State.LineCount = 0;
 
+    // 加速下落间隔和当前间隔
     State.Speed_interval = 50;
     State.Current_interval = 800;
     State.Base_interval = 800;
@@ -21,6 +24,7 @@ void GameStateInit(void)
     State.Last_tick = 0;
     State.Current_tick = 0;
 
+    // 初始化方块（-1表示未设置）
     State.Next_shape = -1;
     State.Current_shape = -1;
     State.Shape_pos_x = ST_X;
@@ -30,8 +34,7 @@ void GameStateInit(void)
 int CalScore(int row_cnt)
 {
     TRACE_ENTER();
-
-    // 一般用不到这个判断
+    // 根据消除行数计算获得的分数
     if (row_cnt < 0 || row_cnt > 4)
     {
         return 0;
@@ -43,12 +46,15 @@ int CalScore(int row_cnt)
 void LevelUp(void)
 {
     TRACE_ENTER();
+    // 升级处理：难度+1，增加基础分数，加快下落速度
     Uint32 new_interval = 0;
 
     State.Difficulty += 1;
 
+    // 难度越高，每行基础分数越高（每级+5）
     State.BaseScore = 10 + (State.Difficulty - 1) * 5;
 
+    // 计算新的下落速度（每级快100ms，最快50ms）
     new_interval = 800 - (State.Difficulty - 1) * 100;
     State.Base_interval = new_interval > State.Base_interval ? new_interval : State.Base_interval;
     State.Current_interval = State.Base_interval;
@@ -57,7 +63,7 @@ void LevelUp(void)
 void SaveGame(void)
 {
     TRACE_ENTER();
-
+    // 保存游戏状态到文件：地图+分数+难度+当前方块信息
     FILE* file = NULL;
     errno_t err = 0;
 
@@ -69,7 +75,7 @@ void SaveGame(void)
         return;
     }
 
-
+    // 保存地图占用状态（Value）
     for (int i = 0; i < NY; i++)
     {
         for (int j = 0; j < NX; j++)
@@ -79,6 +85,7 @@ void SaveGame(void)
         fputc('\n', file);
     }
 
+    // 分别保存颜色的R、G、B、A分量
     for (int i = 0; i < NY; i++)
     {
         for (int j = 0; j < NX; j++)
@@ -117,6 +124,7 @@ void SaveGame(void)
 
     fputc('\n', file);
 
+    // 保存游戏状态数据
     fprintf(file, "SCORE:%d\n", State.Score);
     fprintf(file, "DIFFICULTY:%d\n", State.Difficulty);
     fprintf(file, "LINECOUNT:%d\n", State.LineCount);
@@ -131,7 +139,7 @@ void SaveGame(void)
 void LoadGame(void)
 {
     TRACE_ENTER();
-
+    // 从文件加载游戏状态：地图+分数+难度+当前方块信息
     char line[520];
     errno_t err;
     FILE* file = NULL;
@@ -143,8 +151,8 @@ void LoadGame(void)
         fflush(log_file);
         return;
     }
-    
 
+    // 加载地图占用状态
     for (int i = 0; i < NY; i++)
     {
         for (int j = 0; j < NX; j++)
@@ -153,11 +161,11 @@ void LoadGame(void)
         }
     }
 
+    // 加载颜色分量（R、G、B、A）
     for (int i = 0; i < NY; i++)
     {
         for (int j = 0; j < NX; j++)
         {
-            // Color.r 的类型为Uint8，查看宏定义发现其根本上是unsigned char，用 %hhu读取
             fscanf_s(file, "%hhu", &State.map[i][j].Color.r);
         }
     }
@@ -175,7 +183,6 @@ void LoadGame(void)
         for (int j = 0; j < NX; j++)
         {
             fscanf_s(file, "%hhu", &State.map[i][j].Color.b);
-
         }
     }
 
@@ -187,8 +194,10 @@ void LoadGame(void)
         }
     }
 
+    // 跳过空行
     while (fgetc(file) != '\n' && !feof(file)) { ; }
 
+    // 加载游戏状态数据
     while (fgets(line, (int)sizeof(line), file))
     {
         if (strncmp(line, "SCORE:", 6) == 0)
@@ -222,12 +231,11 @@ void LoadGame(void)
     }
    
     fclose(file);
-    SDL_Log("Successfully loaded~\n");
 }
 
 void ResetGameState(void)
 {
     TRACE_ENTER();
-    // 这样写逻辑性更好一些,就不会在重置状态的时候调用初始化
+    // 重置游戏状态（调用初始化而非复制逻辑）
     GameStateInit();
 }
