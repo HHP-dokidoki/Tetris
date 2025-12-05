@@ -1,241 +1,255 @@
-ï»¿#include "Common.h"
+#include "Common.h"
 #include "MapControl.h"
 #include "DrawItems.h"
 
-// æ¶ˆé™¤1~4è¡Œçš„å¾—åˆ†å€æ•°è¡¨
+// Ïû³ı1~4ĞĞµÄµÃ·Ö±¶Êı±í
 static const int line_bonus[5] = { 0, 1, 3, 6, 10 };
 
 void GameStateInit(void)
 {
-    TRACE_ENTER();
-    // åˆå§‹åŒ–æ¸¸æˆçŠ¶æ€ï¼šåœ°å›¾ã€åˆ†æ•°ã€éš¾åº¦ã€è®¡æ—¶å™¨ã€æ–¹å—
-    MapInit();
+	TRACE_ENTER();
+	// ³õÊ¼»¯ÓÎÏ·×´Ì¬£ºµØÍ¼¡¢·ÖÊı¡¢ÄÑ¶È¡¢¼ÆÊ±Æ÷¡¢·½¿é
+	MapInit();
 
-    State.Score = 0;
-    State.BaseScore = 10;
-    State.Difficulty = 1;
-    State.LineCount = 0;
+	State.Score = 0;
+	State.BaseScore = 10;
+	State.Difficulty = 1;
+	State.LineCount = 0;
 
-    // åŠ é€Ÿä¸‹è½é—´éš”å’Œå½“å‰é—´éš”
-    State.Speed_interval = 50;
-    State.Current_interval = 800;
-    State.Base_interval = 800;
+	// ¼ÓËÙÏÂÂä¼ä¸ôºÍµ±Ç°¼ä¸ô
+	State.Speed_interval = 50;
+	State.Current_interval = 800;
+	State.Base_interval = 800;
 
-    State.Last_tick = 0;
-    State.Current_tick = 0;
+	State.Last_tick = 0;
+	State.Current_tick = 0;
 
-    // åˆå§‹åŒ–æ–¹å—ï¼ˆ-1è¡¨ç¤ºæœªè®¾ç½®ï¼‰
-    State.Next_shape = -1;
-    State.Current_shape = -1;
-    State.Shape_pos_x = ST_X;
-    State.Shape_pos_y = ST_Y;
+	// ³õÊ¼»¯·½¿é£¨-1±íÊ¾Î´ÉèÖÃ£©
+	State.Next_shape = -1;
+	State.Current_shape = -1;
+	State.Shape_pos_x = ST_X;
+	State.Shape_pos_y = ST_Y;
 }
 
 int CalScore(int row_cnt)
 {
-    TRACE_ENTER();
-    // æ ¹æ®æ¶ˆé™¤è¡Œæ•°è®¡ç®—è·å¾—çš„åˆ†æ•°
-    if (row_cnt < 0 || row_cnt > 4)
-    {
-        return 0;
-    }
+	TRACE_ENTER();
+	// ¸ù¾İÏû³ıĞĞÊı¼ÆËã»ñµÃµÄ·ÖÊı
+	if (row_cnt < 0 || row_cnt > 4)
+	{
+		return 0;
+	}
 
-    return line_bonus[row_cnt] * State.BaseScore;
+	return line_bonus[row_cnt] * State.BaseScore;
 }
 
 void LevelUp(void)
 {
-    TRACE_ENTER();
-    // å‡çº§å¤„ç†ï¼šéš¾åº¦+1ï¼Œå¢åŠ åŸºç¡€åˆ†æ•°ï¼ŒåŠ å¿«ä¸‹è½é€Ÿåº¦
-    Uint32 new_interval = 0;
+	TRACE_ENTER();
+	// Éı¼¶´¦Àí£ºÄÑ¶È+1£¬Ôö¼Ó»ù´¡·ÖÊı£¬¼Ó¿ìÏÂÂäËÙ¶È
+	Uint32 new_interval = 0;
 
-    State.Difficulty += 1;
+	State.Difficulty += 1;
 
-    // éš¾åº¦è¶Šé«˜ï¼Œæ¯è¡ŒåŸºç¡€åˆ†æ•°è¶Šé«˜ï¼ˆæ¯çº§+5ï¼‰
-    State.BaseScore = 10 + (State.Difficulty - 1) * 5;
+	// ÄÑ¶ÈÔ½¸ß£¬Ã¿ĞĞ»ù´¡·ÖÊıÔ½¸ß£¨Ã¿¼¶+5£©
+	State.BaseScore = 10 + (State.Difficulty - 1) * 5;
 
-    // è®¡ç®—æ–°çš„ä¸‹è½é€Ÿåº¦ï¼ˆæ¯çº§å¿«100msï¼Œæœ€å¿«50msï¼‰
-    new_interval = 800 - (State.Difficulty - 1) * 100;
-    State.Base_interval = new_interval > State.Base_interval ? new_interval : State.Base_interval;
-    State.Current_interval = State.Base_interval;
+	// ¼ÆËãĞÂµÄÏÂÂäËÙ¶È£¨Ã¿¼¶¿ì100ms£¬×î¿ì50ms£©
+	new_interval = 800 - (State.Difficulty - 1) * 100;
+	State.Base_interval = new_interval > State.Base_interval ? new_interval : State.Base_interval;
+	State.Current_interval = State.Base_interval;
 }
 
 void SaveGame(void)
 {
-    TRACE_ENTER();
-    // ä¿å­˜æ¸¸æˆçŠ¶æ€åˆ°æ–‡ä»¶ï¼šåœ°å›¾+åˆ†æ•°+éš¾åº¦+å½“å‰æ–¹å—ä¿¡æ¯
-    FILE* file = NULL;
-    errno_t err = 0;
+	TRACE_ENTER();
+	// ±£´æÓÎÏ·×´Ì¬µ½ÎÄ¼ş£ºµØÍ¼+·ÖÊı+ÄÑ¶È+µ±Ç°·½¿éĞÅÏ¢
+	FILE* file = NULL;
+	errno_t err = 0;
+	int temp;
 
-    err = fopen_s(&file, "..\\saves\\savedata.save", "w");
-    if (!(log_file && file && err == 0))
-    {
-        fprintf(log_file, "Load failed when trying to open save file.\n");
-        fflush(log_file);
-        return;
-    }
+	err = fopen_s(&file, "..\\saves\\savedata.save", "w");
+	if (!(file && err == 0))
+	{
+		if (log_file) {
+			fprintf(log_file, "Load failed when trying to open save file.\n");
+			fflush(log_file);
+		}
+		return;
+	}
 
-    // ä¿å­˜åœ°å›¾å ç”¨çŠ¶æ€ï¼ˆValueï¼‰
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fprintf(file, "%d ", State.map[i][j].Value);
-        }
-        fputc('\n', file);
-    }
+	// ±£´æµØÍ¼Õ¼ÓÃ×´Ì¬£¨Value£©
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			fprintf(file, "%d ", State.map[i][j].Value);
+		}
+		fputc('\n', file);
+	}
 
-    // åˆ†åˆ«ä¿å­˜é¢œè‰²çš„Rã€Gã€Bã€Aåˆ†é‡
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fprintf(file, "%d ", State.map[i][j].Color.r);
-        }
-        fputc('\n', file);
-    }
+	// ·Ö±ğ±£´æÑÕÉ«µÄR¡¢G¡¢B¡¢A·ÖÁ¿
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			temp = State.map[i][j].Color.r;
+			fprintf(file, "%d ", temp);
+		}
+		fputc('\n', file);
+	}
 
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fprintf(file, "%d ", State.map[i][j].Color.g);
-        }
-        fputc('\n', file);
-    }
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			temp = State.map[i][j].Color.g;
+			fprintf(file, "%d ", temp);
+		}
+		fputc('\n', file);
+	}
 
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fprintf(file, "%d ", State.map[i][j].Color.b);
-        }
-        fputc('\n', file);
-    }
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			temp = State.map[i][j].Color.b;
+			fprintf(file, "%d ", temp);
+		}
+		fputc('\n', file);
+	}
 
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fprintf(file, "%d ", State.map[i][j].Color.a);
-        }
-        fputc('\n', file);
-    }
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			temp = State.map[i][j].Color.a;
+			fprintf(file, "%d ", temp);
+		}
+		fputc('\n', file);
+	}
+	fputc('\n', file);
 
-    fputc('\n', file);
 
-    // ä¿å­˜æ¸¸æˆçŠ¶æ€æ•°æ®
-    fprintf(file, "SCORE:%d\n", State.Score);
-    fprintf(file, "DIFFICULTY:%d\n", State.Difficulty);
-    fprintf(file, "LINECOUNT:%d\n", State.LineCount);
-    fprintf(file, "CURRENT:%d\n", State.Current_shape);
-    fprintf(file, "NEXT:%d\n", State.Next_shape);
-    fprintf(file, "CURRENTX:%d\n", State.Shape_pos_x);
-    fprintf(file, "CURRENTY:%d\n", State.Shape_pos_y);
+	// ±£´æÓÎÏ·×´Ì¬Êı¾İ
+	fprintf(file, "SCORE:%d\n", State.Score);
+	fprintf(file, "DIFFICULTY:%d\n", State.Difficulty);
+	fprintf(file, "LINECOUNT:%d\n", State.LineCount);
+	fprintf(file, "CURRENT:%d\n", State.Current_shape);
+	fprintf(file, "NEXT:%d\n", State.Next_shape);
+	fprintf(file, "CURRENTX:%d\n", State.Shape_pos_x);
+	fprintf(file, "CURRENTY:%d\n", State.Shape_pos_y);
 
-    fclose(file);
+	fclose(file);
 }
 
 void LoadGame(void)
 {
-    TRACE_ENTER();
-    // ä»æ–‡ä»¶åŠ è½½æ¸¸æˆçŠ¶æ€ï¼šåœ°å›¾+åˆ†æ•°+éš¾åº¦+å½“å‰æ–¹å—ä¿¡æ¯
-    char line[520];
-    errno_t err;
-    FILE* file = NULL;
+	TRACE_ENTER();
+	// ´ÓÎÄ¼ş¼ÓÔØÓÎÏ·×´Ì¬£ºµØÍ¼+·ÖÊı+ÄÑ¶È+µ±Ç°·½¿éĞÅÏ¢
+	char line[520];
+	errno_t err;
+	FILE* file = NULL;
+	int temp;
 
-    err = fopen_s(&file, "..\\saves\\savedata.save", "r");
-    if (!(log_file && file && err == 0))
-    {
-        fprintf(log_file, "Save failed when trying to open save file.\n");
-        fflush(log_file);
-        return;
-    }
+	err = fopen_s(&file, "..\\saves\\savedata.save", "r");
+	if (!(file && err == 0))
+	{
+		if (log_file) {
+			fprintf(log_file, "Load failed when trying to open save file.\n");
+			fflush(log_file);
+		}
+		return;
+	}
 
-    // åŠ è½½åœ°å›¾å ç”¨çŠ¶æ€
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fscanf_s(file, "%d", &State.map[i][j].Value);
-        }
-    }
+	// ¼ÓÔØµØÍ¼Õ¼ÓÃ×´Ì¬
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			fscanf_s(file, "%d", &State.map[i][j].Value);
+		}
+	}
 
-    // åŠ è½½é¢œè‰²åˆ†é‡ï¼ˆRã€Gã€Bã€Aï¼‰
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fscanf_s(file, "%hhu", &State.map[i][j].Color.r);
-        }
-    }
+	// ¼ÓÔØÑÕÉ«·ÖÁ¿£¨R¡¢G¡¢B¡¢A£©
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			fscanf_s(file, "%d", &temp);
+			State.map[i][j].Color.r = (unsigned char)temp;
+		}
+	}
 
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fscanf_s(file, "%hhu", &State.map[i][j].Color.g);
-        }
-    }
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			fscanf_s(file, "%d", &temp);
+			State.map[i][j].Color.g = (unsigned char)temp;
+		}
+	}
 
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fscanf_s(file, "%hhu", &State.map[i][j].Color.b);
-        }
-    }
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			fscanf_s(file, "%d", &temp);
+			State.map[i][j].Color.b = (unsigned char)temp;
+		}
+	}
 
-    for (int i = 0; i < NY; i++)
-    {
-        for (int j = 0; j < NX; j++)
-        {
-            fscanf_s(file, "%hhu", &State.map[i][j].Color.a);
-        }
-    }
+	for (int i = 0; i < NY; i++)
+	{
+		for (int j = 0; j < NX; j++)
+		{
+			fscanf_s(file, "%d", &temp);
+			State.map[i][j].Color.a = (unsigned char)temp;
+		}
+	}
 
-    // è·³è¿‡ç©ºè¡Œ
-    while (fgetc(file) != '\n' && !feof(file)) { ; }
+	// Ìø¹ı¿ÕĞĞ
+	while (fgetc(file) != '\n' && !feof(file)) { ; }
 
-    // åŠ è½½æ¸¸æˆçŠ¶æ€æ•°æ®
-    while (fgets(line, (int)sizeof(line), file))
-    {
-        if (strncmp(line, "SCORE:", 6) == 0)
-        {
-            sscanf_s(line, "SCORE:%d", &State.Score);
-        }
-        else if (strncmp(line, "DIFFICULTY:", 11) == 0)
-        {
-            sscanf_s(line, "DIFFICULTY:%d", &State.Difficulty);
-        }
-        else if (strncmp(line, "LINECOUNT:", 10) == 0)
-        {
-            sscanf_s(line, "LINECOUNT:%d", &State.LineCount);
-        }
-        else if (strncmp(line, "CURRENT:", 8) == 0)
-        {
-            sscanf_s(line, "CURRENT:%d", &State.Current_shape);
-        }
-        else if (strncmp(line, "NEXT:", 5) == 0)
-        {
-            sscanf_s(line, "NEXT:%d", &State.Next_shape);
-        }
-        else if (strncmp(line, "CURRENTX:", 9) == 0)
-        {
-            sscanf_s(line, "CURRENTX:%d", &State.Shape_pos_x);
-        }
-        else if (strncmp(line, "CURRENTY:", 9) == 0)
-        {
-            sscanf_s(line, "CURRENTY:%d", &State.Shape_pos_y);
-        }
-    }
-   
-    fclose(file);
+	// ¼ÓÔØÓÎÏ·×´Ì¬Êı¾İ
+	while (fgets(line, (int)sizeof(line), file))
+	{
+		if (strncmp(line, "SCORE:", 6) == 0)
+		{
+			sscanf_s(line, "SCORE:%d", &State.Score);
+		}
+		else if (strncmp(line, "DIFFICULTY:", 11) == 0)
+		{
+			sscanf_s(line, "DIFFICULTY:%d", &State.Difficulty);
+		}
+		else if (strncmp(line, "LINECOUNT:", 10) == 0)
+		{
+			sscanf_s(line, "LINECOUNT:%d", &State.LineCount);
+		}
+		else if (strncmp(line, "CURRENT:", 8) == 0)
+		{
+			sscanf_s(line, "CURRENT:%d", &State.Current_shape);
+		}
+		else if (strncmp(line, "NEXT:", 5) == 0)
+		{
+			sscanf_s(line, "NEXT:%d", &State.Next_shape);
+		}
+		else if (strncmp(line, "CURRENTX:", 9) == 0)
+		{
+			sscanf_s(line, "CURRENTX:%d", &State.Shape_pos_x);
+		}
+		else if (strncmp(line, "CURRENTY:", 9) == 0)
+		{
+			sscanf_s(line, "CURRENTY:%d", &State.Shape_pos_y);
+		}
+	}
+
+	fclose(file);
 }
 
 void ResetGameState(void)
 {
-    TRACE_ENTER();
-    // é‡ç½®æ¸¸æˆçŠ¶æ€ï¼ˆè°ƒç”¨åˆå§‹åŒ–è€Œéå¤åˆ¶é€»è¾‘ï¼‰
-    GameStateInit();
+	TRACE_ENTER();
+	// ÖØÖÃÓÎÏ·×´Ì¬£¨µ÷ÓÃ³õÊ¼»¯¶ø·Ç¸´ÖÆÂß¼­£©
+	GameStateInit();
 }

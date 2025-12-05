@@ -1,36 +1,36 @@
-ï»¿#include "Common.h"
+#include "Common.h"
 
 
 void TetrisDrawText(char content[], TTF_Font* font, SDL_FRect* rect, int mode)
 {
 	TRACE_ENTER();
-	// æ¸²æŸ“æ–‡æœ¬åˆ°å±å¹•
-	// mode=1: å›ºå®šå®½åº¦ï¼›mode=2: æ ¹æ®æ–‡æœ¬é•¿åº¦åŠ¨æ€è®¡ç®—å®½åº¦
+	// äÖÈ¾ÎÄ±¾µ½ÆÁÄ»
+	// mode=1: ¹Ì¶¨¿í¶È£»mode=2: ¸ù¾İÎÄ±¾³¤¶È¶¯Ì¬¼ÆËã¿í¶È
 	SDL_Texture* texture;
 	SDL_Surface* text_surf;
 
-	// æ ¹æ®modeè®¡ç®—æ–‡æœ¬æ¡†å®½åº¦
+	// ¸ù¾İmode¼ÆËãÎÄ±¾¿ò¿í¶È
 	SDL_FRect dest_frect = *rect;
 	
 	if (mode == 2)
 	{
-		// åŠ¨æ€å®½åº¦ï¼šæŒ‰å­—ç¬¦ä¸ªæ•°Ã—å•ä½å®½åº¦è®¡ç®—
+		// ¶¯Ì¬¿í¶È£º°´×Ö·û¸öÊı¡Áµ¥Î»¿í¶È¼ÆËã
 		dest_frect.w = strlen(content) * rect->w;
 	}
 	else
 	{
-		// å›ºå®šå®½åº¦
+		// ¹Ì¶¨¿í¶È
 		dest_frect.w = rect->w;
 	}
 
-	// æ¸²æŸ“æ–‡æœ¬ä¸ºè¡¨é¢
+	// äÖÈ¾ÎÄ±¾Îª±íÃæ
 	text_surf = TTF_RenderText_Blended(font, content, strlen(content), fonts.Color);
 	if (text_surf == NULL) {
 		SDL_Log("TTF_RenderText_Blended Failed.");
 		return;
 	}
 
-	// å°†è¡¨é¢è½¬ä¸ºGPUçº¹ç†ï¼ˆé¢‘ç¹åˆ›å»ºé”€æ¯ä¼šå½±å“æ€§èƒ½ï¼Œä½†æ¸¸æˆè§„æ¨¡å°å¯æ¥å—ï¼‰
+	// ½«±íÃæ×ªÎªGPUÎÆÀí£¨Æµ·±´´½¨Ïú»Ù»áÓ°ÏìĞÔÄÜ£¬µ«ÓÎÏ·¹æÄ£Ğ¡¿É½ÓÊÜ£©
 	texture = SDL_CreateTextureFromSurface(rdr, text_surf);
 	if (texture == NULL)
 	{
@@ -39,14 +39,14 @@ void TetrisDrawText(char content[], TTF_Font* font, SDL_FRect* rect, int mode)
 		return;
 	}
 
-	// æ¸²æŸ“çº¹ç†åˆ°å±å¹•
-	if (SDL_RenderTexture(rdr, texture, NULL, &dest_frect) < 0)
+	// äÖÈ¾ÎÆÀíµ½ÆÁÄ»
+	if (!SDL_RenderTexture(rdr, texture, NULL, &dest_frect))
 	{
 		SDL_Log("SDL_RenderCopy Failed.\n");
 		return;
 	}
 
-	// æ¸…ç†èµ„æº
+	// ÇåÀí×ÊÔ´
 	if (texture != NULL)
 	{
 		SDL_DestroyTexture(texture);
@@ -60,32 +60,32 @@ void TetrisDrawText(char content[], TTF_Font* font, SDL_FRect* rect, int mode)
 void DrawRect(SDL_FRect *rect,SDL_Color color)
 {
 	TRACE_ENTER();
-	// ç»˜åˆ¶å¡«å……çŸ©å½¢ï¼Œç”¨äºèƒŒæ™¯ã€èœå•æ¡†ç­‰UIå…ƒç´ 
+	// »æÖÆÌî³ä¾ØĞÎ£¬ÓÃÓÚ±³¾°¡¢²Ëµ¥¿òµÈUIÔªËØ
 	SDL_SetRenderDrawColor(rdr, color.r, color.g, color.b, color.a);
 	SDL_RenderFillRect(rdr, rect);
 }
 
-void DrawBlock(int x, int y, SDL_Color color, float size)
+void DrawBlock(float x, float y, SDL_Color color, float size)
 {
 	TRACE_ENTER();
-	// ç»˜åˆ¶æ–¹å—ï¼šå¡«å……æ­£æ–¹å½¢+è¾¹æ¡†ï¼ˆè¾¹æ¡†é¢œè‰²ç•¥æ·±ï¼‰
+	// »æÖÆ·½¿é£ºÌî³äÕı·½ĞÎ+±ß¿ò£¨±ß¿òÑÕÉ«ÂÔÉî£©
 	SDL_FRect block;
 	block.w = size;
 	block.h = size;
 	block.x = x;
 	block.y = y;
-	// å¡«å……
+	// Ìî³ä
 	SDL_SetRenderDrawColor(rdr, color.r, color.g, color.b, color.a);
 	SDL_RenderFillRect(rdr, &block);
-	// è¾¹æ¡†ï¼šé¢œè‰²åŠ æ·±10ä»¥å¢åŠ è§†è§‰æ•ˆæœ
+	// ±ß¿ò£ºÑÕÉ«¼ÓÉî10ÒÔÔö¼ÓÊÓ¾õĞ§¹û
 	SDL_SetRenderDrawColor(rdr, color.r + 10, color.g + 10, color.b + 10, 127);
 	SDL_RenderRect(rdr, &block);
 }
 
 void DrawSingleShape(int shape_id, int shape_pos_x, int shape_pos_y,float size)
 {
-	// ç»˜åˆ¶å•ä¸ªæ–¹å—å½¢çŠ¶ï¼ˆ4ä¸ªå°æ­£æ–¹å½¢ç»„æˆï¼‰
-	// åæ ‡ç³»ï¼šshape_pos_x/yä»¥mapæ ¼å­ä¸ºå•ä½ï¼ˆä»1å¼€å§‹ï¼‰ï¼Œéœ€è½¬æ¢ä¸ºåƒç´ åæ ‡
+	// »æÖÆµ¥¸ö·½¿éĞÎ×´£¨4¸öĞ¡Õı·½ĞÎ×é³É£©
+	// ×ø±êÏµ£ºshape_pos_x/yÒÔmap¸ñ×ÓÎªµ¥Î»£¨´Ó1¿ªÊ¼£©£¬Ğè×ª»»ÎªÏñËØ×ø±ê
 	TRACE_ENTER();
 
 	if (shape_id < 0 || shape_id >= 19)
@@ -98,7 +98,7 @@ void DrawSingleShape(int shape_id, int shape_pos_x, int shape_pos_y,float size)
 	{
 		dx = shapes[shape_id].D[i];
 		dy = shapes[shape_id].D[i + 1];
-		// åæ ‡è½¬æ¢ï¼šmapåæ ‡(å‡1)â†’åƒç´ åæ ‡(ä¹˜size)+åç§»å€¼
+		// ×ø±ê×ª»»£ºmap×ø±ê(¼õ1)¡úÏñËØ×ø±ê(³Ësize)+Æ«ÒÆÖµ
 		DrawBlock((shape_pos_x + dx - 1) * size + layout.LeftBorderRect.w,
 				(shape_pos_y + dy - 1) * size + layout.UpperboundBorderRect.h,
 				  shapes[shape_id].Color,
@@ -109,10 +109,10 @@ void DrawSingleShape(int shape_id, int shape_pos_x, int shape_pos_y,float size)
 void DrawShapes(int shape_pos_x, int shape_pos_y, int shape_id)
 {
 	TRACE_ENTER();
-	// ç»˜åˆ¶æ‰€æœ‰æ–¹å—ï¼šå·²å›ºå®šåœ¨åœ°å›¾ä¸Šçš„+å½“å‰ä¸‹è½çš„æ–¹å—
+	// »æÖÆËùÓĞ·½¿é£ºÒÑ¹Ì¶¨ÔÚµØÍ¼ÉÏµÄ+µ±Ç°ÏÂÂäµÄ·½¿é
 	float block_size = (layout.ratio * STD_BLOCK_SIZE);
 	
-	// ç»˜åˆ¶å·²å›ºå®šçš„æ–¹å—ï¼ˆéå†mapï¼‰
+	// »æÖÆÒÑ¹Ì¶¨µÄ·½¿é£¨±éÀúmap£©
 	for (int i = 1; i <= NY - 2; i++)
 	{
 		for (int j = 1; j <= NX - 2; j++)
@@ -129,13 +129,13 @@ void DrawShapes(int shape_pos_x, int shape_pos_y, int shape_id)
 		}
 	}
 
-	// ç»˜åˆ¶å½“å‰ä¸‹è½çš„æ–¹å—
+	// »æÖÆµ±Ç°ÏÂÂäµÄ·½¿é
 	DrawSingleShape(shape_id, shape_pos_x, shape_pos_y, block_size);
 }
 
-void DrawPreviewShape(int shape_id, int shape_pos_x, int shape_pos_y, float size)
+void DrawPreviewShape(int shape_id, float shape_pos_x, float shape_pos_y, float size)
 {
-	// åœ¨é¢„è§ˆåŒºç»˜åˆ¶ä¸‹ä¸€ä¸ªæ–¹å—ï¼ˆå¤§å°å’Œä½ç½®ç‹¬ç«‹äºæ¸¸æˆåŒºï¼‰
+	// ÔÚÔ¤ÀÀÇø»æÖÆÏÂÒ»¸ö·½¿é£¨´óĞ¡ºÍÎ»ÖÃ¶ÀÁ¢ÓÚÓÎÏ·Çø£©
 	TRACE_ENTER();
 
 	if (shape_id < 0 || shape_id >= 19)
@@ -143,14 +143,14 @@ void DrawPreviewShape(int shape_id, int shape_pos_x, int shape_pos_y, float size
 		SDL_Log("Invalid shape id :%d\n", shape_id);
 		return;
 	}
-	int dx, dy;
+	float dx, dy;
 	for (int i = 0; i < 8; i += 2)
 	{
-		// é¢„è§ˆåŒºä½¿ç”¨ç»å¯¹åƒç´ åæ ‡ï¼ˆä¸éœ€è¦åœ°å›¾åæ ‡è½¬æ¢ï¼‰
+		// Ô¤ÀÀÇøÊ¹ÓÃ¾ø¶ÔÏñËØ×ø±ê£¨²»ĞèÒªµØÍ¼×ø±ê×ª»»£©
 		dx = shapes[shape_id].D[i] * size;
 		dy = shapes[shape_id].D[i + 1] * size;
-		DrawBlock(shape_pos_x + dx,
-			shape_pos_y + dy,
+		DrawBlock((float)(shape_pos_x + dx),
+			(float)(shape_pos_y + dy),
 			shapes[shape_id].Color,
 			size);
 	}
@@ -159,29 +159,29 @@ void DrawPreviewShape(int shape_id, int shape_pos_x, int shape_pos_y, float size
 void ToString(int value, char* buffer)
 {
 	TRACE_ENTER();
-	// å°†æ•´æ•°è½¬æ¢ä¸ºå­—ç¬¦ä¸²ï¼ˆç”¨äºæ˜¾ç¤ºåˆ†æ•°ã€è¡Œæ•°ã€éš¾åº¦ç­‰ï¼‰
+	// ½«ÕûÊı×ª»»Îª×Ö·û´®£¨ÓÃÓÚÏÔÊ¾·ÖÊı¡¢ĞĞÊı¡¢ÄÑ¶ÈµÈ£©
 	sprintf_s(buffer, 20, "%d", value);
 }
 
 void DrawDynamicItems(int nxt_shape_id)
 {
 	TRACE_ENTER();
-	// ç»˜åˆ¶åŠ¨æ€å˜åŒ–çš„UIå…ƒç´ ï¼šåˆ†æ•°ã€éš¾åº¦ã€è¡Œæ•°ã€é¢„è§ˆæ–¹å—
+	// »æÖÆ¶¯Ì¬±ä»¯µÄUIÔªËØ£º·ÖÊı¡¢ÄÑ¶È¡¢ĞĞÊı¡¢Ô¤ÀÀ·½¿é
 	char str[20];
 	
-	// ç»˜åˆ¶åˆ†æ•°
+	// »æÖÆ·ÖÊı
 	ToString(State.Score, str);
 	TetrisDrawText(str, fonts.NumberFont, &layout.ScoreValueRect, 2);
 
-	// ç»˜åˆ¶éš¾åº¦
+	// »æÖÆÄÑ¶È
 	ToString(State.Difficulty, str);
 	TetrisDrawText(str, fonts.NumberFont, &layout.DifficultyValueRect, 2);
 
-	// ç»˜åˆ¶æ¶ˆé™¤è¡Œæ•°
+	// »æÖÆÏû³ıĞĞÊı
 	ToString(State.LineCount, str);
 	TetrisDrawText(str, fonts.NumberFont, &layout.LineCountValueRect, 2);
 
-	// ç»˜åˆ¶é¢„è§ˆæ–¹å—
+	// »æÖÆÔ¤ÀÀ·½¿é
 	DrawPreviewShape(nxt_shape_id,
 		layout.NextPreviewShapeRect.x,
 		layout.NextPreviewShapeRect.y,
@@ -192,18 +192,18 @@ void DrawDynamicItems(int nxt_shape_id)
 void DrawGameLayout(void)
 {
 	TRACE_ENTER();
-	// ç»˜åˆ¶æ¸¸æˆç•Œé¢çš„é™æ€UIï¼šèƒŒæ™¯ã€è¾¹æ¡†ã€æ ‡ç­¾æ–‡å­—
+	// »æÖÆÓÎÏ·½çÃæµÄ¾²Ì¬UI£º±³¾°¡¢±ß¿ò¡¢±êÇ©ÎÄ×Ö
 
 	SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
 
-	// æ¸¸æˆåŒºèƒŒæ™¯å’Œè¾¹æ¡†
+	// ÓÎÏ·Çø±³¾°ºÍ±ß¿ò
 	DrawRect(&layout.GameAreaRect, BACKGROUND_COLOR);
 	DrawRect(&layout.UpperboundBorderRect, UPPERBOUND_COLOR);
 	DrawRect(&layout.LeftBorderRect, BORDER_COLOR);
 	DrawRect(&layout.RightBorderRect, BORDER_COLOR);
 	DrawRect(&layout.ButtonBorderRect, BORDER_COLOR);
 
-	// ä¾§è¾¹æ æ ‡ç­¾æ–‡å­—
+	// ²à±ßÀ¸±êÇ©ÎÄ×Ö
 	TetrisDrawText("NEXT SHAPE", fonts.UIFont, &layout.NextPreviewRect, 1);
 	TetrisDrawText("DIFFICULTY", fonts.UIFont, &layout.DifficultyRect, 1);
 	TetrisDrawText("SCORE", fonts.UIFont, &layout.ScoreLabelRect, 1);
@@ -218,23 +218,23 @@ static SDL_FRect* PauseRect_p[5] =
 void DrawPauseLayout(int pos)
 {
 	TRACE_ENTER();
-	// ç»˜åˆ¶æš‚åœèœå•ï¼šåŠé€æ˜èƒŒæ™¯+èœå•é€‰é¡¹+é«˜äº®æ˜¾ç¤ºå½“å‰é€‰é¡¹
+	// »æÖÆÔİÍ£²Ëµ¥£º°ëÍ¸Ã÷±³¾°+²Ëµ¥Ñ¡Ïî+¸ßÁÁÏÔÊ¾µ±Ç°Ñ¡Ïî
 	if (pos < 0 || pos >= 5) {
 		SDL_Log("Invalid position index: %d\n", pos);
 		return;
 	}
 
-	// èœå•èƒŒæ™¯
+	// ²Ëµ¥±³¾°
 	DrawRect(&layout.PauseMenuRect, PauseMenu_Color);
 
-	// èœå•é€‰é¡¹æ–‡å­—
+	// ²Ëµ¥Ñ¡ÏîÎÄ×Ö
 	TetrisDrawText("Paused", fonts.UIFont, &layout.PauseMessageRect, 1);
 	TetrisDrawText("Continue", fonts.UIFont, &layout.ContinueRect, 1);
 	TetrisDrawText("Save", fonts.UIFont, &layout.SaveRect, 1);
 	TetrisDrawText("Load", fonts.UIFont, &layout.LoadRect, 1);
 	TetrisDrawText("Leave", fonts.UIFont, &layout.LeaveRect, 1);
 
-	// é«˜äº®å½“å‰é€‰ä¸­çš„èœå•é¡¹
+	// ¸ßÁÁµ±Ç°Ñ¡ÖĞµÄ²Ëµ¥Ïî
 	DrawRect(PauseRect_p[pos], Highlight_Color);
 }
 
@@ -245,45 +245,45 @@ static SDL_FRect* WelRect_p[3] =
 void DrawWelcomeLayout(int pos)
 {
 	TRACE_ENTER();
-	// ç»˜åˆ¶æ¬¢è¿èœå•ï¼šæ¸…ç©ºå±å¹•+æ ‡é¢˜+é€‰é¡¹+é«˜äº®æ˜¾ç¤ºå½“å‰é€‰é¡¹
+	// »æÖÆ»¶Ó­²Ëµ¥£ºÇå¿ÕÆÁÄ»+±êÌâ+Ñ¡Ïî+¸ßÁÁÏÔÊ¾µ±Ç°Ñ¡Ïî
 	if (pos < 0 || pos > 2) {
 		SDL_Log("Invalid position index: %d\n", pos);
 		return;
 	}
 
-	// æ¸…ç©ºå±å¹•ï¼ˆé»‘è‰²èƒŒæ™¯ï¼‰
+	// Çå¿ÕÆÁÄ»£¨ºÚÉ«±³¾°£©
 	SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 	SDL_RenderClear(rdr);
 
-	// èœå•èƒŒæ™¯
+	// ²Ëµ¥±³¾°
 	DrawRect(&layout.WelPageRect, PauseMenu_Color);
 
-	// æ ‡é¢˜å’Œé€‰é¡¹
+	// ±êÌâºÍÑ¡Ïî
 	TetrisDrawText("TETRIS", fonts.UIFont, &layout.WelcomeRect, 1);
 	TetrisDrawText("Start", fonts.UIFont, &layout.StartRect, 1);
 	TetrisDrawText("Load", fonts.UIFont, &layout.WelLoadRect, 1);
 	TetrisDrawText("Leave", fonts.UIFont, &layout.WelLeaveRect, 1);
 
-	// é«˜äº®å½“å‰é€‰ä¸­çš„èœå•é¡¹
+	// ¸ßÁÁµ±Ç°Ñ¡ÖĞµÄ²Ëµ¥Ïî
 	DrawRect(WelRect_p[pos], Highlight_Color);
 }
 
 void DrawHoleWindow(int shape_pos_x, int shape_pos_y, int current_shape, int next_shape)
 {
 	TRACE_ENTER();
-	// ç»˜åˆ¶æ¸¸æˆçª—å£å…¨éƒ¨å†…å®¹ï¼šæ¸…ç©ºâ†’èƒŒæ™¯â†’æ–¹å—â†’åŠ¨æ€æ•°å€¼
+	// »æÖÆÓÎÏ·´°¿ÚÈ«²¿ÄÚÈİ£ºÇå¿Õ¡ú±³¾°¡ú·½¿é¡ú¶¯Ì¬ÊıÖµ
 	
-	// æ¸…ç©ºå±å¹•
+	// Çå¿ÕÆÁÄ»
 	SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 	SDL_RenderClear(rdr);
 
-	// ç»˜åˆ¶é™æ€UIï¼ˆè¾¹æ¡†ã€æ ‡ç­¾ï¼‰
+	// »æÖÆ¾²Ì¬UI£¨±ß¿ò¡¢±êÇ©£©
 	DrawGameLayout();
 	
-	// ç»˜åˆ¶æ‰€æœ‰æ–¹å—
+	// »æÖÆËùÓĞ·½¿é
 	DrawShapes(shape_pos_x, shape_pos_y, current_shape);
 
-	// ç»˜åˆ¶åŠ¨æ€UIï¼ˆåˆ†æ•°ã€éš¾åº¦ã€é¢„è§ˆï¼‰
+	// »æÖÆ¶¯Ì¬UI£¨·ÖÊı¡¢ÄÑ¶È¡¢Ô¤ÀÀ£©
 	DrawDynamicItems(next_shape);
 }
 
@@ -292,7 +292,7 @@ static SDL_FRect* GVRect_p[2] =
 	&layout.GVLoadRect, &layout.GVLeaveRect
 };
 void DrawGVLayout(int pos) {
-	// ç»˜åˆ¶æ¸¸æˆç»“æŸèœå•ï¼šèƒŒæ™¯+æ ‡é¢˜+é€‰é¡¹+é«˜äº®æ˜¾ç¤ºå½“å‰é€‰é¡¹
+	// »æÖÆÓÎÏ·½áÊø²Ëµ¥£º±³¾°+±êÌâ+Ñ¡Ïî+¸ßÁÁÏÔÊ¾µ±Ç°Ñ¡Ïî
 	TRACE_ENTER();
 
 	if (pos < 0 || pos > 1) {
@@ -300,14 +300,14 @@ void DrawGVLayout(int pos) {
 		return;
 	}
 
-	// èœå•èƒŒæ™¯
+	// ²Ëµ¥±³¾°
 	DrawRect(&layout.GVPageRect, PauseMenu_Color);
 
-	// æ ‡é¢˜å’Œé€‰é¡¹
+	// ±êÌâºÍÑ¡Ïî
 	TetrisDrawText("Game Over!", fonts.UIFont, &layout.GameOverRect, 1);
 	TetrisDrawText("Load", fonts.UIFont, &layout.GVLoadRect, 1);
 	TetrisDrawText("Leave", fonts.UIFont, &layout.GVLeaveRect, 1);
 
-	// é«˜äº®å½“å‰é€‰ä¸­çš„èœå•é¡¹
+	// ¸ßÁÁµ±Ç°Ñ¡ÖĞµÄ²Ëµ¥Ïî
 	DrawRect(GVRect_p[pos], Highlight_Color);
 }

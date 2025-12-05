@@ -1,4 +1,4 @@
-ï»¿#include "Common.h"
+#include "Common.h"
 #include "Init.h"
 #include "MapControl.h"
 #include "GameState.h"
@@ -9,50 +9,40 @@
 
 int main()
 {
-	// æ—¥å¿—åˆå§‹åŒ–
+	// ÈÕÖ¾³õÊ¼»¯
 	if (LogInit())
 	{
 		SDL_Log("Open log file failed\n");
 		return -1;
 	}
 
-	// åˆå§‹åŒ–SDLçª—å£å’Œæ¸²æŸ“å™¨
+	// ³õÊ¼»¯SDL´°¿ÚºÍäÖÈ¾Æ÷
 	if (WindowRdrInit())
 	{
 		return -1;
 	}
 	
-	// åˆå§‹åŒ–å­—ä½“ç³»ç»Ÿ
+	// ³õÊ¼»¯×ÖÌåÏµÍ³
 	if (FontInit())
 	{
 		return -1;
 	}
 	
-	// è®¡ç®—UIå¸ƒå±€ï¼ˆæ ¹æ®çª—å£å¤§å°ç¼©æ”¾ï¼‰
+	// ¼ÆËãUI²¼¾Ö£¨¸ù¾İ´°¿Ú´óĞ¡Ëõ·Å£©
 	RectInit();
 	
-	// åˆå§‹åŒ–æ¸¸æˆçŠ¶æ€å’Œåœ°å›¾
+	// ³õÊ¼»¯ÓÎÏ·×´Ì¬ºÍµØÍ¼
 	GameStateInit();
 	
-	// åˆå§‹åŒ–éšæœºæ•°ç”Ÿæˆå™¨
+	// ³õÊ¼»¯Ëæ»úÊıÉú³ÉÆ÷
 	RandInit();
 	
-	// è¿›å…¥ä¸»äº‹ä»¶å¾ªç¯ï¼ˆæ¸¸æˆä¸»ç¨‹åºï¼‰
+	// ½øÈëÖ÷ÊÂ¼şÑ­»·£¨ÓÎÏ·Ö÷³ÌĞò£©
 	EnterMainEventLoop();
 
-	// æ¸…ç†æ‰€æœ‰èµ„æº
+	// ÇåÀíËùÓĞ×ÊÔ´
 	DeInit();
 	
-	// ç­‰å¾…ç”¨æˆ·è¾“å…¥åé€€å‡º
-	SDL_Log("Enter y to leave");
-	char c;
-	while (1)
-	{
-		c = getchar();
-		if (c == 'y')
-		{
-			break;
-		}
-	}
+
 	return 0;
 }

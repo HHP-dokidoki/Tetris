@@ -1,13 +1,14 @@
-ï»¿#ifndef COMMON_H
+#ifndef COMMON_H
 
 #define COMMON_H
 
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <math.h>
 #include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include <stdio.h>
+#include <string.h>
+
 
 #define STD_W 720
 #define STD_H 960
@@ -25,32 +26,20 @@
 #define ST_Y 0
 
 
-#define BLOCKHEIGHT 45
-#define BLOCKWIDTH  45
-
-#define PREVIEW_BLOCKHEIGHT 25
-#define PREVIEW_BLOCKWIDTH 25
-
-
-// çŠ¶æ€ç ï¼š
-// 1 è¿›å…¥æ¸¸æˆ
-// 2 è¿›å…¥æ¬¢è¿ç•Œé¢
-// 3 é€€å‡ºæ¸¸æˆ
-// 4 é‡å¼€
-// 5 å¿½ç•¥æ­¤çŠ¶æ€ç 
+// ×´Ì¬Âë£º
+// 1 ½øÈëÓÎÏ·
+// 2 ½øÈë»¶Ó­½çÃæ
+// 3 ÍË³öÓÎÏ·
+// 4 ÖØ¿ª
+// 5 ºöÂÔ´Ë×´Ì¬Âë
 #define StartGame 1
 #define EnterWelcomePage 2
 #define LeaveGame 3
 #define Restart 4
 #define IgnoreMe 5
 
-
-
 #define NX 14
 #define NY 23
-
-#define DX 10
-#define DY 0
 
 #define RED		{255,0  ,0  ,255}
 #define ORANGE	{255,165,0  ,255}
@@ -70,38 +59,68 @@
 #define RIGHT 3
 
 
-// ç®€å•çš„æ—¥å¿—å®
+// ¼òµ¥µÄÈÕÖ¾ºê
 #define TRACE_ENTER()  {									\
-    if (log_file) {											\
-        fprintf(log_file, "ENTER: %s()\n", __FUNCTION__);	\
-        fflush(log_file);									\
-    }														\
+	if (log_file) {											\
+		fprintf(log_file, "ENTER: %s()\n", __FUNCTION__);	\
+		fflush(log_file);									\
+	}														\
 }
 
 #define TRACE_MSG(msg) {									\
-    if (log_file) {											\
-        fprintf(log_file, "%s: %s\n", __FUNCTION__, msg);	\
-        fflush(log_file);									\
-    }														\
+	if (log_file) {											\
+		fprintf(log_file, "%s: %s\n", __FUNCTION__, msg);	\
+		fflush(log_file);									\
+	}														\
 }
+
+
+#ifndef _MSC_VER 
+	// Í¨¹ıºê¶¨ÒåÌáÉı¼æÈİ£¬ ÔÚ·Ç MSVC Æ½Ì¨±àÒëÊ±½« _s º¯Êıºê¶¨ÒåÎªÒ»°ãº¯Êı
+	#ifndef _ERRNO_T_DEFINED
+		typedef int errno_t;
+		#define _ERRNO_T_DEFINED
+	#endif
+
+	#define sscanf_s sscanf
+	#define fscanf_s fscanf
+	#define sprintf_s snprintf
+
+	// Ò»¸ö¼òµ¥µÄÄÚÁª fopen_s_ º¯Êı
+	static inline errno_t fopen_s_(FILE** file, const char* name, const char* mode) {
+		*file = fopen(name, mode);
+		if (*file == NULL) return 1; // Fail
+		return 0; // Success
+	}
+
+	#ifdef fopen_s
+		#undef fopen_s 
+	#endif
+
+	#define fopen_s fopen_s_
+
+#endif
+
+
+
 
 typedef struct {
 	int Value;
 	SDL_Color Color;
 }MAP;
 
-// å¸ƒå±€ï¼ˆå‡ ä½•åŒºåŸŸï¼‰
+// ²¼¾Ö£¨¼¸ºÎÇøÓò£©
 typedef struct {
 
-	SDL_FRect ScoreLabelRect;		// "SCORE" æ–‡å­—ä½ç½®
+	SDL_FRect ScoreLabelRect;		// "SCORE" ÎÄ×ÖÎ»ÖÃ
 	SDL_FRect NextPreviewRect;		// "NEXT" 
 	SDL_FRect LineCountLabelRect;	// "LINES"
 	SDL_FRect DifficultyRect;		// "DITFFICULTY"
 
-	SDL_FRect ScoreValueRect;		// åˆ†æ•°å€¼ä½ç½®
-	SDL_FRect NextPreviewShapeRect;	// ä¸‹ä¸€å—é¢„è§ˆåŒºåŸŸ
-	SDL_FRect LineCountValueRect;	// è¡Œæ•°å€¼
-	SDL_FRect DifficultyValueRect;	// éš¾åº¦æ•°å€¼
+	SDL_FRect ScoreValueRect;		// ·ÖÊıÖµÎ»ÖÃ
+	SDL_FRect NextPreviewShapeRect;	// ÏÂÒ»¿éÔ¤ÀÀÇøÓò
+	SDL_FRect LineCountValueRect;	// ĞĞÊıÖµ
+	SDL_FRect DifficultyValueRect;	// ÄÑ¶ÈÊıÖµ
 
 	SDL_FRect PauseMenuRect;
 	SDL_FRect PauseMessageRect;
@@ -131,15 +150,15 @@ typedef struct {
 	float ratio;
 } Layout;
 
-// å­—ä½“èµ„æºï¼ˆåªè¯»ï¼Œåˆå§‹åŒ–åŠ è½½ï¼‰
+// ×ÖÌå×ÊÔ´£¨Ö»¶Á£¬³õÊ¼»¯¼ÓÔØ£©
 typedef struct {
-	SDL_Color Color;		// å­—ä½“é¢œè‰²ï¼šç»Ÿä¸€ä¸ºç™½è‰²
-	TTF_Font* UIFont;		// ç”¨äº "SCORE", "NEXT", "Difficulty","LINES"
-	TTF_Font* NumberFont;   // ç”¨äºæ•°å­—
+	SDL_Color Color;		// ×ÖÌåÑÕÉ«£ºÍ³Ò»Îª°×É«
+	TTF_Font* UIFont;		// ÓÃÓÚ "SCORE", "NEXT", "Difficulty","LINES"
+	TTF_Font* NumberFont;   // ÓÃÓÚÊı×Ö
 } GameFonts;
 
 
-//å½¢çŠ¶
+//ĞÎ×´
 typedef struct {
 	/*{x1,y1,x2,y2,x3,y3,x4,y4, color, next}*/
 	int D[8];
@@ -147,7 +166,7 @@ typedef struct {
 	int Next;
 }Shape;
 
-// æ¸¸æˆçŠ¶æ€
+// ÓÎÏ·×´Ì¬
 typedef struct {
 
 	MAP map[NY][NX];
@@ -162,12 +181,12 @@ typedef struct {
 	int Shape_pos_x;
 	int Shape_pos_y;
 
-	Uint32 Current_tick;
-	Uint32 Last_tick;
+	Uint64 Current_tick;
+	Uint64 Last_tick;
 
-	Uint32 Speed_interval;
-	Uint32 Current_interval;
-	Uint32 Base_interval;
+	Uint64 Speed_interval;
+	Uint64 Current_interval;
+	Uint64 Base_interval;
 
 } GameState;
 

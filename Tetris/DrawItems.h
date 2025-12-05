@@ -1,4 +1,4 @@
-﻿#ifndef DRAWITEMS_H
+#ifndef DRAWITEMS_H
 
 #define DRAWITEMS_H
 

@@ -1,28 +1,28 @@
-ï»¿#include "common.h"
+#include "common.h"
 
 void RandInit(void)
 {
 	TRACE_ENTER();
-	// åˆå§‹åŒ–éšæœºæ•°ç”Ÿæˆå™¨ï¼Œä½¿ç”¨å½“å‰æ—¶é—´ä½œä¸ºç§å­
+	// ³õÊ¼»¯Ëæ»úÊıÉú³ÉÆ÷£¬Ê¹ÓÃµ±Ç°Ê±¼ä×÷ÎªÖÖ×Ó
 	srand((unsigned int)SDL_GetTicks());
 }
 
 void RectInit(void)
 {
 	TRACE_ENTER();
-	// æ ¹æ®çª—å£å¤§å°è®¡ç®—æ‰€æœ‰UIå…ƒç´ çš„ä½ç½®å’Œå°ºå¯¸ï¼ˆæ”¯æŒçª—å£ç¼©æ”¾ï¼‰
-	// è®¡ç®—ç¼©æ”¾æ¯”ä¾‹ï¼Œç¡®ä¿UIæŒ‰æ¯”ä¾‹è°ƒæ•´
+	// ¸ù¾İ´°¿Ú´óĞ¡¼ÆËãËùÓĞUIÔªËØµÄÎ»ÖÃºÍ³ß´ç£¨Ö§³Ö´°¿ÚËõ·Å£©
+	// ¼ÆËãËõ·Å±ÈÀı£¬È·±£UI°´±ÈÀıµ÷Õû
 	SDL_Rect window;
 	SDL_GetWindowSize(win, &window.w, &window.h);
 
-	float ratio = fmin((float)window.w / STD_W, (float)window.h / STD_H);
+	float ratio = (float)fmin((double)window.w / STD_W, (double)window.h / STD_H);
 
 	layout.ratio = ratio;
 	
-	int now_w = STD_W * ratio;
-	int now_h = STD_H * ratio;
+	float now_w = (float)STD_W * ratio;
+	float now_h = (float)STD_H * ratio;
 
-	// è®¡ç®—å„ç±»å…ƒç´ çš„ç¼©æ”¾å°ºå¯¸
+	// ¼ÆËã¸÷ÀàÔªËØµÄËõ·Å³ß´ç
 	float s_text_h = STD_SMALL_TEXT_HEIGHT * ratio;
 	float s_text_w = STD_SMALL_TEXT_WIDTH * ratio;
 	float b_text_h = STD_BIG_TEXT_HEIGHT * ratio;
@@ -30,194 +30,194 @@ void RectInit(void)
 	float preview_block_size = STD_PREVIEW_BLOCK_SIZE * ratio;
 	float block_size = STD_BLOCK_SIZE * ratio;
 
-	/* ---- æ¸¸æˆåŒºåŸŸï¼šè¾¹æ¡†å’Œæ¸¸æˆé¢æ¿ ---- */
-	layout.LeftBorderRect.w = block_size / 5;
+	/* ---- ÓÎÏ·ÇøÓò£º±ß¿òºÍÓÎÏ·Ãæ°å ---- */
+	layout.LeftBorderRect.w = block_size / 5.0f;
 	layout.LeftBorderRect.h = now_h;
-	layout.LeftBorderRect.x = 0;
-	layout.LeftBorderRect.y = 0;
+	layout.LeftBorderRect.x = 0.0f;
+	layout.LeftBorderRect.y = 0.0f;
 
-	layout.ButtonBorderRect.w = 12 * block_size + 2 * block_size / 5;
-	layout.ButtonBorderRect.h = block_size / 5;
-	layout.ButtonBorderRect.x = 0;
-	layout.ButtonBorderRect.y = now_h - block_size / 5;
+	layout.ButtonBorderRect.w = 12.0f * block_size + 2.0f * block_size / 5.0f;
+	layout.ButtonBorderRect.h = block_size / 5.0f;
+	layout.ButtonBorderRect.x = 0.0f;
+	layout.ButtonBorderRect.y = now_h - block_size / 5.0f;
 
-	layout.GameAreaRect.w = 12 * block_size;
-	layout.GameAreaRect.h = 21 * block_size;
+	layout.GameAreaRect.w = 12.0f * block_size;
+	layout.GameAreaRect.h = 21.0f * block_size;
 	layout.GameAreaRect.x = layout.LeftBorderRect.w;
 	layout.GameAreaRect.y = now_h - layout.GameAreaRect.h - layout.ButtonBorderRect.h;
 
 	layout.UpperboundBorderRect.w = layout.ButtonBorderRect.w;
 	layout.UpperboundBorderRect.h = now_h - layout.GameAreaRect.h - layout.ButtonBorderRect.h;
-	layout.UpperboundBorderRect.x = 0;
-	layout.UpperboundBorderRect.y = 0;
+	layout.UpperboundBorderRect.x = 0.0f;
+	layout.UpperboundBorderRect.y = 0.0f;
 
 	layout.RightBorderRect.w = layout.LeftBorderRect.w;
 	layout.RightBorderRect.h = layout.LeftBorderRect.h;
-	layout.RightBorderRect.x = layout.GameAreaRect.w + block_size / 5;
-	layout.RightBorderRect.y = 0;
+	layout.RightBorderRect.x = layout.GameAreaRect.w + block_size / 5.0f;
+	layout.RightBorderRect.y = 0.0f;
 
-	/* ---- ä¾§è¾¹æ ï¼šåˆ†æ•°ã€è¡Œæ•°ã€éš¾åº¦ã€é¢„è§ˆ ---- */
+	/* ---- ²à±ßÀ¸£º·ÖÊı¡¢ĞĞÊı¡¢ÄÑ¶È¡¢Ô¤ÀÀ ---- */
 	float msg_spacing = s_text_h + (20 * ratio);
-	float base_y = now_h / 16;
-	float base_x = now_w * 0.78;
+	float base_y = now_h / 16.0f;
+	float base_x = now_w * 0.78f;
 	
-	// ä¸‹ä¸€ä¸ªæ–¹å—é¢„è§ˆåŒº
+	// ÏÂÒ»¸ö·½¿éÔ¤ÀÀÇø
 	layout.NextPreviewRect.x = base_x;
 	layout.NextPreviewRect.y = base_y;
 	layout.NextPreviewRect.h = s_text_h;
-	layout.NextPreviewRect.w = s_text_w * 10;
+	layout.NextPreviewRect.w = s_text_w * 10.0f;
 
-	layout.NextPreviewShapeRect.x = base_x + 2 * preview_block_size;
-	layout.NextPreviewShapeRect.y = base_y + 2 * msg_spacing;
+	layout.NextPreviewShapeRect.x = base_x + 2.0f * preview_block_size;
+	layout.NextPreviewShapeRect.y = base_y + 2.0f * msg_spacing;
 
-	// åˆ†æ•°æ˜¾ç¤ºåŒº
+	// ·ÖÊıÏÔÊ¾Çø
 	layout.ScoreLabelRect.x = base_x;
-	layout.ScoreLabelRect.y = base_y + 3 * msg_spacing;
+	layout.ScoreLabelRect.y = base_y + 3.0f * msg_spacing;
 	layout.ScoreLabelRect.h = s_text_h;
-	layout.ScoreLabelRect.w = s_text_w * 5;
+	layout.ScoreLabelRect.w = s_text_w * 5.0f;
 
 	layout.ScoreValueRect.x = base_x;
-	layout.ScoreValueRect.y = base_y + 4 * msg_spacing;
+	layout.ScoreValueRect.y = base_y + 4.0f * msg_spacing;
 	layout.ScoreValueRect.h = s_text_h;
 	layout.ScoreValueRect.w = s_text_w;
 
-	// æ¶ˆé™¤è¡Œæ•°æ˜¾ç¤ºåŒº
+	// Ïû³ıĞĞÊıÏÔÊ¾Çø
 	layout.LineCountLabelRect.x = base_x;
-	layout.LineCountLabelRect.y = base_y + 5 * msg_spacing;
+	layout.LineCountLabelRect.y = base_y + 5.0f * msg_spacing;
 	layout.LineCountLabelRect.h = s_text_h;
-	layout.LineCountLabelRect.w = s_text_w * 9;
+	layout.LineCountLabelRect.w = s_text_w * 9.0f;
 
 	layout.LineCountValueRect.x = base_x;
-	layout.LineCountValueRect.y = base_y + 6 * msg_spacing;
+	layout.LineCountValueRect.y = base_y + 6.0f * msg_spacing;
 	layout.LineCountValueRect.h = s_text_h;
 	layout.LineCountValueRect.w = s_text_w;
 
-	// éš¾åº¦æ˜¾ç¤ºåŒº
+	// ÄÑ¶ÈÏÔÊ¾Çø
 	layout.DifficultyRect.x = base_x;
-	layout.DifficultyRect.y = base_y + 7 * msg_spacing;
+	layout.DifficultyRect.y = base_y + 7.0f * msg_spacing;
 	layout.DifficultyRect.h = s_text_h;
-	layout.DifficultyRect.w = s_text_w * 10;
+	layout.DifficultyRect.w = s_text_w * 10.0f;
 
 	layout.DifficultyValueRect.x = base_x;
-	layout.DifficultyValueRect.y = base_y + 8 * msg_spacing;
+	layout.DifficultyValueRect.y = base_y + 8.0f * msg_spacing;
 	layout.DifficultyValueRect.h = s_text_h;
 	layout.DifficultyValueRect.w = s_text_w;
 
-	/* ---- æš‚åœèœå•å¸ƒå±€ ---- */
-	float pm_x = 0.16 * now_w;
-	float pm_y = 0.1 * now_h;
-	float pm_w = 10 * b_text_w;
-	float pm_h = 6.5 * b_text_h;
-	float p_midline = pm_x + pm_w / 2;
+	/* ---- ÔİÍ£²Ëµ¥²¼¾Ö ---- */
+	float pm_x = 0.16f * now_w;
+	float pm_y = 0.1f * now_h;
+	float pm_w = 10.0f * b_text_w;
+	float pm_h = 6.5f * b_text_h;
+	float p_midline = pm_x + pm_w / 2.0f;
 
 	layout.PauseMenuRect.x = pm_x;
 	layout.PauseMenuRect.y = pm_y;
 	layout.PauseMenuRect.h = pm_h;
 	layout.PauseMenuRect.w = pm_w;
 
-	// èœå•æ ‡é¢˜
-	layout.PauseMessageRect.x = p_midline - 2.5 * 1.5 * b_text_w;
-	layout.PauseMessageRect.y = pm_y + (10 * ratio);
-	layout.PauseMessageRect.h = b_text_h * 1.5;
-	layout.PauseMessageRect.w = b_text_w * 1.5 * 5;
+	// ²Ëµ¥±êÌâ
+	layout.PauseMessageRect.x = p_midline - 2.5f * 1.5f * b_text_w;
+	layout.PauseMessageRect.y = pm_y + (10.0f * ratio);
+	layout.PauseMessageRect.h = b_text_h * 1.5f;
+	layout.PauseMessageRect.w = b_text_w * 1.5f * 5.0f;
 
-	// èœå•é€‰é¡¹æŒ‰é’®
-	float pm_btn_y = pm_y + 1.5 * b_text_h + (30 * ratio);
-	float pm_spacing = b_text_h + (20 * ratio);
+	// ²Ëµ¥Ñ¡Ïî°´Å¥
+	float pm_btn_y = pm_y + 1.5f * b_text_h + (30.0f * ratio);
+	float pm_spacing = b_text_h + (20.0f * ratio);
 
-	layout.ContinueRect.x = p_midline - 4 * b_text_w;
+	layout.ContinueRect.x = p_midline - 4.0f * b_text_w;
 	layout.ContinueRect.y = pm_btn_y;
 	layout.ContinueRect.h = b_text_h;
-	layout.ContinueRect.w = b_text_w * 8;
+	layout.ContinueRect.w = b_text_w * 8.0f;
 
-	layout.SaveRect.x = p_midline - 2 * b_text_w;
+	layout.SaveRect.x = p_midline - 2.0f * b_text_w;
 	layout.SaveRect.y = pm_btn_y + pm_spacing;
 	layout.SaveRect.h = b_text_h;
-	layout.SaveRect.w = b_text_w * 4;
+	layout.SaveRect.w = b_text_w * 4.0f;
 
-	layout.LoadRect.x = p_midline - 2 * b_text_w;
-	layout.LoadRect.y = pm_btn_y + pm_spacing * 2;
+	layout.LoadRect.x = p_midline - 2.0f * b_text_w;
+	layout.LoadRect.y = pm_btn_y + pm_spacing * 2.0f;
 	layout.LoadRect.h = b_text_h;
-	layout.LoadRect.w = b_text_w * 4;
+	layout.LoadRect.w = b_text_w * 4.0f;
 
-	layout.LeaveRect.x = p_midline - 2.5 * b_text_w;
-	layout.LeaveRect.y = pm_btn_y + pm_spacing * 3;
+	layout.LeaveRect.x = p_midline - 2.5f * b_text_w;
+	layout.LeaveRect.y = pm_btn_y + pm_spacing * 3.0f;
 	layout.LeaveRect.h = b_text_h;
-	layout.LeaveRect.w = b_text_w * 5;
+	layout.LeaveRect.w = b_text_w * 5.0f;
 
-	/* ---- æ¬¢è¿èœå•å¸ƒå±€ ---- */
-	float wel_x = 0.175 * now_w;
-	float wel_y = 0.1 * now_h;
-	float wel_w = 10 * b_text_w;
-	float wel_h = 6 * b_text_h;
-	float wel_midline = wel_x + wel_w / 2;
+	/* ---- »¶Ó­²Ëµ¥²¼¾Ö ---- */
+	float wel_x = 0.175f * now_w;
+	float wel_y = 0.1f * now_h;
+	float wel_w = 10.0f * b_text_w;
+	float wel_h = 6.0f * b_text_h;
+	float wel_midline = wel_x + wel_w / 2.0f;
 
 	layout.WelPageRect.x = wel_x;
 	layout.WelPageRect.y = wel_y;
 	layout.WelPageRect.h = wel_h;
 	layout.WelPageRect.w = wel_w;
 
-	// èœå•æ ‡é¢˜
-	layout.WelcomeRect.x = wel_midline - 3.5 * 1.5 * b_text_w;
-	layout.WelcomeRect.y = wel_y + (20 * ratio);
-	layout.WelcomeRect.h = 1.5 * b_text_h;
-	layout.WelcomeRect.w = 1.5 * b_text_w * 7;
+	// ²Ëµ¥±êÌâ
+	layout.WelcomeRect.x = wel_midline - 3.5f * 1.5f * b_text_w;
+	layout.WelcomeRect.y = wel_y + (20.0f * ratio);
+	layout.WelcomeRect.h = 1.5f * b_text_h;
+	layout.WelcomeRect.w = 1.5f * b_text_w * 7.0f;
 
-	// èœå•é€‰é¡¹æŒ‰é’®
-	float wel_btn_y = wel_y + 1.5 * b_text_h + (30 * ratio);
-	float wel_spacing = b_text_h + (20 * ratio);
+	// ²Ëµ¥Ñ¡Ïî°´Å¥
+	float wel_btn_y = wel_y + 1.5f * b_text_h + (30.0f * ratio);
+	float wel_spacing = b_text_h + (20.0f * ratio);
 
-	layout.StartRect.x = wel_midline - 2.5 * b_text_w;
+	layout.StartRect.x = wel_midline - 2.5f * b_text_w;
 	layout.StartRect.y = wel_btn_y;
 	layout.StartRect.h = b_text_h;
-	layout.StartRect.w = b_text_w * 5;
+	layout.StartRect.w = b_text_w * 5.0f;
 
-	layout.WelLoadRect.x = wel_midline - 2 * b_text_w;
+	layout.WelLoadRect.x = wel_midline - 2.0f * b_text_w;
 	layout.WelLoadRect.y = wel_btn_y + wel_spacing;
 	layout.WelLoadRect.h = b_text_h;
-	layout.WelLoadRect.w = b_text_w * 4;
+	layout.WelLoadRect.w = b_text_w * 4.0f;
 
-	layout.WelLeaveRect.x = wel_midline - 2.5 * b_text_w;
-	layout.WelLeaveRect.y = wel_btn_y + wel_spacing * 2;
+	layout.WelLeaveRect.x = wel_midline - 2.5f * b_text_w;
+	layout.WelLeaveRect.y = wel_btn_y + wel_spacing * 2.0f;
 	layout.WelLeaveRect.h = b_text_h;
-	layout.WelLeaveRect.w = b_text_w * 5;
+	layout.WelLeaveRect.w = b_text_w * 5.0f;
 
-	/* ---- æ¸¸æˆç»“æŸèœå•å¸ƒå±€ ---- */
-	float gv_x = 0.06 * now_w;
-	float gv_y = 0.35 * now_h;
-	float gv_w = 10 * b_text_w;
-	float gv_h = 2.5 * b_text_h;
-	float gv_midline = gv_x + gv_w / 2;
+	/* ---- ÓÎÏ·½áÊø²Ëµ¥²¼¾Ö ---- */
+	float gv_x = 0.06f * now_w;
+	float gv_y = 0.35f * now_h;
+	float gv_w = 10.0f * b_text_w;
+	float gv_h = 2.5f * b_text_h;
+	float gv_midline = gv_x + gv_w / 2.0f;
 
 	layout.GVPageRect.x = gv_x;
 	layout.GVPageRect.y = gv_y;
 	layout.GVPageRect.h = gv_h;
 	layout.GVPageRect.w = gv_w;
 
-	// èœå•æ ‡é¢˜
-	layout.GameOverRect.x = gv_midline - 4.5 * b_text_w;
-	layout.GameOverRect.y = gv_y + 20 * ratio;
+	// ²Ëµ¥±êÌâ
+	layout.GameOverRect.x = gv_midline - 4.5f * b_text_w;
+	layout.GameOverRect.y = gv_y + 20.0f * ratio;
 	layout.GameOverRect.h = b_text_h;
-	layout.GameOverRect.w = b_text_w * 9;
+	layout.GameOverRect.w = b_text_w * 9.0f;
 
-	// èœå•é€‰é¡¹æŒ‰é’®
-	float gv_btn_y = gv_y + b_text_h + (20 * ratio);
+	// ²Ëµ¥Ñ¡Ïî°´Å¥
+	float gv_btn_y = gv_y + b_text_h + (20.0f * ratio);
 
-	layout.GVLoadRect.x = gv_midline - 5 * b_text_w;
+	layout.GVLoadRect.x = gv_midline - 5.0f * b_text_w;
 	layout.GVLoadRect.y = gv_btn_y;
 	layout.GVLoadRect.h = b_text_h;
-	layout.GVLoadRect.w = b_text_w * 4;
+	layout.GVLoadRect.w = b_text_w * 4.0f;
 
-	layout.GVLeaveRect.x = gv_midline + 2 * b_text_w;
+	layout.GVLeaveRect.x = gv_midline + 2.0f * b_text_w;
 	layout.GVLeaveRect.y = gv_btn_y;
 	layout.GVLeaveRect.h = b_text_h;
-	layout.GVLeaveRect.w = b_text_w * 5;
+	layout.GVLeaveRect.w = b_text_w * 5.0f;
 }
 
 int FontInit(void)
 {
 	TRACE_ENTER();
-	// åˆå§‹åŒ–å­—ä½“ç³»ç»Ÿï¼šåŠ è½½UIå­—ä½“å’Œæ•°å­—å­—ä½“
+	// ³õÊ¼»¯×ÖÌåÏµÍ³£º¼ÓÔØUI×ÖÌåºÍÊı×Ö×ÖÌå
 
 	if (!TTF_Init())
 	{
@@ -225,11 +225,11 @@ int FontInit(void)
 		return -1;
 	}
 
-	// è®¾ç½®å­—ä½“é¢œè‰²ä¸ºç™½è‰²
+	// ÉèÖÃ×ÖÌåÑÕÉ«Îª°×É«
 	fonts.Color.r = 255; fonts.Color.g = 255;
 	fonts.Color.b = 255; fonts.Color.a = 255;
 
-	// åŠ è½½å­—ä½“æ–‡ä»¶
+	// ¼ÓÔØ×ÖÌåÎÄ¼ş
 	fonts.NumberFont = TTF_OpenFont("..\\Font\\SourceCodePro-ExtraBoldItalic.ttf", 50);
 	fonts.UIFont = TTF_OpenFont("..\\Font\\VT323-Regular.ttf", 50);
 
@@ -245,16 +245,16 @@ int FontInit(void)
 int WindowRdrInit(void)
 {
 	TRACE_ENTER();
-	// åˆå§‹åŒ–SDLçª—å£å’Œæ¸²æŸ“å™¨
+	// ³õÊ¼»¯SDL´°¿ÚºÍäÖÈ¾Æ÷
 
-	// åˆå§‹åŒ–SDLè§†é¢‘å’ŒéŸ³é¢‘æ¨¡å—
+	// ³õÊ¼»¯SDLÊÓÆµºÍÒôÆµÄ£¿é
 	if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
 	{
 		TRACE_MSG(SDL_GetError());
 		return -1;
 	}
 
-	// è·å–å±å¹•å°ºå¯¸ï¼Œé˜²æ­¢çª—å£è¶…è¿‡å±å¹•
+	// »ñÈ¡ÆÁÄ»³ß´ç£¬·ÀÖ¹´°¿Ú³¬¹ıÆÁÄ»
 	int win_w, win_h;
 	SDL_Rect screen;
 	if (!SDL_GetDisplayUsableBounds(SDL_GetPrimaryDisplay(), &screen))
@@ -268,12 +268,12 @@ int WindowRdrInit(void)
 		screen.h -= 100;
 	}
 
-	// è®¡ç®—ç¼©æ”¾æ¯”ä¾‹ï¼ŒæŒ‰æ ‡å‡†åˆ†è¾¨ç‡ç­‰æ¯”ç¼©æ”¾
-	float ratio = fmin((float)screen.w / STD_W, (float)screen.h / STD_H);
+	// ¼ÆËãËõ·Å±ÈÀı£¬°´±ê×¼·Ö±æÂÊµÈ±ÈËõ·Å
+	float ratio = (float)fmin((double)screen.w / STD_W, (double)screen.h / STD_H);
 	win_w = (int)(STD_W * ratio + 0.5L);
 	win_h = (int)(STD_H * ratio + 0.5L);
 
-	// åˆ›å»ºå¯è°ƒæ•´å¤§å°çš„çª—å£
+	// ´´½¨¿Éµ÷Õû´óĞ¡µÄ´°¿Ú
 	win = SDL_CreateWindow("Tetris", 
 		 win_w, win_h,
 		 SDL_WINDOW_RESIZABLE);
@@ -282,10 +282,10 @@ int WindowRdrInit(void)
 		TRACE_MSG(SDL_GetError());
 		return -1;
 	}
-	// è®¾ç½®çª—å£å®½é«˜æ¯”ä¸º3:4
+	// ÉèÖÃ´°¿Ú¿í¸ß±ÈÎª3:4
 	SDL_SetWindowAspectRatio(win, 0.75f, 0.75f);
 
-	// åˆ›å»ºæ¸²æŸ“å™¨
+	// ´´½¨äÖÈ¾Æ÷
 	rdr = SDL_CreateRenderer(win, NULL);
 	if (rdr == NULL)
 	{
@@ -294,13 +294,13 @@ int WindowRdrInit(void)
 		return -1;
 	}
 	
-	// åˆå§‹åŒ–æ¸²æŸ“å™¨ï¼šé»‘è‰²èƒŒæ™¯ï¼Œå¯ç”¨æ··åˆæ¨¡å¼ï¼ˆæ”¯æŒé€æ˜åº¦ï¼‰
+	// ³õÊ¼»¯äÖÈ¾Æ÷£ººÚÉ«±³¾°£¬ÆôÓÃ»ìºÏÄ£Ê½£¨Ö§³ÖÍ¸Ã÷¶È£©
 	SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 	SDL_SetRenderDrawBlendMode(rdr, SDL_BLENDMODE_BLEND);
 	SDL_RenderClear(rdr);
 	SDL_RenderPresent(rdr);
 
-	// æ¸…ç©ºæ¸¸æˆåœ°å›¾
+	// Çå¿ÕÓÎÏ·µØÍ¼
 	memset(State.map, 0, sizeof(State.map));
 	return 0;
 }
@@ -308,7 +308,7 @@ int WindowRdrInit(void)
 void FontDeInit(void)
 {
 	TRACE_ENTER();
-	// é‡Šæ”¾å­—ä½“èµ„æº
+	// ÊÍ·Å×ÖÌå×ÊÔ´
 	TTF_CloseFont(fonts.NumberFont);
 	TTF_CloseFont(fonts.UIFont);
 	TTF_Quit();
@@ -316,7 +316,7 @@ void FontDeInit(void)
 
 int LogInit(void)
 {
-	// åˆå§‹åŒ–æ—¥å¿—æ–‡ä»¶ç”¨äºdebugè¾“å‡º
+	// ³õÊ¼»¯ÈÕÖ¾ÎÄ¼şÓÃÓÚdebugÊä³ö
 	errno_t err;
 	err = fopen_s(&log_file, "..\\log\\game_Trace.log", "w");
 	if (log_file && err == 0)
@@ -335,7 +335,7 @@ int LogInit(void)
 void LogDeintit(void)
 {
 	TRACE_ENTER();
-	// å…³é—­æ—¥å¿—æ–‡ä»¶
+	// ¹Ø±ÕÈÕÖ¾ÎÄ¼ş
 	if (log_file)
 	{
 		fprintf(log_file, "=== Game Session Ended ===\n");
@@ -348,7 +348,7 @@ void LogDeintit(void)
 void DeInit(void)
 {
 	TRACE_ENTER();
-	// æ¸…ç†æ‰€æœ‰èµ„æºï¼šå­—ä½“ã€æ—¥å¿—ã€æ¸²æŸ“å™¨ã€çª—å£ã€SDLåº“
+	// ÇåÀíËùÓĞ×ÊÔ´£º×ÖÌå¡¢ÈÕÖ¾¡¢äÖÈ¾Æ÷¡¢´°¿Ú¡¢SDL¿â
 	FontDeInit();
 	LogDeintit();
 	SDL_DestroyRenderer(rdr);

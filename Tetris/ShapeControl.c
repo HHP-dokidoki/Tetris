@@ -1,15 +1,14 @@
-ï»¿#include "Common.h"
-
+#include "Common.h"
 
 int GetNextShape(void)
 {
 	TRACE_ENTER();
 
-	// ä¿è¯æ¯ç§æ–¹å—çš„æ¦‚ç‡éƒ½ä¸º 4/28
-	// i <= 12 ï¼šå‰ä¸‰ç§æ–¹å—ï¼Œæ¯ç§æ–¹å—éƒ½æœ‰å››ä¸ªä¸åŒæ—‹è½¬å½¢æ€
-	// 13 <= i && i <= 23 : ä¸‰ç§åªæœ‰ä¸¤ä¸ªæ—‹è½¬å½¢æ€çš„æ–¹å—ï¼Œ
-	//			æ¯ä¸ªå½¢æ€å‡ºç°æ¦‚ç‡å‡ä¸º 2/28ï¼Œ åŠ å’Œåæ–¹å—å‡ºç°æ¦‚ç‡ä¸º 4/28
-// i >= 24 : æ­£æ–¹å½¢
+	// ±£Ö¤Ã¿ÖÖ·½¿éµÄ¸ÅÂÊ¶¼Îª 4/28
+	// i <= 12 £ºÇ°ÈıÖÖ·½¿é£¬Ã¿ÖÖ·½¿é¶¼ÓĞËÄ¸ö²»Í¬Ğı×ªĞÎÌ¬
+	// 13 <= i && i <= 23 : ÈıÖÖÖ»ÓĞÁ½¸öĞı×ªĞÎÌ¬µÄ·½¿é£¬
+	//			Ã¿¸öĞÎÌ¬³öÏÖ¸ÅÂÊ¾ùÎª 2/28£¬ ¼ÓºÍºó·½¿é³öÏÖ¸ÅÂÊÎª 4/28
+// i >= 24 : Õı·½ĞÎ
 
 	int i;
 
@@ -22,23 +21,23 @@ int GetNextShape(void)
 int NotConflict(int shape_pos_x, int shape_pos_y, int shape_id)
 {
 	TRACE_ENTER();
-	// æ£€æŸ¥æ–¹å—æ˜¯å¦ä¸è¾¹ç•Œæˆ–å·²å›ºå®šæ–¹å—å‘ç”Ÿç¢°æ’
-	// éå†æ–¹å—çš„4ä¸ªå—ï¼ˆ8ä¸ªåæ ‡å€¼ï¼‰æ£€æŸ¥æ¯ä¸ªå—ä½ç½®
+	// ¼ì²é·½¿éÊÇ·ñÓë±ß½ç»òÒÑ¹Ì¶¨·½¿é·¢ÉúÅö×²
+	// ±éÀú·½¿éµÄ4¸ö¿é£¨8¸ö×ø±êÖµ£©¼ì²éÃ¿¸ö¿éÎ»ÖÃ
 	for (int i = 0; i < 8; i += 2)
 	{
-		// æ£€æŸ¥å·¦å³è¾¹ç•Œå’Œä¸‹è¾¹ç•Œï¼ˆåæ ‡å€¼åœ¨æœ‰æ•ˆèŒƒå›´å†…ï¼‰
+		// ¼ì²é×óÓÒ±ß½çºÍÏÂ±ß½ç£¨×ø±êÖµÔÚÓĞĞ§·¶Î§ÄÚ£©
 		if (shape_pos_x + shapes[shape_id].D[i] < 1
 			|| shape_pos_x + shapes[shape_id].D[i] >= NX - 1
 			|| shape_pos_y + shapes[shape_id].D[i + 1] >= NY - 1)
 		{
 			return 0;
 		}
-		// è·³è¿‡è¶…å‡ºä¸Šè¾¹ç•Œçš„å—ï¼ˆæ¸¸æˆèµ·å§‹æ—¶æ–¹å—å¯èƒ½éƒ¨åˆ†è¶…å‡ºå±å¹•ï¼‰
+		// Ìø¹ı³¬³öÉÏ±ß½çµÄ¿é£¨ÓÎÏ·ÆğÊ¼Ê±·½¿é¿ÉÄÜ²¿·Ö³¬³öÆÁÄ»£©
 		if (shape_pos_y + shapes[shape_id].D[i + 1] < 1)
 		{
 			continue;
 		}
-		// æ£€æŸ¥è¯¥ä½ç½®æ˜¯å¦å·²è¢«å æ®
+		// ¼ì²é¸ÃÎ»ÖÃÊÇ·ñÒÑ±»Õ¼¾İ
 		if (State.map[shape_pos_y + shapes[shape_id].D[i + 1]][shape_pos_x + shapes[shape_id].D[i]].Value)
 		{
 			return 0;
@@ -50,18 +49,18 @@ int NotConflict(int shape_pos_x, int shape_pos_y, int shape_id)
 int Moveable(int shape_pos_x, int shape_pos_y, int shape_id, int mode)
 {
 	TRACE_ENTER();
-	// åˆ¤æ–­æ–¹å—åœ¨æŒ‡å®šæ–¹å‘æ˜¯å¦å¯ç§»åŠ¨
-	// mode: DOWN(1)-ä¸‹ç§» LEFT(2)-å·¦ç§» RIGHT(3)-å³ç§»
+	// ÅĞ¶Ï·½¿éÔÚÖ¸¶¨·½ÏòÊÇ·ñ¿ÉÒÆ¶¯
+	// mode: DOWN(1)-ÏÂÒÆ LEFT(2)-×óÒÆ RIGHT(3)-ÓÒÒÆ
 	switch (mode)
 	{
 	case 1:
-		// å‘ä¸‹ç§»åŠ¨ï¼šæ£€æŸ¥y+1ä½ç½®æ˜¯å¦æ— ç¢°æ’
+		// ÏòÏÂÒÆ¶¯£º¼ì²éy+1Î»ÖÃÊÇ·ñÎŞÅö×²
 		return NotConflict(shape_pos_x, shape_pos_y + 1, shape_id);
 	case 2:
-		// å‘å·¦ç§»åŠ¨ï¼šæ£€æŸ¥x-1ä½ç½®æ˜¯å¦æ— ç¢°æ’
+		// Ïò×óÒÆ¶¯£º¼ì²éx-1Î»ÖÃÊÇ·ñÎŞÅö×²
 		return NotConflict(shape_pos_x - 1, shape_pos_y, shape_id);
 	case 3:
-		// å‘å³ç§»åŠ¨ï¼šæ£€æŸ¥x+1ä½ç½®æ˜¯å¦æ— ç¢°æ’
+		// ÏòÓÒÒÆ¶¯£º¼ì²éx+1Î»ÖÃÊÇ·ñÎŞÅö×²
 		return NotConflict(shape_pos_x + 1, shape_pos_y, shape_id);
 	}
 	return -1;
@@ -70,44 +69,44 @@ int Moveable(int shape_pos_x, int shape_pos_y, int shape_id, int mode)
 void MoveShape(int* shape_pos_x, int* shape_pos_y, int shape_id, int mode)
 {
 	TRACE_ENTER();
-	// ç§»åŠ¨æ–¹å—å¹¶æ›´æ–°åœ°å›¾æ˜¾ç¤º
-	// å…ˆæ¸…é™¤æ–¹å—åŸä½ç½®çš„æ˜¾ç¤ºï¼Œå†ç§»åŠ¨åˆ°æ–°ä½ç½®
+	// ÒÆ¶¯·½¿é²¢¸üĞÂµØÍ¼ÏÔÊ¾
+	// ÏÈÇå³ı·½¿éÔ­Î»ÖÃµÄÏÔÊ¾£¬ÔÙÒÆ¶¯µ½ĞÂÎ»ÖÃ
 	int dx, dy;
 	for (int i = 0; i < 8; i += 2)
 	{
 		dx = shapes[shape_id].D[i];
 		dy = shapes[shape_id].D[i + 1];
 
-		// è·³è¿‡è¶…å‡ºåœ°å›¾èŒƒå›´çš„å—ï¼ˆé˜²æ­¢æ•°ç»„è¶Šç•Œ è¿™é‡Œè¶Šç•Œäº†ç»å¸¸ä¼šå¯¼è‡´å­—ä½“æ–‡ä»¶è¯»å–å¤±è´¥ï¼‰
+		// Ìø¹ı³¬³öµØÍ¼·¶Î§µÄ¿é£¨·ÀÖ¹Êı×éÔ½½ç ÕâÀïÔ½½çÁË¾­³£»áµ¼ÖÂ×ÖÌåÎÄ¼ş¶ÁÈ¡Ê§°Ü£©
 		if (*shape_pos_y + dy < 0 || *shape_pos_x + dx)
 		{
 			continue;
 		}
 
-		// æ¸…é™¤åœ°å›¾ä¸Šè¯¥ä½ç½®çš„æ–¹å—æ˜¾ç¤º
+		// Çå³ıµØÍ¼ÉÏ¸ÃÎ»ÖÃµÄ·½¿éÏÔÊ¾
 		State.map[*shape_pos_y + dy][*shape_pos_x + dx].Value = 0;
 		State.map[*shape_pos_y + dy][*shape_pos_x + dx].Color = BACKGROUND_COLOR;
 	}
 	
-	// æ ¹æ®ç§»åŠ¨æ–¹å‘æ›´æ–°æ–¹å—ä½ç½®ï¼ˆå·²éªŒè¯æ— ç¢°æ’ï¼‰
+	// ¸ù¾İÒÆ¶¯·½Ïò¸üĞÂ·½¿éÎ»ÖÃ£¨ÒÑÑéÖ¤ÎŞÅö×²£©
 	switch (mode)
 	{
 	case 1:
-		// ä¸‹ç§»
+		// ÏÂÒÆ
 		if (NotConflict(*shape_pos_x, *shape_pos_y + 1, shape_id))
 		{
 			*shape_pos_y += 1;
 		}
 		break;
 	case 2:
-		// å·¦ç§»
+		// ×óÒÆ
 		if (NotConflict(*shape_pos_x - 1, *shape_pos_y, shape_id))
 		{
 			*shape_pos_x -= 1;
 		}
 		break;
 	case 3:
-		// å³ç§»
+		// ÓÒÒÆ
 		if (NotConflict(*shape_pos_x + 1, *shape_pos_y, shape_id))
 		{
 			*shape_pos_x += 1;
@@ -119,7 +118,7 @@ void MoveShape(int* shape_pos_x, int* shape_pos_y, int shape_id, int mode)
 void RollShape(int shape_pos_x, int shape_pos_y, int* shape_id)
 {
 	TRACE_ENTER();
-	// æ—‹è½¬æ–¹å—ï¼šè‹¥æ—‹è½¬åæ— ç¢°æ’ï¼Œåˆ™æ›´æ–°æ–¹å—å½¢æ€ä¸ºä¸‹ä¸€ä¸ªæ—‹è½¬æ€
+	// Ğı×ª·½¿é£ºÈôĞı×ªºóÎŞÅö×²£¬Ôò¸üĞÂ·½¿éĞÎÌ¬ÎªÏÂÒ»¸öĞı×ªÌ¬
 	if (NotConflict(shape_pos_x, shape_pos_y, shapes[*shape_id].Next))
 	{
 		*shape_id = shapes[*shape_id].Next;
@@ -129,18 +128,18 @@ void RollShape(int shape_pos_x, int shape_pos_y, int* shape_id)
 void FixShape(int shape_pos_x, int shape_pos_y, int shape_id)
 {
 	TRACE_ENTER();
-	// æ–¹å—å›ºå®šåˆ°åœ°å›¾ï¼šå°†æ–¹å—çš„4ä¸ªå—æ ‡è®°ä¸ºå·²å æ®ï¼Œä¿å­˜å¯¹åº”é¢œè‰²
+	// ·½¿é¹Ì¶¨µ½µØÍ¼£º½«·½¿éµÄ4¸ö¿é±ê¼ÇÎªÒÑÕ¼¾İ£¬±£´æ¶ÔÓ¦ÑÕÉ«
 	int dx = 0, dy = 0;
 	for (int i = 0; i < 8; i += 2)
 	{
 		dx = shapes[shape_id].D[i];
 		dy = shapes[shape_id].D[i + 1];
-		// é˜²æ­¢è¶Šç•Œï¼šè·³è¿‡è¶…å‡ºåœ°å›¾èŒƒå›´çš„å—
+		// ·ÀÖ¹Ô½½ç£ºÌø¹ı³¬³öµØÍ¼·¶Î§µÄ¿é
 		if (shape_pos_y + dy < 0 || shape_pos_x + dx < 0)
 		{
 			continue;
 		}
-		// æ ‡è®°è¯¥ä½ç½®å·²è¢«å æ®ï¼Œå¹¶ä¿å­˜æ–¹å—é¢œè‰²
+		// ±ê¼Ç¸ÃÎ»ÖÃÒÑ±»Õ¼¾İ£¬²¢±£´æ·½¿éÑÕÉ«
 		State.map[shape_pos_y + dy][shape_pos_x + dx].Value = 1;
 		State.map[shape_pos_y + dy][shape_pos_x + dx].Color = shapes[shape_id].Color;
 	}

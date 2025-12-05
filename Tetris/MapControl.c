@@ -1,24 +1,24 @@
-﻿#include "Common.h"
+#include "Common.h"
 #include "GameState.h"
 
 
 void MapInit(void)
 {
-	// 初始化游戏地图：清空所有方块，设置边界为已占据状态
-	// 地图范围：NX=14 (宽度), NY=23 (高度)
-	// 0和NX-1列为左右边界，NY-1行为底部边界
+	// ��ʼ����Ϸ��ͼ��������з��飬���ñ߽�Ϊ��ռ��״̬
+	// ��ͼ��Χ��NX=14 (����), NY=23 (�߶�)
+	// 0��NX-1��Ϊ���ұ߽磬NY-1��Ϊ�ײ��߽�
 	TRACE_ENTER();
 
-	// 清空整个地图
+	// ���������ͼ
 	memset(State.map, 0, sizeof(State.map));
 	
-	// 设置左右边界（第0列和第13列）为已占据
+	// �������ұ߽磨��0�к͵�13�У�Ϊ��ռ��
 	for (int i = 0; i < NY; i++)
 	{
 		State.map[i][NX - 1].Value = State.map[i][0].Value = 1;
 	}
 	
-	// 设置底部边界（第22行）为已占据
+	// ���õײ��߽磨��22�У�Ϊ��ռ��
 	for (int i = 0; i < NX; i++)
 	{
 		State.map[NY - 1][i].Value = 1;
@@ -27,8 +27,8 @@ void MapInit(void)
 
 int LineFull(int y)
 {
-	// 检查指定行是否完全填满（不计左右边界）
-	// 检查范围：1到NX-2列（排除左右边界）
+	// ���ָ�����Ƿ���ȫ�������������ұ߽磩
+	// ��鷶Χ��1��NX-2�У��ų����ұ߽磩
 	TRACE_ENTER();
 
 	for (int i = 1; i < NX - 1; i++)
@@ -43,10 +43,10 @@ int LineFull(int y)
 
 void DeleteRow(int y)
 {
-	// 删除指定行的方块：上方所有行下移一行，顶部空出空行
+	// ɾ��ָ���еķ��飺�Ϸ�����������һ�У������ճ�����
 	TRACE_ENTER();
 
-	// 从y行开始，将上方所有行向下移动一行
+	// ��y�п�ʼ�����Ϸ������������ƶ�һ��
 	for (int i = y; i >= 2; i--)
 	{
 		for (int j = 1; j < NX - 1; j++)
@@ -55,7 +55,7 @@ void DeleteRow(int y)
 		}
 	}
 	
-	// 清除第1行的数据（顶部新产生的空行）
+	// �����1�е����ݣ������²����Ŀ��У�
 	for (int j = 1; j < NX - 1; j++)
 	{
 		State.map[1][j].Value = 0;
@@ -68,16 +68,16 @@ void DeleteRow(int y)
 
 int DeleteRows(int y)
 {
-	// 删除完整的行，最多检查y点周围4行
-	// 返回删除的行数*对应分数
+	// ɾ���������У������y����Χ4��
+	// ����ɾ��������*��Ӧ����
 	TRACE_ENTER();
 
 	int row_cnt = 0, bonus = 0;
 	
-	// 从y点附近向下检查最多4行
+	// ��y�㸽�����¼�����4��
 	for (int i = 0; i < 4; i++)
 	{
-		// 如果当前行填满，则删除并继续检查
+		// �����ǰ����������ɾ�����������
 		while (LineFull(y))
 		{
 			DeleteRow(y);
@@ -85,20 +85,20 @@ int DeleteRows(int y)
 			i++;
 		}
 		y--;
-		// 超出地图上边界则停止检查
+		// ������ͼ�ϱ߽���ֹͣ���
 		if (y < 0)
 		{
 			break;
 		}
 	}
 
-	// 更新消除行数统计
+	// ������������ͳ��
 	State.LineCount += row_cnt;
 	
-	// 根据删除行数计算得分
+	// ����ɾ����������÷�
 	bonus = CalScore(row_cnt);
 	
-	// 检查是否升级（每升10行升一级难度）
+	// ����Ƿ�������ÿ��10����һ���Ѷȣ�
 	if (State.LineCount > State.Difficulty * 10)
 	{
 		LevelUp();

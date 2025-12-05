@@ -1,4 +1,4 @@
-﻿#ifndef SHAPECONTROL_H
+#ifndef SHAPECONTROL_H
 
 #define SHAPECONTROL_H
 

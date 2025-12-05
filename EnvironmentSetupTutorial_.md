@@ -1,147 +1,146 @@
   
 ---
   
-# çŽ¯å¢ƒé…ç½®æ•™ç¨‹ {ignore=true}
+# »·¾³ÅäÖÃ½Ì³Ì
   
   
-- [è¯´åœ¨å‰é¢](#è¯´åœ¨å‰é¢ )
-- [å‰ç½®æ¡ä»¶](#å‰ç½®æ¡ä»¶ )
+- [ËµÔÚÇ°Ãæ](#ËµÔÚÇ°Ãæ )
+- [Ç°ÖÃÌõ¼þ](#Ç°ÖÃÌõ¼þ )
 - [Dev-C++](#dev-c )
-  - [1. åˆ›å»ºé¡¹ç›®ã€ç²˜è´´æ–‡ä»¶](#1-åˆ›å»ºé¡¹ç›®-ç²˜è´´æ–‡ä»¶ )
-  - [2. è®¾ç½®é“¾æŽ¥é€‰é¡¹ã€è®¾ç½®åŒ…å«æ–‡ä»¶/åº“ã€è®¾ç½®è¾“å‡ºç›®å½•](#2-è®¾ç½®é“¾æŽ¥é€‰é¡¹-è®¾ç½®åŒ…å«æ–‡ä»¶åº“-è®¾ç½®è¾“å‡ºç›®å½• )
-  - [3. è®¾ç½®åŒ…å«æ–‡ä»¶ç›®å½•ä¸Žåº“ç›®å½•](#3-è®¾ç½®åŒ…å«æ–‡ä»¶ç›®å½•ä¸Žåº“ç›®å½• )
-  - [4. è®¾ç½®è¾“å‡ºç›®å½•](#4-è®¾ç½®è¾“å‡ºç›®å½• )
-  - [5. æ·»åŠ æºä»£ç æ–‡ä»¶](#5-æ·»åŠ æºä»£ç æ–‡ä»¶ )
-  - [6. ç¼–è¯‘è¿è¡Œ](#6-ç¼–è¯‘è¿è¡Œ )
-- [VS Code é…ç½®æŒ‡å—](#vs-code-é…ç½®æŒ‡å— )
-  - [1. åŸºç¡€çŽ¯å¢ƒå‡†å¤‡](#1-åŸºç¡€çŽ¯å¢ƒå‡†å¤‡ )
-  - [2. æ•´ç†é¡¹ç›®æ–‡ä»¶](#2-æ•´ç†é¡¹ç›®æ–‡ä»¶ )
-  - [3. é…ç½® VS Code æ–‡ä»¶](#3-é…ç½®-vs-code-æ–‡ä»¶ )
-  - [4. è¿è¡Œç¨‹åº](#4-è¿è¡Œç¨‹åº )
-- [Visual Studio é…ç½®æŒ‡å—](#visual-studio-é…ç½®æŒ‡å— )
-  - [1. åˆ›å»ºé¡¹ç›®ã€ç²˜è´´æ–‡ä»¶](#1-åˆ›å»ºé¡¹ç›®-ç²˜è´´æ–‡ä»¶-1 )
-  - [2. é…ç½®é¡¹ç›®å±žæ€§](#2-é…ç½®é¡¹ç›®å±žæ€§ )
-    - [è®¾ç½®è¾“å‡ºç›®å½•](#è®¾ç½®è¾“å‡ºç›®å½• )
-    - [è®¾ç½®åŒ…å«ç›®å½•](#è®¾ç½®åŒ…å«ç›®å½• )
-    - [è®¾ç½®åº“ç›®å½•](#è®¾ç½®åº“ç›®å½• )
-    - [è®¾ç½®é™„åŠ ä¾èµ–é¡¹](#è®¾ç½®é™„åŠ ä¾èµ–é¡¹ )
-  - [3. æ·»åŠ æºä»£ç æ–‡ä»¶](#3-æ·»åŠ æºä»£ç æ–‡ä»¶ )
-  - [4. ç¼–è¯‘è¿è¡Œ](#4-ç¼–è¯‘è¿è¡Œ )
+  - [1. ´´½¨ÏîÄ¿¡¢Õ³ÌùÎÄ¼þ](#1-´´½¨ÏîÄ¿-Õ³ÌùÎÄ¼þ )
+  - [2. ÉèÖÃÁ´½ÓÑ¡Ïî¡¢ÉèÖÃ°üº¬ÎÄ¼þ/¿â¡¢ÉèÖÃÊä³öÄ¿Â¼](#2-ÉèÖÃÁ´½ÓÑ¡Ïî-ÉèÖÃ°üº¬ÎÄ¼þ¿â-ÉèÖÃÊä³öÄ¿Â¼ )
+  - [3. ÉèÖÃ°üº¬ÎÄ¼þÄ¿Â¼Óë¿âÄ¿Â¼](#3-ÉèÖÃ°üº¬ÎÄ¼þÄ¿Â¼Óë¿âÄ¿Â¼ )
+  - [4. ÉèÖÃÊä³öÄ¿Â¼](#4-ÉèÖÃÊä³öÄ¿Â¼ )
+  - [5. Ìí¼ÓÔ´´úÂëÎÄ¼þ](#5-Ìí¼ÓÔ´´úÂëÎÄ¼þ )
+  - [6. ±àÒëÔËÐÐ](#6-±àÒëÔËÐÐ )
+- [VS Code ÅäÖÃÖ¸ÄÏ](#vs-code-ÅäÖÃÖ¸ÄÏ )
+  - [1. »ù´¡»·¾³×¼±¸](#1-»ù´¡»·¾³×¼±¸ )
+  - [2. ÕûÀíÏîÄ¿ÎÄ¼þ](#2-ÕûÀíÏîÄ¿ÎÄ¼þ )
+  - [3. ÅäÖÃ VS Code ÎÄ¼þ](#3-ÅäÖÃ-vs-code-ÎÄ¼þ )
+  - [4. ÔËÐÐ³ÌÐò](#4-ÔËÐÐ³ÌÐò )
+- [Visual Studio ÅäÖÃÖ¸ÄÏ](#visual-studio-ÅäÖÃÖ¸ÄÏ )
+  - [1. ´´½¨ÏîÄ¿¡¢Õ³ÌùÎÄ¼þ](#1-´´½¨ÏîÄ¿-Õ³ÌùÎÄ¼þ-1 )
+  - [2. ÅäÖÃÏîÄ¿ÊôÐÔ](#2-ÅäÖÃÏîÄ¿ÊôÐÔ )
+    - [ÉèÖÃÊä³öÄ¿Â¼](#ÉèÖÃÊä³öÄ¿Â¼ )
+    - [ÉèÖÃ°üº¬Ä¿Â¼](#ÉèÖÃ°üº¬Ä¿Â¼ )
+    - [ÉèÖÃ¿âÄ¿Â¼](#ÉèÖÃ¿âÄ¿Â¼ )
+    - [ÉèÖÃ¸½¼ÓÒÀÀµÏî](#ÉèÖÃ¸½¼ÓÒÀÀµÏî )
+  - [3. Ìí¼ÓÔ´´úÂëÎÄ¼þ](#3-Ìí¼ÓÔ´´úÂëÎÄ¼þ )
+  - [4. ±àÒëÔËÐÐ](#4-±àÒëÔËÐÐ )
   
-## è¯´åœ¨å‰é¢
+## ËµÔÚÇ°Ãæ
   
-é…ç½®å¼€å‘çŽ¯å¢ƒå¯èƒ½ä¼šé‡åˆ°å„ç§é—®é¢˜ï¼Œå¯èƒ½éœ€è¦èŠ±è´¹æ•°å°æ—¶ç”šè‡³æ›´é•¿æ—¶é—´æ¥è°ƒæ•´ã€‚å¸Œæœ›æœ¬æ•™ç¨‹èƒ½èµ·åˆ°ä¸€ä¸ªæ¸…æ™°çš„å¼•å¯¼ä½œç”¨ã€‚
+ÅäÖÃ¿ª·¢»·¾³¿ÉÄÜ»áÓöµ½¸÷ÖÖÎÊÌâ£¬¿ÉÄÜÐèÒª»¨·ÑÊýÐ¡Ê±ÉõÖÁ¸ü³¤Ê±¼äÀ´µ÷Õû¡£Ï£Íû±¾½Ì³ÌÄÜÆðµ½Ò»¸öÇåÎúµÄÒýµ¼×÷ÓÃ¡£
   
-## å‰ç½®æ¡ä»¶
+## Ç°ÖÃÌõ¼þ
   
-å¦‚æžœä½ åœ¨è¯¾å ‚ä¸Šå·²ç»æ‹¿åˆ°äº†èµ„æºåŒ…ï¼Œå¯ä»¥è·³è¿‡æ­¤æ­¥éª¤ã€‚å¦åˆ™ï¼Œè¯·ä¸‹è½½ä»¥ä¸‹å¼€å‘åº“ï¼š
+Èç¹ûÄãÔÚ¿ÎÌÃÉÏÒÑ¾­ÄÃµ½ÁË×ÊÔ´°ü£¬¿ÉÒÔÌø¹ý´Ë²½Öè¡£·ñÔò£¬ÇëÏÂÔØÒÔÏÂ¿ª·¢¿â£º
   
-- **[SDL2-2.32.10](https://github.com/libsdl-org/SDL/releases/tag/release-2.32.10 )**
-  - **Visual Studio ç”¨æˆ·**ï¼šä¸‹è½½ `SDL2-devel-2.32.10-VC.zip`
-  - **å…¶ä»–ç”¨æˆ·ï¼ˆå¦‚ Dev-C++ã€VS Codeï¼‰**ï¼šä¸‹è½½ `SDL2-devel-2.32.10-mingw.zip`
-- **[SDL2_ttf-2.24.0](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.24.0 )**
-  - **Visual Studio ç”¨æˆ·**ï¼šä¸‹è½½ `SDL2_ttf-devel-2.24.0-VC.zip` 
-  - **å…¶ä»–ç”¨æˆ·ï¼ˆå¦‚ Dev-C++ã€VS Codeï¼‰**ï¼šä¸‹è½½ `SDL2_ttf-devel-2.24.0-mingw.zip` 
+- **[SDL3_devel-3.2.26](https://github.com/libsdl-org/SDL/releases/tag/release-2.32.10 )**
+  - **Visual Studio ÓÃ»§**£ºÏÂÔØ `SDL3-devel-3.2.26-VC.zip`
+  - **ÆäËûÓÃ»§£¨Èç Dev-C++¡¢VS Code£©**£ºÏÂÔØ `SDL3-devel-3.2.26-mingw.zip`
+- **[SDL3_ttf-3.2.2](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.24.0 )**
+  - **Visual Studio ÓÃ»§**£ºÏÂÔØ `SDL3_ttf-devel-3.2.2-VC.zip` 
+  - **ÆäËûÓÃ»§£¨Èç Dev-C++¡¢VS Code£©**£ºÏÂÔØ `SDL3_ttf-devel-3.2.2-mingw.zip` 
   
-ä¸‹è½½å®ŒæˆåŽï¼Œå°†ä¸¤ä¸ªåŽ‹ç¼©åŒ…è§£åŽ‹ï¼Œå¹¶æŒ‰ç…§ä»¥ä¸‹ç»“æž„æ”¾å…¥ä½ çš„é¡¹ç›®æ ¹ç›®å½•ä¸‹çš„ `ExternalIncludeFile/SDL2/` æ–‡ä»¶å¤¹ä¸­ï¼š
+ÏÂÔØÍê³Éºó£¬½«Á½¸öÑ¹Ëõ°ü½âÑ¹£¬²¢°´ÕÕÒÔÏÂ½á¹¹·ÅÈëÄãµÄÏîÄ¿¸ùÄ¿Â¼ÏÂµÄ `ExternalIncludeFile/SDL2/` ÎÄ¼þ¼ÐÖÐ£º
   
 ```
 YourProjectRoot/
-â””â”€â”€ ExternalIncludeFile/
-    â””â”€â”€ SDL2/
-        â”œâ”€â”€ SDL2-devel-2.32.10-mingw/     (æˆ– -VC)
-        â””â”€â”€ SDL2_ttf-devel-2.24.0-mingw/  (æˆ– -VC)
+©¸©¤©¤ ExternalIncludeFile/
+    ©¸©¤©¤ SDL3/
+        ©À©¤©¤ SDL3_ttf-devel-3.2.2-mingw/ (»ò -VC)
+        ©¸©¤©¤ SDL3-devel-3.2.26-mingw/  (»ò -VC)
 ```
   
 ---
   
   
 ## Dev-C++
-### 1. åˆ›å»ºé¡¹ç›®ã€ç²˜è´´æ–‡ä»¶
+### 1. ´´½¨ÏîÄ¿¡¢Õ³ÌùÎÄ¼þ
   
-1. æ‰“å¼€ **Dev-C++**ã€‚
-2. ä¾æ¬¡ç‚¹å‡» **æ–‡ä»¶ â†’ æ–°å»º â†’ é¡¹ç›®**ã€‚
-3. åœ¨ **Basic** çª—å£ä¸­é€‰æ‹© **Empty Project**ã€‚
-4. åœ¨ä¸‹æ–¹å‹¾é€‰ **C é¡¹ç›®**ã€‚
-5. å°†é¡¹ç›®åç§°æ”¹ä¸º `Tetris`ï¼ˆæˆ–å…¶ä»–ä½ å–œæ¬¢çš„åç§°ï¼‰ã€‚
-6. å°†é¡¹ç›®ä¿å­˜åˆ°ä¸€ä¸ª**æ–°å»ºçš„ã€ç‹¬ç«‹çš„æ–‡ä»¶å¤¹**ä¸­ï¼ˆä¾‹å¦‚ `D:\MyTetrisProject`ï¼‰ã€‚
-7. åœ¨æ–‡ä»¶èµ„æºç®¡ç†å™¨ä¸­ï¼Œæ‰¾åˆ°ä½ åˆšåˆšä¿å­˜é¡¹ç›®çš„ä½ç½®ï¼Œå°†**èµ„æºåŒ…ä¸­çš„æ‰€æœ‰å­æ–‡ä»¶å¤¹**å¤åˆ¶åˆ°è¯¥ç›®å½•ä¸‹ã€‚
+1. ´ò¿ª **Dev-C++**¡£
+2. ÒÀ´Îµã»÷ **ÎÄ¼þ ¡ú ÐÂ½¨ ¡ú ÏîÄ¿**¡£
+3. ÔÚ **Basic** ´°¿ÚÖÐÑ¡Ôñ **Empty Project**¡£
+4. ÔÚÏÂ·½¹´Ñ¡ **C ÏîÄ¿**¡£
+5. ½«ÏîÄ¿Ãû³Æ¸ÄÎª `Tetris`£¨»òÆäËûÄãÏ²»¶µÄÃû³Æ£©¡£
+6. ½«ÏîÄ¿±£´æµ½Ò»¸ö**ÐÂ½¨µÄ¡¢¶ÀÁ¢µÄÎÄ¼þ¼Ð**ÖÐ£¨ÀýÈç `D:\MyTetrisProject`£©¡£
+7. ÔÚÎÄ¼þ×ÊÔ´¹ÜÀíÆ÷ÖÐ£¬ÕÒµ½Äã¸Õ¸Õ±£´æÏîÄ¿µÄÎ»ÖÃ£¬½«**×ÊÔ´°üÖÐµÄËùÓÐ×ÓÎÄ¼þ¼Ð**¸´ÖÆµ½¸ÃÄ¿Â¼ÏÂ¡£
   
-### 2ï¼Œ è®¾ç½®é“¾æŽ¥é€‰é¡¹ã€è®¾ç½®åŒ…å«æ–‡ä»¶/åº“ã€è®¾ç½®è¾“å‡ºç›®å½•
+### 2. ÉèÖÃÁ´½ÓÑ¡Ïî¡¢ÉèÖÃ°üº¬ÎÄ¼þ/¿â¡¢ÉèÖÃÊä³öÄ¿Â¼
   
-1. å›žåˆ° Dev-C++ é¡¹ç›®ç•Œé¢ã€‚
-2. ä¾æ¬¡ç‚¹å‡» **é¡¹ç›® â†’ é¡¹ç›®å±žæ€§**ã€‚
-3. åˆ‡æ¢åˆ° **å‚æ•°** é€‰é¡¹å¡ã€‚
-   - åœ¨ **C ç¼–è¯‘å™¨** æ¡†ä¸­å¡«å…¥ï¼š
+1. »Øµ½ Dev-C++ ÏîÄ¿½çÃæ¡£
+2. ÒÀ´Îµã»÷ **ÏîÄ¿ ¡ú ÏîÄ¿ÊôÐÔ**¡£
+3. ÇÐ»»µ½ **²ÎÊý** Ñ¡Ïî¿¨¡£
+   - ÔÚ **C ±àÒëÆ÷** ¿òÖÐÌîÈë£º
      ```
      -std=c99
      ```
-   - åœ¨ **é“¾æŽ¥å™¨** æ¡†ä¸­å¡«å…¥ï¼ˆ**é¡ºåºå¾ˆé‡è¦**ï¼‰ï¼š
+   - ÔÚ **Á´½ÓÆ÷** ¿òÖÐÌîÈë£¨**Ë³ÐòºÜÖØÒª**£©£º
      ```
-     -lSDL2_ttf
-     -lSDL2
-     -lSDL2main
+     -lSDL3_ttf
+     -lSDL3
      -lmingw32
      ```
   
-### 3. è®¾ç½®åŒ…å«æ–‡ä»¶ç›®å½•ä¸Žåº“ç›®å½•
+### 3. ÉèÖÃ°üº¬ÎÄ¼þÄ¿Â¼Óë¿âÄ¿Â¼
   
-ä»åœ¨ **é¡¹ç›®å±žæ€§** çª—å£ä¸­ï¼Œåˆ‡æ¢åˆ° **ç›®å½•** é€‰é¡¹å¡ã€‚
+ÈÔÔÚ **ÏîÄ¿Ñ¡Ïî** ´°¿ÚÖÐ£¬ÇÐ»»µ½ **ÎÄ¼þ/Ä¿Â¼** Ñ¡Ïî¿¨¡£
   
-- **è®¾ç½®åº“ç›®å½• (`Library Directories`)**:
-  1. åœ¨ **Libraries** ä¸‹ç‚¹å‡»å³ä¾§çš„æ–‡ä»¶å¤¹å›¾æ ‡ã€‚
-  2. æ‰¾åˆ°ä½ çš„é¡¹ç›®æ ¹ç›®å½•ï¼Œä¾æ¬¡è¿›å…¥è·¯å¾„ï¼š
-     `ExternalIncludeFile â†’ SDL2 â†’ SDL2-devel-2.32.10-mingw â†’ x86_64-w64-mingw32 â†’ lib`
-  3. ç‚¹å‡» **ç¡®å®š**ï¼Œç„¶åŽç‚¹å‡» **æ·»åŠ **ã€‚
-  4. é‡å¤ä¸Šè¿°æ“ä½œï¼Œæ·»åŠ  SDL2_ttf çš„åº“è·¯å¾„ï¼š
-     `ExternalIncludeFile â†’ SDL2 â†’ SDL2_ttf-devel-2.24.0-mingw â†’ x86_64-w64-mingw32 â†’ lib`
+- **ÉèÖÃ¿âÄ¿Â¼ (`Library Directories`)**:
+  1. ÔÚ **¿âÄ¿Â¼** ½çÃæÏÂµã»÷ÓÒ²àµÄÎÄ¼þ¼ÐÍ¼±ê¡£
+  2. ÕÒµ½ÄãµÄÏîÄ¿¸ùÄ¿Â¼£¬ÒÀ´Î½øÈëÂ·¾¶£º
+     `ExternalIncludeFile -> SDL3 -> SDL3-devel-3.2.26-mingw -> SDL3-3.2.26 -> x86_64-w64-mingw32 -> lib`
+  3. µã»÷ **È·¶¨**£¬È»ºóµã»÷ **Ìí¼Ó**¡£
+  4. ÖØ¸´ÉÏÊö²Ù×÷£¬Ìí¼Ó SDL2_ttf µÄ¿âÂ·¾¶£º
+     `ExternalIncludeFile -> SDL3 -> SDL3_ttf-devel-3.2.2-mingw -> SDL3_ttf-3.2.2 -> x86_64-w64-mingw32 -> lib`
   
-- **è®¾ç½®åŒ…å«æ–‡ä»¶ç›®å½• (`Include Directories`)**:
-  1. åœ¨ **C Includes** ä¸‹ç‚¹å‡»å³ä¾§çš„æ–‡ä»¶å¤¹å›¾æ ‡ã€‚
-  2. æ‰¾åˆ°ä½ çš„é¡¹ç›®æ ¹ç›®å½•ï¼Œä¾æ¬¡è¿›å…¥è·¯å¾„ï¼š
-    `ExternalIncludeFile â†’ SDL2 â†’ SDL2-devel-2.32.10-mingw â†’ x86_64-w64-mingw32 â†’ include â†’ SDL2`
-  3. ç‚¹å‡» **ç¡®å®š**ï¼Œç„¶åŽç‚¹å‡» **æ·»åŠ **ã€‚
-  4. é‡å¤ä¸Šè¿°æ“ä½œï¼Œæ·»åŠ  SDL2_ttf çš„åŒ…å«è·¯å¾„ï¼š
-     `ExternalIncludeFile â†’ SDL2 â†’ SDL2_ttf-devel-2.24.0-mingw â†’ x86_64-w64-mingw32 â†’ include â†’ SDL2`
+- **ÉèÖÃ°üº¬ÎÄ¼þÄ¿Â¼ (`Include Directories`)**:
+  1. ÔÚ **°üº¬ÎÄ¼þÄ¿Â¼** Ñ¡ÏîÏÂµã»÷ÓÒ²àµÄÎÄ¼þ¼ÐÍ¼±ê¡£
+  2. ÕÒµ½ÄãµÄÏîÄ¿¸ùÄ¿Â¼£¬ÒÀ´Î½øÈëÂ·¾¶£º
+    `ExternalIncludeFile -> SDL3 -> SDL3-devel-3.2.26-mingw -> SDL3-3.2.26 -> x86_64-w64-mingw32 -> include`
+  3. µã»÷ **È·¶¨**£¬È»ºóµã»÷ **Ìí¼Ó**¡£
+  4. ÖØ¸´ÉÏÊö²Ù×÷£¬Ìí¼Ó SDL2_ttf µÄ°üº¬Â·¾¶£º
+     `ExternalIncludeFile -> SDL3 -> SDL3_ttf-devel-3.2.2-mingw -> SDL3_ttf-3.2.2 -> x86_64-w64-mingw32 -> include`
   
   
-### 4. è®¾ç½®è¾“å‡ºç›®å½•
+### 4. ÉèÖÃÊä³öÄ¿Â¼
   
-1. åœ¨ **é¡¹ç›®å±žæ€§** çª—å£ä¸­ï¼Œåˆ‡æ¢åˆ° **ç”Ÿæˆ** é€‰é¡¹å¡ã€‚
-2. åœ¨ **å¯æ‰§è¡Œæ–‡ä»¶è¾“å‡ºç›®å½•** ä¸­å¡«å…¥ï¼š
+1. ÔÚ **ÏîÄ¿Ñ¡Ïî** ´°¿ÚÖÐ£¬ÇÐ»»µ½ **Éú³ÉÑ¡Ïî** Ñ¡Ïî¿¨¡£
+2. ÔÚ **¿ÉÖ´ÐÐÎÄ¼þÊä³öÄ¿Â¼** ÖÐÌîÈë£º
    ```
    exe
    ```
-3. ç‚¹å‡» **ç¡®å®š** ä¿å­˜æ‰€æœ‰è®¾ç½®ã€‚
+3. µã»÷ **È·¶¨** ±£´æËùÓÐÉèÖÃ¡£
   
-### 5. æ·»åŠ æºä»£ç æ–‡ä»¶
+### 5. Ìí¼ÓÔ´´úÂëÎÄ¼þ
   
-1. åœ¨å·¦ä¾§ **é¡¹ç›®ç®¡ç†å™¨** ä¸­ï¼Œå³é”®ç‚¹å‡»ä½ çš„é¡¹ç›®åç§°ï¼ˆå¦‚ `Tetris`ï¼‰ã€‚
-2. é€‰æ‹© **æ·»åŠ  â†’ æ·»åŠ æ–‡ä»¶...**ã€‚
-3. è¿›å…¥é¡¹ç›®æ ¹ç›®å½•ä¸‹çš„ `Tetris` æ–‡ä»¶å¤¹ï¼Œé€‰ä¸­**æ‰€æœ‰ `.c` å’Œ `.h` æ–‡ä»¶**ï¼Œç‚¹å‡» **æ‰“å¼€**ã€‚
+1. ÔÚ×ó²à **ÏîÄ¿¹ÜÀíÆ÷** ÖÐ£¬ÓÒ¼üµã»÷ÄãµÄÏîÄ¿Ãû³Æ£¨Èç `Tetris`£©¡£
+2. Ñ¡Ôñ **Ìí¼Ó ¡ú Ìí¼ÓÎÄ¼þ...**¡£
+3. ½øÈëÏîÄ¿¸ùÄ¿Â¼ÏÂµÄ `Tetris` ÎÄ¼þ¼Ð£¬Ñ¡ÖÐ**ËùÓÐ `.c` ºÍ `.h` ÎÄ¼þ**£¬µã»÷ **´ò¿ª**¡£
   
-### 6. ç¼–è¯‘è¿è¡Œ
+### 6. ±àÒëÔËÐÐ
   
-çŽ°åœ¨ï¼Œä½ å¯ä»¥ç‚¹å‡» **F11** ç¼–è¯‘å¹¶è¿è¡Œä½ çš„ä¿„ç½—æ–¯æ–¹å—ç¨‹åºäº†ã€‚ç¡®ä¿ `SDL2.dll` å’Œ `SDL2_ttf.dll` æ–‡ä»¶å·²å¤åˆ¶åˆ° `exe` ç›®å½•ä¸­ã€‚
+ÏÖÔÚ£¬Äã¿ÉÒÔµã»÷ **F11** ±àÒë²¢ÔËÐÐÄãµÄ¶íÂÞË¹·½¿é³ÌÐòÁË¡£È·±£ `SDL3.dll` ºÍ `SDL3_ttf.dll` ÎÄ¼þÒÑ¸´ÖÆµ½ `exe` Ä¿Â¼ÖÐ¡£
   
 ***
-## VS Code é…ç½®æŒ‡å—
+## VS Code ÅäÖÃÖ¸ÄÏ
   
-### 1. åŸºç¡€çŽ¯å¢ƒå‡†å¤‡
+### 1. »ù´¡»·¾³×¼±¸
   
-è¯·ç¡®ä¿ä½ å·²ç»å®‰è£…äº†ä»¥ä¸‹è½¯ä»¶ï¼š
+ÇëÈ·±£ÄãÒÑ¾­°²×°ÁËÒÔÏÂÈí¼þ£º
 - **VS Code**
-- **MinGW-w64**ï¼ˆåŒ…å« `gcc` å’Œ `gdb`ï¼‰ï¼Œå¹¶å·²å°†å…¶ `bin` ç›®å½•æ·»åŠ åˆ°ç³»ç»Ÿ `PATH` çŽ¯å¢ƒå˜é‡ä¸­ã€‚
+- **MinGW-w64**£¨°üº¬ `gcc` ºÍ `gdb`£©£¬²¢ÒÑ½«Æä `bin` Ä¿Â¼Ìí¼Óµ½ÏµÍ³ `PATH` »·¾³±äÁ¿ÖÐ¡£
   
-### 2. æ•´ç†é¡¹ç›®æ–‡ä»¶
+### 2. ÕûÀíÏîÄ¿ÎÄ¼þ
   
-1. æ–°å»ºä¸€ä¸ªé¡¹ç›®æ–‡ä»¶å¤¹ï¼ˆä¾‹å¦‚ `D:\MyTetrisProject`ï¼‰ã€‚
-2. å°†ä½ çš„ **èµ„æºåŒ…ä¸­æ‰€æœ‰æ–‡ä»¶å¤¹** æ”¾å…¥å…¶ä¸­ã€‚
-3. åœ¨é¡¹ç›®æ ¹ç›®å½•ä¸‹åˆ›å»ºä¸€ä¸ªåä¸º `.vscode` çš„æ–‡ä»¶å¤¹ã€‚
+1. ÐÂ½¨Ò»¸öÏîÄ¿ÎÄ¼þ¼Ð£¨ÀýÈç `D:\MyTetrisProject`£©¡£
+2. ½«ÄãµÄ **×ÊÔ´°üÖÐËùÓÐÎÄ¼þ¼Ð** ·ÅÈëÆäÖÐ¡£
+3. ÔÚÏîÄ¿¸ùÄ¿Â¼ÏÂ´´½¨Ò»¸öÃûÎª `.vscode` µÄÎÄ¼þ¼Ð¡£
   
-### 3. é…ç½® VS Code æ–‡ä»¶
+### 3. ÅäÖÃ VS Code ÎÄ¼þ
   
-å°†ä»¥ä¸‹å†…å®¹åˆ†åˆ«ä¿å­˜åˆ° `.vscode` æ–‡ä»¶å¤¹ä¸­å¯¹åº”çš„æ–‡ä»¶é‡Œï¼Œæ³¨æ„å°† compiler å’Œ debugger è·¯å¾„æ›´æ”¹ä¸ºä½ è‡ªå·±çš„è·¯å¾„ã€‚
+½«ÒÔÏÂÄÚÈÝ·Ö±ð±£´æµ½ `.vscode` ÎÄ¼þ¼ÐÖÐ¶ÔÓ¦µÄÎÄ¼þÀï£¬×¢Òâ½« compiler ºÍ debugger Â·¾¶¸ü¸ÄÎªÄã×Ô¼ºµÄÂ·¾¶¡£
   
 ```c_cpp_properties.json```
 ```json
@@ -155,8 +154,8 @@ YourProjectRoot/
                 "D:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/14.2.0/include/",
                 "D:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/14.2.0/../../../../x86_64-w64-mingw32/include",
                 // SDL2 include path
-                "${workspaceFolder}/ExternalIncludeFile/SDL2/SDL2-devel-2.32.10-mingw/x86_64-w64-mingw32/include/SDL2",
-                "${workspaceFolder}/ExternalIncludeFile/SDL2/SDL2_ttf-devel-2.24.0-mingw/x86_64-w64-mingw32/include/SDL2",
+                "${workspaceFolder}/ExternalIncludeFile/SDL3/SDL3-devel-3.2.26-mingw/SDL3-3.2.26/x86_64-w64-mingw32/include",
+                "${workspaceFolder}/ExternalIncludeFile/SDL3/SDL3_ttf-devel-3.2.2-mingw/SDL3_ttf-3.2.2/x86_64-w64-mingw32/include",
                 // Project's own header directory.
                 "${workspaceFolder}/Tetris"
             ],
@@ -213,7 +212,7 @@ YourProjectRoot/
     },
     "C_Cpp.default.cStandard": "c99",   // Default C standard for IntelliSense.
     "C_Cpp.dimInactiveRegions": false,  // Do not dim inactive preprocessor blocks.
-    "files.encoding": "utf8"            // Source file encoding.
+    "files.encoding": "gbk"            // Source file encoding.
 }
 ```
 ```tasks.json```
@@ -235,15 +234,14 @@ YourProjectRoot/
                 "${workspaceFolder}/exe/Tetris.exe",            
                 // Include paths for headers.
                 "-I${workspaceFolder}/Tetris", 
-                "-I${workspaceFolder}/ExternalIncludeFile/SDL2/SDL2-devel-2.32.10-mingw/x86_64-w64-mingw32/include/SDL2",
-                "-I${workspaceFolder}/ExternalIncludeFile/SDL2/SDL2_ttf-devel-2.24.0-mingw/x86_64-w64-mingw32/include/SDL2",
+                "-I${workspaceFolder}/ExternalIncludeFile/SDL3/SDL3-devel-3.2.26-mingw/SDL3-3.2.26/x86_64-w64-mingw32/include",
+                "-I${workspaceFolder}/ExternalIncludeFile/SDL3/SDL3_ttf-devel-3.2.2-mingw/SDL3_ttf-3.2.2/x86_64-w64-mingw32/include",
                 // Library search paths.
-                "-L${workspaceFolder}/ExternalIncludeFile/SDL2/SDL2-devel-2.32.10-mingw/x86_64-w64-mingw32/lib",
-                "-L${workspaceFolder}/ExternalIncludeFile/SDL2/SDL2_ttf-devel-2.24.0-mingw/x86_64-w64-mingw32/lib",
+                "-L${workspaceFolder}/ExternalIncludeFile/SDL3/SDL3-devel-3.2.26-mingw/SDL3-3.2.26/x86_64-w64-mingw32/lib",
+                "-L${workspaceFolder}/ExternalIncludeFile/SDL3/SDL3_ttf-devel-3.2.2-mingw/SDL3_ttf-3.2.2/x86_64-w64-mingw32/lib",
                 // Link libraries. Do not change the order.
-                "-lSDL2_ttf",
-                "-lSDL2main",
-                "-lSDL2",
+                "-lSDL3_ttf",
+                "-lSDL3",
                 "-lmingw32",
                 // Compilation options.
                 "-fexec-charset=utf-8",
@@ -294,76 +292,76 @@ YourProjectRoot/
 }
 ```
   
-å¦‚æžœä½ çš„çŽ¯å¢ƒé…ç½®æ²¡æœ‰é—®é¢˜ï¼Œå‚è€ƒä»¥ä¸Šé…ç½®æ–‡ä»¶åŽå°±èƒ½æ­£å¸¸ç¼–è¯‘è¿è¡Œäº†ã€‚
+Èç¹ûÄãµÄ»·¾³ÅäÖÃÃ»ÓÐÎÊÌâ£¬²Î¿¼ÒÔÉÏÅäÖÃÎÄ¼þºó¾ÍÄÜÕý³£±àÒëÔËÐÐÁË¡£
 ***
   
-### 4. è¿è¡Œç¨‹åº
+### 4. ÔËÐÐ³ÌÐò
   
-1. åœ¨ VS Code ä¸­ï¼Œé€šè¿‡ **æ–‡ä»¶ â†’ æ‰“å¼€æ–‡ä»¶å¤¹** æ‰“å¼€ä½ çš„é¡¹ç›®æ ¹ç›®å½•ã€‚
-2. æ‰“å¼€Tetrisä¸­ä»»æ„ä¸€ä¸ª `.c` æ–‡ä»¶ã€‚
-3. æŒ‰ä¸‹ **`Ctrl+F5`** å³å¯ç¼–è¯‘å¹¶è¿è¡Œç¨‹åºã€‚
+1. ÔÚ VS Code ÖÐ£¬Í¨¹ý **ÎÄ¼þ ¡ú ´ò¿ªÎÄ¼þ¼Ð** ´ò¿ªÄãµÄÏîÄ¿¸ùÄ¿Â¼¡£
+2. ´ò¿ªTetrisÖÐÈÎÒâÒ»¸ö `.c` ÎÄ¼þ¡£
+3. °´ÏÂ **`Ctrl+F5`** ¼´¿É±àÒë²¢ÔËÐÐ³ÌÐò¡£
   
-## Visual Studio é…ç½®æŒ‡å—
-~~éƒ½ç”¨ä¸ŠVSäº†ä¸ºä½•ä¸å°è¯•è‡ªå·±é…ç½®çŽ¯å¢ƒå‘¢~~
-### 1. åˆ›å»ºé¡¹ç›®ã€ç²˜è´´æ–‡ä»¶
+## Visual Studio ÅäÖÃÖ¸ÄÏ
+~~¶¼ÓÃÉÏVSÁËÎªºÎ²»³¢ÊÔ×Ô¼ºÅäÖÃ»·¾³ÄØ~~
+### 1. ´´½¨ÏîÄ¿¡¢Õ³ÌùÎÄ¼þ
   
-1. æ‰“å¼€ **Visual Studio**ã€‚
-2. åˆ›å»ºä¸€ä¸ª **ç©ºé¡¹ç›® (Empty Project)**ã€‚
-3. é€‰æ‹©ä¸€ä¸ªæ–‡ä»¶å¤¹æ¥ä¿å­˜é¡¹ç›®ï¼ˆä¾‹å¦‚ `D:\MyTetrisProject`ï¼‰ã€‚
-4. é¡¹ç›®åˆ›å»ºå®ŒæˆåŽï¼Œå°†**èµ„æºåŒ…ä¸­æ‰€æœ‰æ–‡ä»¶å¤¹**å¤åˆ¶åˆ°æ­¤é¡¹ç›®æ–‡ä»¶å¤¹ä¸­ã€‚
+1. ´ò¿ª **Visual Studio**¡£
+2. ´´½¨Ò»¸ö **¿ÕÏîÄ¿ (Empty Project)**¡£
+3. Ñ¡ÔñÒ»¸öÎÄ¼þ¼ÐÀ´±£´æÏîÄ¿£¨ÀýÈç `D:\MyTetrisProject`£©¡£
+4. ÏîÄ¿´´½¨Íê³Éºó£¬½«**×ÊÔ´°üÖÐËùÓÐÎÄ¼þ¼Ð**¸´ÖÆµ½´ËÏîÄ¿ÎÄ¼þ¼ÐÖÐ¡£
   
-### 2. é…ç½®é¡¹ç›®å±žæ€§
+### 2. ÅäÖÃÏîÄ¿ÊôÐÔ
   
-å³é”®é¡¹ç›®ï¼Œé€‰æ‹© propertiesï¼Œä»¥ä¸‹ä»»åŠ¡å‡åœ¨æ­¤çª—å£ä¸­å®Œæˆ
-1. åœ¨ **è§£å†³æ–¹æ¡ˆèµ„æºç®¡ç†å™¨** ä¸­ï¼Œå³é”®ç‚¹å‡»ä½ çš„é¡¹ç›®åç§°ï¼Œé€‰æ‹© **å±žæ€§ (Properties)**ã€‚
-2. åœ¨å±žæ€§çª—å£é¡¶éƒ¨ï¼Œå°† **é…ç½® (Configuration)** è®¾ç½®ä¸º `All Configurations`ï¼Œ**å¹³å° (Platform)** è®¾ç½®ä¸º `x64`ã€‚ï¼ˆæœ¬æŒ‡å¼•åªæä¾›è¿™ä¸¤ä¸ªé€‰é¡¹çš„é…ç½®ï¼‰ï¼›
+ÓÒ¼üÏîÄ¿£¬Ñ¡Ôñ properties£¬ÒÔÏÂÈÎÎñ¾ùÔÚ´Ë´°¿ÚÖÐÍê³É
+1. ÔÚ **½â¾ö·½°¸×ÊÔ´¹ÜÀíÆ÷** ÖÐ£¬ÓÒ¼üµã»÷ÄãµÄÏîÄ¿Ãû³Æ£¬Ñ¡Ôñ **ÊôÐÔ (Properties)**¡£
+2. ÔÚÊôÐÔ´°¿Ú¶¥²¿£¬½« **ÅäÖÃ (Configuration)** ÉèÖÃÎª `All Configurations`£¬**Æ½Ì¨ (Platform)** ÉèÖÃÎª `x64`¡££¨±¾Ö¸ÒýÖ»Ìá¹©ÕâÁ½¸öÑ¡ÏîµÄÅäÖÃ£©£»
   
-#### è®¾ç½®è¾“å‡ºç›®å½•
+#### ÉèÖÃÊä³öÄ¿Â¼
   
-1. å¯¼èˆªåˆ° **é…ç½®å±žæ€§ (Configuration Properties) â†’ å¸¸è§„ (General)**ã€‚
-2. æ‰¾åˆ° **è¾“å‡ºç›®å½• (Output Directory)**ï¼Œç‚¹å‡»å³ä¾§çš„ä¸‹æ‹‰ç®­å¤´ï¼Œé€‰æ‹© **æµè§ˆ (Browse...)**ã€‚
-3. é€‰æ‹©é¡¹ç›®æ–‡ä»¶å¤¹ä¸‹çš„ `exe` æ–‡ä»¶å¤¹ï¼Œç‚¹å‡» **é€‰æ‹©æ–‡ä»¶å¤¹**ã€‚
+1. µ¼º½µ½ **ÅäÖÃÊôÐÔ (Configuration Properties) ¡ú ³£¹æ (General)**¡£
+2. ÕÒµ½ **Êä³öÄ¿Â¼ (Output Directory)**£¬µã»÷ÓÒ²àµÄÏÂÀ­¼ýÍ·£¬Ñ¡Ôñ **ä¯ÀÀ (Browse...)**¡£
+3. Ñ¡ÔñÏîÄ¿ÎÄ¼þ¼ÐÏÂµÄ `exe` ÎÄ¼þ¼Ð£¬µã»÷ **Ñ¡ÔñÎÄ¼þ¼Ð**¡£
   
-#### è®¾ç½®åŒ…å«ç›®å½•
+#### ÉèÖÃ°üº¬Ä¿Â¼
   
-1. å¯¼èˆªåˆ° **é…ç½®å±žæ€§ (Configuration Properties) â†’ VC++ ç›®å½• (VC++ Directories)**ã€‚
-2. æ‰¾åˆ° **åŒ…å«ç›®å½• (Include Directories)**ï¼Œç‚¹å‡»å³ä¾§çš„ä¸‹æ‹‰ç®­å¤´ï¼Œé€‰æ‹© **ç¼–è¾‘ (Edit...)**ã€‚
-3. åœ¨å¼¹å‡ºçš„çª—å£ä¸­ï¼Œç‚¹å‡»ä¸Šæ–¹çš„**æ–°å»ºè¡Œ**å›¾æ ‡ï¼ˆæ–‡ä»¶å¤¹å›¾æ ‡ï¼‰ã€‚
-4. åœ¨é¡¹ç›®æ–‡ä»¶å¤¹ä¸­ï¼Œä¾æ¬¡è¿›å…¥è·¯å¾„ï¼š
-   `ExternalIncludeFile â†’ SDL2 â†’ SDL2-devel-2.32.10-VC â†’ include`
-5. é‡å¤æ­¥éª¤ 3-4ï¼Œæ·»åŠ  SDL2_ttf çš„åŒ…å«è·¯å¾„ï¼š
-   `ExternalIncludeFile â†’ SDL2 â†’ SDL2_ttf-devel-2.24.0-VC â†’ include`
-6. ç‚¹å‡» **ç¡®å®š**ã€‚
+1. µ¼º½µ½ **ÅäÖÃÊôÐÔ (Configuration Properties) ¡ú VC++ Ä¿Â¼ (VC++ Directories)**¡£
+2. ÕÒµ½ **°üº¬Ä¿Â¼ (Include Directories)**£¬µã»÷ÓÒ²àµÄÏÂÀ­¼ýÍ·£¬Ñ¡Ôñ **±à¼­ (Edit...)**¡£
+3. ÔÚµ¯³öµÄ´°¿ÚÖÐ£¬µã»÷ÉÏ·½µÄ**ÐÂ½¨ÐÐ**Í¼±ê£¨ÎÄ¼þ¼ÐÍ¼±ê£©¡£
+4. ÔÚÏîÄ¿ÎÄ¼þ¼ÐÖÐ£¬ÒÀ´Î½øÈëÂ·¾¶£º
+   `ExternalIncludeFile -> SDL3 -> SDL3-devel-3.2.26-VC -> SDL3-3.2.26 -> include`
+5. ÖØ¸´²½Öè 3-4£¬Ìí¼Ó SDL2_ttf µÄ°üº¬Â·¾¶£º
+   `ExternalIncludeFile -> SDL3 -> SDL3_ttf-devel-3.2.2-VC -> SDL3_ttf-3.2.2 -> include`
+6. µã»÷ **È·¶¨**¡£
   
-#### è®¾ç½®åº“ç›®å½•
+#### ÉèÖÃ¿âÄ¿Â¼
   
-1. ä»åœ¨ **VC++ ç›®å½•** é¡µé¢ï¼Œæ‰¾åˆ° **åº“ç›®å½• (Library Directories)**ï¼Œç‚¹å‡» **ç¼–è¾‘**ã€‚
-2. æ·»åŠ  SDL2 çš„åº“è·¯å¾„ï¼š
-   `ExternalIncludeFile â†’ SDL2 â†’ SDL2-devel-2.32.10-VC â†’ lib â†’ x64`
-3. æ·»åŠ  SDL2_ttf çš„åº“è·¯å¾„ï¼š
-   `ExternalIncludeFile â†’ SDL2 â†’ SDL2_ttf-devel-2.24.0-VC â†’ lib â†’ x64`
-4. ç‚¹å‡» **ç¡®å®š**ã€‚
+1. ÈÔÔÚ **VC++ Ä¿Â¼** Ò³Ãæ£¬ÕÒµ½ **¿âÄ¿Â¼ (Library Directories)**£¬µã»÷ **±à¼­**¡£
+2. Ìí¼Ó SDL2 µÄ¿âÂ·¾¶£º
+   `ExternalIncludeFile -> SDL3 -> SDL3-devel-3.2.26-VC -> SDL3-3.2.26 -> lib -> x64`
+3. Ìí¼Ó SDL2_ttf µÄ¿âÂ·¾¶£º
+   `ExternalIncludeFile -> SDL3 -> SDL3_ttf-devel-3.2.2-VC -> SDL3_ttf-3.2.2 -> lib -> x64`
+4. µã»÷ **È·¶¨**¡£
   
-#### è®¾ç½®é™„åŠ ä¾èµ–é¡¹
+#### ÉèÖÃ¸½¼ÓÒÀÀµÏî
   
-1. å¯¼èˆªåˆ° **é…ç½®å±žæ€§ (Configuration Properties) â†’ é“¾æŽ¥å™¨ (Linker) â†’ è¾“å…¥ (Input)**ã€‚
-2. æ‰¾åˆ° **é™„åŠ ä¾èµ–é¡¹ (Additional Dependencies)**ï¼Œç‚¹å‡» **ç¼–è¾‘**ã€‚
-3. åœ¨å¼¹å‡ºçš„çª—å£ä¸­å¡«å…¥ï¼š
+1. µ¼º½µ½ **ÅäÖÃÊôÐÔ (Configuration Properties) ¡ú Á´½ÓÆ÷ (Linker) ¡ú ÊäÈë (Input)**¡£
+2. ÕÒµ½ **¸½¼ÓÒÀÀµÏî (Additional Dependencies)**£¬µã»÷ **±à¼­**¡£
+3. ÔÚµ¯³öµÄ´°¿ÚÖÐÌîÈë£º
    ```
-   SDL2.lib
-   SDL2_ttf.lib
+   SDL3.lib
+   SDL3_ttf.lib
    ```
-4. ç‚¹å‡» **ç¡®å®š**ï¼Œç„¶åŽç‚¹å‡»å±žæ€§çª—å£å³ä¸‹è§’çš„ **åº”ç”¨ (Apply)** å’Œ **ç¡®å®š (OK)**ã€‚
+4. µã»÷ **È·¶¨**£¬È»ºóµã»÷ÊôÐÔ´°¿ÚÓÒÏÂ½ÇµÄ **Ó¦ÓÃ (Apply)** ºÍ **È·¶¨ (OK)**¡£
   
-### 3. æ·»åŠ æºä»£ç æ–‡ä»¶
+### 3. Ìí¼ÓÔ´´úÂëÎÄ¼þ
   
-1. åœ¨ **è§£å†³æ–¹æ¡ˆèµ„æºç®¡ç†å™¨** ä¸­ï¼Œå³é”®ç‚¹å‡» **æºæ–‡ä»¶ (Source Files)**ã€‚
-2. é€‰æ‹© **æ·»åŠ  â†’ çŽ°æœ‰é¡¹... (Add â†’ Existing Item...)**ã€‚
-3. è¿›å…¥é¡¹ç›®æ–‡ä»¶å¤¹ä¸‹çš„ `Tetris` æ–‡ä»¶å¤¹ï¼Œé€‰ä¸­**æ‰€æœ‰ `.c` å’Œ `.h` æ–‡ä»¶**ï¼Œç‚¹å‡» **æ·»åŠ **ã€‚
+1. ÔÚ **½â¾ö·½°¸×ÊÔ´¹ÜÀíÆ÷** ÖÐ£¬ÓÒ¼üµã»÷ **Ô´ÎÄ¼þ (Source Files)**¡£
+2. Ñ¡Ôñ **Ìí¼Ó ¡ú ÏÖÓÐÏî... (Add ¡ú Existing Item...)**¡£
+3. ½øÈëÏîÄ¿ÎÄ¼þ¼ÐÏÂµÄ `Tetris` ÎÄ¼þ¼Ð£¬Ñ¡ÖÐ**ËùÓÐ `.c` ºÍ `.h` ÎÄ¼þ**£¬µã»÷ **Ìí¼Ó**¡£
   
-### 4. ç¼–è¯‘è¿è¡Œ
+### 4. ±àÒëÔËÐÐ
   
-çŽ°åœ¨ï¼Œä½ å¯ä»¥æŒ‰ **`Ctrl+F5`** æ¥ç¼–è¯‘å¹¶è¿è¡Œä½ çš„ä¿„ç½—æ–¯æ–¹å—ç¨‹åºäº†ã€‚ç¡®ä¿ `SDL2.dll` å’Œ `SDL2_ttf.dll` æ–‡ä»¶å·²å¤åˆ¶åˆ° `exe` ç›®å½•ä¸­ã€‚
+ÏÖÔÚ£¬Äã¿ÉÒÔ°´ **`Ctrl+F5`** À´±àÒë²¢ÔËÐÐÄãµÄ¶íÂÞË¹·½¿é³ÌÐòÁË¡£È·±£ `SDL3.dll` ºÍ `SDL3_ttf.dll` ÎÄ¼þÒÑ¸´ÖÆµ½ `exe` Ä¿Â¼ÖÐ¡£
   
 ---
   

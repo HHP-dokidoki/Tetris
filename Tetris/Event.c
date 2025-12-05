@@ -1,4 +1,4 @@
-ï»¿#include "Common.h"
+#include "Common.h"
 #include "ShapeControl.h"
 #include "DrawItems.h"
 #include "MapControl.h"
@@ -6,17 +6,17 @@
 #include "Init.h"
 
 
-int EnterGameOverEvent()
+static int EnterGameOverEvent()
 {
 	TRACE_ENTER();
-	// æ¸¸æˆç»“æŸäº‹ä»¶å¤„ç†ï¼šæ˜¾ç¤ºé€‰æ‹©èœå•ï¼ˆé‡æ–°å¼€å§‹æˆ–è¿”å›æ¬¢è¿ç•Œé¢ï¼‰
-	// ä½¿ç”¨poså˜é‡è®°å½•å½“å‰èœå•å…‰æ ‡ä½ç½®
+	// ÓÎÏ·½áÊøÊÂ¼ş´¦Àí£ºÏÔÊ¾Ñ¡Ôñ²Ëµ¥£¨ÖØĞÂ¿ªÊ¼»ò·µ»Ø»¶Ó­½çÃæ£©
+	// Ê¹ÓÃpos±äÁ¿¼ÇÂ¼µ±Ç°²Ëµ¥¹â±êÎ»ÖÃ
 	SDL_Event event;
 	int pos = 0, enter_flag = 0;
 
 	while (1)
 	{
-		// ç»˜åˆ¶æ¸¸æˆç»“æŸç•Œé¢å’Œèœå•
+		// »æÖÆÓÎÏ·½áÊø½çÃæºÍ²Ëµ¥
 		DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 			State.Current_shape, State.Next_shape);
 		DrawGVLayout(pos);
@@ -28,7 +28,7 @@ int EnterGameOverEvent()
 			switch (event.type)
 			{
 			case SDL_EVENT_WINDOW_RESIZED:
-				// çª—å£å¤§å°æ”¹å˜æ—¶é‡æ–°åˆå§‹åŒ–å¸ƒå±€åŠé‡æ–°æ¸²æŸ“
+				// ´°¿Ú´óĞ¡¸Ä±äÊ±ÖØĞÂ³õÊ¼»¯²¼¾Ö¼°ÖØĞÂäÖÈ¾
 				RectInit();
 				DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 					State.Current_shape, State.Next_shape);
@@ -41,17 +41,17 @@ int EnterGameOverEvent()
 				switch (event.key.key)
 				{
 				case SDLK_LEFT:
-					// å·¦æ–¹å‘é”®ï¼šç§»åŠ¨èœå•é€‰é¡¹ï¼ˆåˆ©ç”¨æ¨¡è¿ç®—å®ç°å¾ªç¯ï¼‰
+					// ×ó·½Ïò¼ü£ºÒÆ¶¯²Ëµ¥Ñ¡Ïî£¨ÀûÓÃÄ£ÔËËãÊµÏÖÑ­»·£©
 					pos++;
 					pos = (pos + 2) % 2;
 					break;
 				case SDLK_RIGHT:
-					// å³æ–¹å‘é”®ï¼šç§»åŠ¨èœå•é€‰é¡¹
+					// ÓÒ·½Ïò¼ü£ºÒÆ¶¯²Ëµ¥Ñ¡Ïî
 					pos--;
 					pos = (pos + 2) % 2;
 					break;
 				case SDLK_RETURN:
-					// æŒ‰ä¸‹å›è½¦é”®ï¼šæ ‡è®°é€‰æ‹©å®Œæˆ
+					// °´ÏÂ»Ø³µ¼ü£º±ê¼ÇÑ¡ÔñÍê³É
 					enter_flag = 1;
 					break;
 				}
@@ -65,13 +65,13 @@ int EnterGameOverEvent()
 			}
 			if (enter_flag)
 			{
-				// æ ¹æ®èœå•é€‰æ‹©è¿”å›å¯¹åº”çŠ¶æ€ç 
+				// ¸ù¾İ²Ëµ¥Ñ¡Ôñ·µ»Ø¶ÔÓ¦×´Ì¬Âë
 				switch (pos)
 				{
 				case 0:
-					// é€‰æ‹©0ï¼šé‡æ–°å¼€å§‹æ¸¸æˆ
+					// Ñ¡Ôñ0£ºÖØĞÂ¿ªÊ¼ÓÎÏ·
 					LoadGame();
-					// æ¢å¤åˆ°æœªåŠ é€ŸçŠ¶æ€
+					// »Ö¸´µ½Î´¼ÓËÙ×´Ì¬
 					State.Difficulty--;
 					LevelUp();
 
@@ -79,7 +79,7 @@ int EnterGameOverEvent()
 					return Restart;
 					break;
 				case 1:
-					// é€‰æ‹©1ï¼šè¿”å›æ¬¢è¿ç•Œé¢
+					// Ñ¡Ôñ1£º·µ»Ø»¶Ó­½çÃæ
 					ResetGameState();
 					TRACE_MSG("Reset game and back to welcome.\n");
 					return EnterWelcomePage;
@@ -87,18 +87,18 @@ int EnterGameOverEvent()
 				}
 			}
 		}
-		// æ²¡æœ‰äº‹ä»¶æ—¶å»¶è¿Ÿ16æ¯«ç§’ï¼Œé˜²æ­¢å¾ªç¯ç©ºè½¬æµªè´¹CPU
+		// Ã»ÓĞÊÂ¼şÊ±ÑÓ³Ù16ºÁÃë£¬·ÀÖ¹Ñ­»·¿Õ×ªÀË·ÑCPU
 		SDL_Delay(16);
 	}
 }
 
-int EnterTickEvent()
+static int EnterTickEvent()
 {
 	TRACE_ENTER();
-	// å®šæ—¶å™¨äº‹ä»¶å¤„ç†ï¼šæ¯éš”å›ºå®šæ—¶é—´ä¸‹è½ä¸€æ¬¡æ–¹å—æˆ–å¤„ç†ç¢°æ’å›ºå®š
+	// ¶¨Ê±Æ÷ÊÂ¼ş´¦Àí£ºÃ¿¸ô¹Ì¶¨Ê±¼äÏÂÂäÒ»´Î·½¿é»ò´¦ÀíÅö×²¹Ì¶¨
 	int state_code = 0;
 	
-	// å¦‚æœæ–¹å—åˆšç”Ÿæˆå°±æ— æ³•ä¸‹è½ï¼Œè¯´æ˜æ¸¸æˆç»“æŸ
+	// Èç¹û·½¿é¸ÕÉú³É¾ÍÎŞ·¨ÏÂÂä£¬ËµÃ÷ÓÎÏ·½áÊø
 	if (!Moveable(ST_X, ST_Y, State.Current_shape, DOWN))
 	{	
 		state_code = EnterGameOverEvent();
@@ -113,21 +113,21 @@ int EnterTickEvent()
 			break;
 		}
 	}
-	// æ£€æŸ¥æ–¹å—æ˜¯å¦å¯ä»¥ç»§ç»­ä¸‹è½
+	// ¼ì²é·½¿éÊÇ·ñ¿ÉÒÔ¼ÌĞøÏÂÂä
 	else if (Moveable(State.Shape_pos_x, State.Shape_pos_y, State.Current_shape, DOWN))
 	{
-		// æ–¹å—ä¸‹è½ä¸€è¡Œ
+		// ·½¿éÏÂÂäÒ»ĞĞ
 		MoveShape(&State.Shape_pos_x, &State.Shape_pos_y, State.Current_shape, DOWN);
 	}
 	else
 	{
-		// æ–¹å—æ— æ³•ä¸‹è½ï¼Œå›ºå®šæ–¹å—åˆ°åœ°å›¾ï¼Œç”Ÿæˆæ–°æ–¹å—
+		// ·½¿éÎŞ·¨ÏÂÂä£¬¹Ì¶¨·½¿éµ½µØÍ¼£¬Éú³ÉĞÂ·½¿é
 		FixShape(State.Shape_pos_x, State.Shape_pos_y, State.Current_shape);
 
-		// æ£€æŸ¥å¹¶åˆ é™¤å®Œæ•´çš„è¡Œï¼Œå¹¶ç´¯åŠ åˆ†æ•°
+		// ¼ì²é²¢É¾³ıÍêÕûµÄĞĞ£¬²¢ÀÛ¼Ó·ÖÊı
 		State.Score += DeleteRows(State.Shape_pos_y);
 
-		// é‡ç½®æ–°æ–¹å—ä½ç½®ï¼Œä½¿ç”¨é¢„ç”Ÿæˆçš„ä¸‹ä¸€ä¸ªæ–¹å—ï¼Œå†ç”Ÿæˆæ–°çš„é¢„è§ˆæ–¹å—
+		// ÖØÖÃĞÂ·½¿éÎ»ÖÃ£¬Ê¹ÓÃÔ¤Éú³ÉµÄÏÂÒ»¸ö·½¿é£¬ÔÙÉú³ÉĞÂµÄÔ¤ÀÀ·½¿é
 		State.Shape_pos_x = ST_X;
 		State.Shape_pos_y = ST_Y;
 		State.Current_shape = State.Next_shape;
@@ -142,12 +142,12 @@ int EnterTickEvent()
 	return IgnoreMe;
 }
 
-int EnterPauseEvent()
+static int EnterPauseEvent()
 {
-	// æš‚åœäº‹ä»¶å¤„ç†ï¼šæ˜¾ç¤ºæš‚åœèœå•ï¼ˆç»§ç»­ã€ä¿å­˜ã€åŠ è½½ã€è¿”å›ï¼‰
+	// ÔİÍ£ÊÂ¼ş´¦Àí£ºÏÔÊ¾ÔİÍ£²Ëµ¥£¨¼ÌĞø¡¢±£´æ¡¢¼ÓÔØ¡¢·µ»Ø£©
 	TRACE_ENTER();
 
-	// æ¢å¤æœªåŠ é€ŸçŠ¶æ€çš„é€Ÿåº¦
+	// »Ö¸´Î´¼ÓËÙ×´Ì¬µÄËÙ¶È
 	State.Difficulty--;
 	LevelUp();
 
@@ -156,7 +156,7 @@ int EnterPauseEvent()
 
 	while (1)
 	{
-		// ç»˜åˆ¶æš‚åœèœå•ç•Œé¢
+		// »æÖÆÔİÍ£²Ëµ¥½çÃæ
 		DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 			State.Current_shape, State.Next_shape);
 		DrawPauseLayout(pos);
@@ -168,7 +168,7 @@ int EnterPauseEvent()
 			switch (event.type)
 			{
 			case SDL_EVENT_WINDOW_RESIZED:
-				// çª—å£å¤§å°æ”¹å˜æ—¶é‡æ–°åˆå§‹åŒ–å¸ƒå±€åŠé‡æ–°æ¸²æŸ“
+				// ´°¿Ú´óĞ¡¸Ä±äÊ±ÖØĞÂ³õÊ¼»¯²¼¾Ö¼°ÖØĞÂäÖÈ¾
 				RectInit();
 				DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 					State.Current_shape, State.Next_shape);
@@ -180,21 +180,21 @@ int EnterPauseEvent()
 				switch (event.key.key)
 				{
 				case SDLK_DOWN:
-					// ä¸‹æ–¹å‘é”®ï¼šå‘ä¸‹ç§»åŠ¨èœå•é€‰é¡¹ï¼ˆå¾ªç¯ï¼‰
+					// ÏÂ·½Ïò¼ü£ºÏòÏÂÒÆ¶¯²Ëµ¥Ñ¡Ïî£¨Ñ­»·£©
 					pos++;
 					pos = (pos + 4) % 4;
 					break;
 				case SDLK_UP:
-					// ä¸Šæ–¹å‘é”®ï¼šå‘ä¸Šç§»åŠ¨èœå•é€‰é¡¹ï¼ˆå¾ªç¯ï¼‰
+					// ÉÏ·½Ïò¼ü£ºÏòÉÏÒÆ¶¯²Ëµ¥Ñ¡Ïî£¨Ñ­»·£©
 					pos--;
 					pos = (pos + 4) % 4;
 					break;
 				case SDLK_ESCAPE:
-					// ESCé”®ï¼šæ ‡è®°è¿”å›æ¸¸æˆ
+					// ESC¼ü£º±ê¼Ç·µ»ØÓÎÏ·
 					back_flag = 1;
 					break;
 				case SDLK_RETURN:
-					// å›è½¦é”®ï¼šæ ‡è®°é€‰æ‹©å®Œæˆ
+					// »Ø³µ¼ü£º±ê¼ÇÑ¡ÔñÍê³É
 					enter_flag = 1;
 					break;
 				}
@@ -202,19 +202,19 @@ int EnterPauseEvent()
 
 			if (enter_flag)
 			{
-				// æ ¹æ®èœå•ä½ç½®æ‰§è¡Œå¯¹åº”æ“ä½œ
+				// ¸ù¾İ²Ëµ¥Î»ÖÃÖ´ĞĞ¶ÔÓ¦²Ù×÷
 				switch (pos)
 				{
 				case 0:
-					// ç»§ç»­æ¸¸æˆ
+					// ¼ÌĞøÓÎÏ·
 					return 0;
 					break;
 				case 1:
-					// ä¿å­˜æ¸¸æˆ
+					// ±£´æÓÎÏ·
 					SaveGame();
 					break;
 				case 2:
-					// åŠ è½½æ¸¸æˆ
+					// ¼ÓÔØÓÎÏ·
 					LoadGame();
 
 					DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
@@ -224,7 +224,7 @@ int EnterPauseEvent()
 
 					break;
 				case 3:
-					// è¿”å›æ¬¢è¿ç•Œé¢
+					// ·µ»Ø»¶Ó­½çÃæ
 					TRACE_MSG("Back to welcome.\n");
 					return EnterWelcomePage;
 					break;
@@ -232,23 +232,23 @@ int EnterPauseEvent()
 			}
 			else if (back_flag)
 			{
-				// æŒ‰ESCè¿”å›æ¸¸æˆ
+				// °´ESC·µ»ØÓÎÏ·
 				return 0;
 			}
 		}
-		// æ²¡æœ‰äº‹ä»¶æ—¶å»¶è¿Ÿ16æ¯«ç§’ï¼Œé˜²æ­¢å¾ªç¯ç©ºè½¬æµªè´¹CPU
+		// Ã»ÓĞÊÂ¼şÊ±ÑÓ³Ù16ºÁÃë£¬·ÀÖ¹Ñ­»·¿Õ×ªÀË·ÑCPU
 		SDL_Delay(16);
 	}
 }
 
-int EnterMotionEvent(SDL_Event event)
+static int EnterMotionEvent(SDL_Event event)
 {
 	TRACE_ENTER();
-	// é”®ç›˜/çª—å£äº‹ä»¶å¤„ç†ï¼šå¤„ç†æ–¹å—ç§»åŠ¨ã€æ—‹è½¬ã€åŠ é€Ÿç­‰åŠ¨ä½œ
+	// ¼üÅÌ/´°¿ÚÊÂ¼ş´¦Àí£º´¦Àí·½¿éÒÆ¶¯¡¢Ğı×ª¡¢¼ÓËÙµÈ¶¯×÷
 	switch (event.type)
 	{
 		case SDL_EVENT_WINDOW_RESIZED:
-			// çª—å£å¤§å°æ”¹å˜æ—¶é‡æ–°åˆå§‹åŒ–å¸ƒå±€åŠé‡æ–°æ¸²æŸ“
+			// ´°¿Ú´óĞ¡¸Ä±äÊ±ÖØĞÂ³õÊ¼»¯²¼¾Ö¼°ÖØĞÂäÖÈ¾
 			RectInit();
 			DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 				State.Current_shape, State.Next_shape);
@@ -259,11 +259,11 @@ int EnterMotionEvent(SDL_Event event)
 			switch (event.key.key)
 			{
 				case SDLK_DOWN:
-					// æŒ‰ä¸‹DOWNé”®ï¼šå°†ä¸‹è½é€Ÿåº¦è®¾ç½®ä¸ºåŠ é€Ÿé—´éš”
+					// °´ÏÂDOWN¼ü£º½«ÏÂÂäËÙ¶ÈÉèÖÃÎª¼ÓËÙ¼ä¸ô
 					State.Current_interval = State.Speed_interval;
 					break;
 				case SDLK_LEFT:
-					// æŒ‰ä¸‹LEFTé”®ï¼šå·¦ç§»æ–¹å—ï¼ˆå¸¦ç¢°æ’æ£€æµ‹ï¼‰
+					// °´ÏÂLEFT¼ü£º×óÒÆ·½¿é£¨´øÅö×²¼ì²â£©
 					MoveShape(&State.Shape_pos_x, &State.Shape_pos_y, State.Current_shape, LEFT);
 					DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 						State.Current_shape, State.Next_shape);
@@ -271,7 +271,7 @@ int EnterMotionEvent(SDL_Event event)
 
 					break;
 				case SDLK_RIGHT:
-					// æŒ‰ä¸‹RIGHTé”®ï¼šå³ç§»æ–¹å—ï¼ˆå¸¦ç¢°æ’æ£€æµ‹ï¼‰
+					// °´ÏÂRIGHT¼ü£ºÓÒÒÆ·½¿é£¨´øÅö×²¼ì²â£©
 					MoveShape(&State.Shape_pos_x, &State.Shape_pos_y, State.Current_shape,
 						RIGHT);
 					DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
@@ -280,7 +280,7 @@ int EnterMotionEvent(SDL_Event event)
 
 					break;
 				case SDLK_SPACE:
-					// æŒ‰ä¸‹SPACEé”®ï¼šæ—‹è½¬æ–¹å—ï¼ˆå¸¦ç¢°æ’æ£€æµ‹ï¼‰
+					// °´ÏÂSPACE¼ü£ºĞı×ª·½¿é£¨´øÅö×²¼ì²â£©
 					RollShape(State.Shape_pos_x, State.Shape_pos_y, &State.Current_shape);
 					DrawHoleWindow(State.Shape_pos_x, State.Shape_pos_y,
 						State.Current_shape, State.Next_shape);
@@ -288,12 +288,12 @@ int EnterMotionEvent(SDL_Event event)
 
 					break;
 				case SDLK_ESCAPE:
-					// æŒ‰ä¸‹ESCé”®ï¼šè¿›å…¥æš‚åœèœå•
+					// °´ÏÂESC¼ü£º½øÈëÔİÍ£²Ëµ¥
 					if (EnterPauseEvent() == 2)
 					{
 						return 2;
 					}
-					// å¦‚æœä»æš‚åœèœå•è¿”å›ä¸”æ–¹å—å¤„äºåŠ é€ŸçŠ¶æ€ï¼Œéœ€è¦æ¢å¤åŸé€Ÿåº¦
+					// Èç¹û´ÓÔİÍ£²Ëµ¥·µ»ØÇÒ·½¿é´¦ÓÚ¼ÓËÙ×´Ì¬£¬ĞèÒª»Ö¸´Ô­ËÙ¶È
 					State.Current_interval = State.Base_interval;
 					break;
 			}
@@ -303,7 +303,7 @@ int EnterMotionEvent(SDL_Event event)
 			switch (event.key.key)
 			{
 				case SDLK_DOWN:
-					// æ¾å¼€DOWNé”®ï¼šæ¢å¤åŸå§‹ä¸‹è½é€Ÿåº¦
+					// ËÉ¿ªDOWN¼ü£º»Ö¸´Ô­Ê¼ÏÂÂäËÙ¶È
 					State.Current_interval = State.Base_interval;
 					break;
 			}
@@ -312,22 +312,22 @@ int EnterMotionEvent(SDL_Event event)
 	return 0;
 }
 
-int EnterGameEventLoop(void)
+static int EnterGameEventLoop(void)
 {
 	TRACE_ENTER();
-	// æ¸¸æˆä¸»å¾ªç¯ï¼šå¤„ç†å®šæ—¶å™¨äº‹ä»¶å’Œç”¨æˆ·è¾“å…¥äº‹ä»¶
-	// æ ¹æ®æ—¶é—´é—´éš”è§¦å‘æ–¹å—ä¸‹è½ï¼ŒåŒæ—¶å¤„ç†ç”¨æˆ·æ“ä½œ
+	// ÓÎÏ·Ö÷Ñ­»·£º´¦Àí¶¨Ê±Æ÷ÊÂ¼şºÍÓÃ»§ÊäÈëÊÂ¼ş
+	// ¸ù¾İÊ±¼ä¼ä¸ô´¥·¢·½¿éÏÂÂä£¬Í¬Ê±´¦ÀíÓÃ»§²Ù×÷
 	int state_code = 0;
 	SDL_Event event;
 
-	// åˆå§‹åŒ–è®¡æ—¶å™¨
+	// ³õÊ¼»¯¼ÆÊ±Æ÷
 	State.Last_tick = State.Current_tick = SDL_GetTicks();
-	// ç¬¬ä¸€æ¬¡è¿›å…¥å¾ªç¯æ—¶é¢„è®¾æ—¶é—´ï¼Œä½¿å¾—ç¬¬ä¸€å¸§ä¸ä¼šç«‹å³ä¸‹è½
+	// µÚÒ»´Î½øÈëÑ­»·Ê±Ô¤ÉèÊ±¼ä£¬Ê¹µÃµÚÒ»Ö¡²»»áÁ¢¼´ÏÂÂä
 	State.Current_tick += State.Current_interval;
 
 	while (1)
 	{
-		// å¦‚æœæ˜¯é¦–æ¬¡è¿›å…¥å¾ªç¯ï¼Œåˆå§‹åŒ–å½“å‰æ–¹å—å’Œé¢„è§ˆæ–¹å—
+		// Èç¹ûÊÇÊ×´Î½øÈëÑ­»·£¬³õÊ¼»¯µ±Ç°·½¿éºÍÔ¤ÀÀ·½¿é
 		if (State.Next_shape == -1)
 		{
 			State.Current_shape = GetNextShape();
@@ -338,36 +338,36 @@ int EnterGameEventLoop(void)
 			SDL_RenderPresent(rdr);
 
 		}
-		// è·å–å½“å‰æ—¶é—´
+		// »ñÈ¡µ±Ç°Ê±¼ä
 		State.Current_tick = SDL_GetTicks();
 
-		// æ£€æŸ¥æ˜¯å¦è¾¾åˆ°ä¸‹è½æ—¶é—´é—´éš”
+		// ¼ì²éÊÇ·ñ´ïµ½ÏÂÂäÊ±¼ä¼ä¸ô
 		if (State.Current_tick - State.Last_tick >= State.Current_interval)
 		{
-			// è§¦å‘å®šæ—¶å™¨äº‹ä»¶ï¼šæ–¹å—ä¸‹è½æˆ–å›ºå®š
+			// ´¥·¢¶¨Ê±Æ÷ÊÂ¼ş£º·½¿éÏÂÂä»ò¹Ì¶¨
 			state_code = EnterTickEvent();
 			switch (state_code)
 			{
 			case EnterWelcomePage:
-				// æ¸¸æˆç»“æŸï¼Œè¿”å›æ¬¢è¿ç•Œé¢
+				// ÓÎÏ·½áÊø£¬·µ»Ø»¶Ó­½çÃæ
 				return 2;
 				break;
 			case Restart:
-				// æ¸¸æˆç»“æŸï¼Œé‡æ–°å¼€å§‹
+				// ÓÎÏ·½áÊø£¬ÖØĞÂ¿ªÊ¼
 				return Restart;
 				break;
 			}
-			// é‡ç½®è®¡æ—¶å™¨
+			// ÖØÖÃ¼ÆÊ±Æ÷
 			State.Current_tick = State.Last_tick = SDL_GetTicks();
 		}
 
-		// æ£€æŸ¥å¹¶å¤„ç†ç”¨æˆ·è¾“å…¥äº‹ä»¶
+		// ¼ì²é²¢´¦ÀíÓÃ»§ÊäÈëÊÂ¼ş
 		if (SDL_PollEvent(&event))
 		{
 			state_code = EnterMotionEvent(event);
 			if (state_code == 2)
 			{
-				// åœ¨æš‚åœèœå•é€‰æ‹©è¿”å›æ¬¢è¿ç•Œé¢
+				// ÔÚÔİÍ£²Ëµ¥Ñ¡Ôñ·µ»Ø»¶Ó­½çÃæ
 				return EnterWelcomePage;
 			}
 		}
@@ -375,16 +375,16 @@ int EnterGameEventLoop(void)
 	return IgnoreMe;
 }
 
-int EnterWelcomeEventLoop(void)
+static int EnterWelcomeEventLoop(void)
 {
 	TRACE_ENTER();
-	// æ¬¢è¿ç•Œé¢ä¸»å¾ªç¯ï¼šæ˜¾ç¤ºèœå•å¹¶å¤„ç†ç”¨æˆ·é€‰æ‹©ï¼ˆå¼€å§‹æ¸¸æˆã€åŠ è½½æ¸¸æˆã€é€€å‡ºï¼‰
+	// »¶Ó­½çÃæÖ÷Ñ­»·£ºÏÔÊ¾²Ëµ¥²¢´¦ÀíÓÃ»§Ñ¡Ôñ£¨¿ªÊ¼ÓÎÏ·¡¢¼ÓÔØÓÎÏ·¡¢ÍË³ö£©
 	SDL_Event event;
 	int pos = 0, enter_flag = 0;
 
 	while (1)
 	{
-		// ç»˜åˆ¶æ¬¢è¿ç•Œé¢èœå•
+		// »æÖÆ»¶Ó­½çÃæ²Ëµ¥
 		DrawWelcomeLayout(pos);
 		SDL_RenderPresent(rdr);
 		enter_flag = 0;
@@ -393,7 +393,7 @@ int EnterWelcomeEventLoop(void)
 			switch (event.type)
 			{
 				case SDL_EVENT_WINDOW_RESIZED:
-					// çª—å£å¤§å°æ”¹å˜æ—¶é‡æ–°åˆå§‹åŒ–å¸ƒå±€åŠé‡æ–°æ¸²æŸ“
+					// ´°¿Ú´óĞ¡¸Ä±äÊ±ÖØĞÂ³õÊ¼»¯²¼¾Ö¼°ÖØĞÂäÖÈ¾
 					RectInit();
 					DrawWelcomeLayout(pos);
 					SDL_RenderPresent(rdr);
@@ -403,19 +403,19 @@ int EnterWelcomeEventLoop(void)
 					switch (event.key.key)
 					{
 						case SDLK_DOWN:
-							// ä¸‹æ–¹å‘é”®ï¼šå‘ä¸‹ç§»åŠ¨èœå•é€‰é¡¹ï¼ˆå¾ªç¯ï¼‰
+							// ÏÂ·½Ïò¼ü£ºÏòÏÂÒÆ¶¯²Ëµ¥Ñ¡Ïî£¨Ñ­»·£©
 							pos++;
 							pos = (pos + 3) % 3;
 
 							break;
 						case SDLK_UP:
-							// ä¸Šæ–¹å‘é”®ï¼šå‘ä¸Šç§»åŠ¨èœå•é€‰é¡¹ï¼ˆå¾ªç¯ï¼‰
+							// ÉÏ·½Ïò¼ü£ºÏòÉÏÒÆ¶¯²Ëµ¥Ñ¡Ïî£¨Ñ­»·£©
 							pos--;
 							pos = (pos + 3) % 3;
 
 							break;
 						case SDLK_RETURN:
-							// å›è½¦é”®ï¼šæ ‡è®°é€‰æ‹©å®Œæˆ
+							// »Ø³µ¼ü£º±ê¼ÇÑ¡ÔñÍê³É
 							enter_flag = 1;
 							break;
 					}
@@ -425,26 +425,26 @@ int EnterWelcomeEventLoop(void)
 			}
 			if (enter_flag)
 			{
-				// æ ¹æ®èœå•é€‰æ‹©è¿”å›å¯¹åº”çŠ¶æ€ç 
+				// ¸ù¾İ²Ëµ¥Ñ¡Ôñ·µ»Ø¶ÔÓ¦×´Ì¬Âë
 				switch (pos)
 				{
 				case 0:
-					// é€‰æ‹©ï¼šå¼€å§‹æ–°æ¸¸æˆ
+					// Ñ¡Ôñ£º¿ªÊ¼ĞÂÓÎÏ·
 					return StartGame;
 					break;
 				case 1:
-					// é€‰æ‹©ï¼šåŠ è½½å·²ä¿å­˜æ¸¸æˆ
+					// Ñ¡Ôñ£º¼ÓÔØÒÑ±£´æÓÎÏ·
 					LoadGame();
 					return StartGame;
 					break;
 				case 2:
-					// é€‰æ‹©ï¼šé€€å‡ºæ¸¸æˆ
+					// Ñ¡Ôñ£ºÍË³öÓÎÏ·
 					return LeaveGame;
 					break;
 				}
 			}
 		}
-		// æ²¡æœ‰äº‹ä»¶æ—¶å»¶è¿Ÿ16æ¯«ç§’ï¼Œé˜²æ­¢å¾ªç¯ç©ºè½¬æµªè´¹CPU
+		// Ã»ÓĞÊÂ¼şÊ±ÑÓ³Ù16ºÁÃë£¬·ÀÖ¹Ñ­»·¿Õ×ªÀË·ÑCPU
 		SDL_Delay(16);
 	}
 }
@@ -452,28 +452,28 @@ int EnterWelcomeEventLoop(void)
 int EnterMainEventLoop(void)
 {
 	TRACE_ENTER();
-	// åº”ç”¨ä¸»äº‹ä»¶å¾ªç¯ï¼šåè°ƒæ¬¢è¿ç•Œé¢å’Œæ¸¸æˆä¸»å¾ªç¯çš„çŠ¶æ€è½¬ç§»
-	// å¾ªç¯å¤„ç†ä¸‰ä¸ªä¸»è¦ç•Œé¢ï¼šæ¬¢è¿ç•Œé¢ã€æ¸¸æˆç•Œé¢ã€æ¸¸æˆç»“æŸç•Œé¢
+	// Ó¦ÓÃÖ÷ÊÂ¼şÑ­»·£ºĞ­µ÷»¶Ó­½çÃæºÍÓÎÏ·Ö÷Ñ­»·µÄ×´Ì¬×ªÒÆ
+	// Ñ­»·´¦ÀíÈı¸öÖ÷Òª½çÃæ£º»¶Ó­½çÃæ¡¢ÓÎÏ·½çÃæ¡¢ÓÎÏ·½áÊø½çÃæ
 	int state_code = 0;
 	state_code = EnterWelcomeEventLoop();
 	while (1)
 	{
-		// æ ¹æ®çŠ¶æ€ç è¿›è¡ŒçŠ¶æ€è½¬ç§»
+		// ¸ù¾İ×´Ì¬Âë½øĞĞ×´Ì¬×ªÒÆ
 		if (state_code == StartGame || state_code == Restart)
 		{
-			// è¿›å…¥æ¸¸æˆä¸»å¾ªç¯
+			// ½øÈëÓÎÏ·Ö÷Ñ­»·
 			state_code = EnterGameEventLoop();
 			continue;
 		}
 		else if (state_code == EnterWelcomePage)
 		{
-			// è¿”å›æ¬¢è¿ç•Œé¢
+			// ·µ»Ø»¶Ó­½çÃæ
 			state_code = EnterWelcomeEventLoop();
 			continue;
 		}
 		else if (state_code == LeaveGame)
 		{
-			// é€€å‡ºæ¸¸æˆ
+			// ÍË³öÓÎÏ·
 			break;
 		}
 	}
