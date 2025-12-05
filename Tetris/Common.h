@@ -35,7 +35,7 @@
 #define StartGame 1
 #define EnterWelcomePage 2
 #define LeaveGame 3
-#define Restart 4
+#define LoadSave 4
 #define IgnoreMe 5
 
 #define NX 14

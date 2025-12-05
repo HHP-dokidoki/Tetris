@@ -69,14 +69,14 @@ static int EnterGameOverEvent()
 				switch (pos)
 				{
 				case 0:
-					// 选择0：重新开始游戏
+					// 选择0：读档重新开始游戏
 					LoadGame();
 					// 恢复到未加速状态
 					State.Difficulty--;
 					LevelUp();
 
-					TRACE_MSG("Restart game.\n");
-					return Restart;
+					TRACE_MSG("LoadSave.\n");
+					return LoadSave;
 					break;
 				case 1:
 					// 选择1：返回欢迎界面
@@ -103,9 +103,9 @@ static int EnterTickEvent()
 	{	
 		state_code = EnterGameOverEvent();
 		switch (state_code) {
-		case Restart:
-			TRACE_MSG("Return Restart!\n");
-			return Restart;
+		case LoadSave:
+			TRACE_MSG("Return LoadSave!\n");
+			return LoadSave;
 			break;
 		case EnterWelcomePage:
 			TRACE_MSG("Return EnterWelcomePage!\n");
@@ -350,11 +350,11 @@ static int EnterGameEventLoop(void)
 			{
 			case EnterWelcomePage:
 				// 游戏结束，返回欢迎界面
-				return 2;
+				return EnterWelcomePage;
 				break;
-			case Restart:
+			case LoadSave:
 				// 游戏结束，重新开始
-				return Restart;
+				return LoadSave;
 				break;
 			}
 			// 重置计时器
@@ -459,7 +459,7 @@ int EnterMainEventLoop(void)
 	while (1)
 	{
 		// 根据状态码进行状态转移
-		if (state_code == StartGame || state_code == Restart)
+		if (state_code == StartGame || state_code == LoadSave)
 		{
 			// 进入游戏主循环
 			state_code = EnterGameEventLoop();

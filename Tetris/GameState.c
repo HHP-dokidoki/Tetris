@@ -47,7 +47,7 @@ void LevelUp(void)
 {
 	TRACE_ENTER();
 	// 升级处理：难度+1，增加基础分数，加快下落速度
-	Uint32 new_interval = 0;
+	Uint64 new_interval = 0;
 
 	State.Difficulty += 1;
 
@@ -56,7 +56,7 @@ void LevelUp(void)
 
 	// 计算新的下落速度（每级快100ms，最快50ms）
 	new_interval = 800 - (State.Difficulty - 1) * 100;
-	State.Base_interval = new_interval > State.Base_interval ? new_interval : State.Base_interval;
+	State.Base_interval = new_interval > 50 ? new_interval : State.Base_interval;
 	State.Current_interval = State.Base_interval;
 }
 
